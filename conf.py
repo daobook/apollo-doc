@@ -18,14 +18,14 @@
 # -- Project information -----------------------------------------------------
 
 import re
-project = 'Sphinx Action'
+project = 'Apollo Sphinx'
 copyright = '2021, xinetzone'
 author = 'xinetzone'
 
 # The full version, including alpha/beta/rc tags
 release = 'alpha'
 
-
+root_doc = 'contents'
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -34,16 +34,16 @@ release = 'alpha'
 
 extensions = [
     "myst_parser",
-    "sphinx.ext.extlinks",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.intersphinx",
-    # "sphinx.ext.viewcode",
-    # "sphinxcontrib.bibtex",
-    # "sphinx_panels",
-    # "sphinxext.rediraffe",
     "sphinxcontrib.mermaid",
     "sphinx_inline_tabs",
-    # "sphinxext.opengraph",
+    'sphinx.ext.autodoc', 
+    'sphinx.ext.doctest', 
+    'sphinx.ext.todo',
+    'sphinx.ext.autosummary', 
+    'sphinx.ext.extlinks',
+    'sphinx.ext.intersphinx', 
+    'sphinx.ext.viewcode', 
+    'sphinx.ext.inheritance_diagram'
 ]
 
 source_suffix = {
@@ -83,7 +83,8 @@ language = 'zh_CN'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store',
+                    'cyber/doxy-docs/source/**']
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -91,7 +92,17 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx13'  # 'alabaster'
+html_theme_path = ['_themes']
+modindex_common_prefix = ['sphinx.']
+html_sidebars = {'index': ['indexsidebar.html', 'searchbox.html']}
+html_title = 'Sphinx documentation'
+html_additional_pages = {'index': 'index.html'}
+html_use_opensearch = 'https://www.sphinx-doc.org/en/master'
+html_baseurl = 'https://www.sphinx-doc.org/en/master/'
+html_favicon = '_static/favicon.svg'
+
+htmlhelp_basename = 'Sphinxdoc'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
