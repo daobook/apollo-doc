@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to Launch and Run Apollo &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_launch_and_run_apollo.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Leverage Apollo’s RTK mode" href="how_to_leverage_rtk_mode.html" />
+    <link rel="prev" title="如何为 Apollo 安装低时延/实时内核" href="how_to_install_apollo_kernel_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_leverage_rtk_mode.html" title="How to Leverage Apollo’s RTK mode"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_install_apollo_kernel_cn.html" title="如何为 Apollo 安装低时延/实时内核"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Launch and Run Apollo</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Launch and Run Apollo</a><ul>
+<li><a class="reference internal" href="#build-apollo">Build Apollo</a></li>
+<li><a class="reference internal" href="#run-apollo">Run Apollo</a><ul>
+<li><a class="reference internal" href="#start-apollo">Start Apollo</a></li>
+<li><a class="reference internal" href="#access-dreamview-web-ui">Access Dreamview Web UI</a></li>
+<li><a class="reference internal" href="#select-drive-mode-and-map">Select Drive Mode and Map</a></li>
+<li><a class="reference internal" href="#replay-demo-record">Replay Demo Record</a></li>
+<li><a class="reference internal" href="#congrats">Congrats!</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_install_apollo_kernel_cn.html"
+                        title="上一章">如何为 Apollo 安装低时延/实时内核</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_leverage_rtk_mode.html"
+                        title="下一章">How to Leverage Apollo’s RTK mode</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_launch_and_run_apollo.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-launch-and-run-apollo">
+<h1>How to Launch and Run Apollo<a class="headerlink" href="#how-to-launch-and-run-apollo" title="永久链接至标题">¶</a></h1>
+<section id="build-apollo">
+<h2>Build Apollo<a class="headerlink" href="#build-apollo" title="永久链接至标题">¶</a></h2>
+<p>First check to make sure you are in development docker container before you
+proceed. Make sure nVidia GPU is available and that you have installed the
+appropriate nVidia driver if you want to run the entire system. You could still
+proceed with the next few steps if no nVidia GPU is available, the system will
+run without perception as it was CUDA-based.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure you start up clean</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">clean</span>
+
+<span class="c1"># This will build the full system and requires nVidia GPU with nVidia drivers</span>
+<span class="c1"># loaded. If no GPU is availabe, please run &quot;./apollo.sh build_opt&quot; instead.</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">build_opt_gpu</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<div><p>Please run <code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">build_fe</span></code> before <code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">build_opt</span></code> if you made
+any modifications to the Dreamview frontend.</p>
+</div></blockquote>
+</section>
+<section id="run-apollo">
+<h2>Run Apollo<a class="headerlink" href="#run-apollo" title="永久链接至标题">¶</a></h2>
+<p>Once you have finished building Apollo, follow the steps below to launch it.
+Note that although <code class="docutils literal notranslate"><span class="pre">bootstrap.sh</span></code> may succeed, the Web UI won’t be ready if the
+former building step was skipped.</p>
+<section id="start-apollo">
+<h3>Start Apollo<a class="headerlink" href="#start-apollo" title="永久链接至标题">¶</a></h3>
+<p>Running <code class="docutils literal notranslate"><span class="pre">scripts/bootstrap.sh</span></code> will start Dreamview backend with the monitor
+module enabled.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Startup modules monitor and dreamview, the default option is start.</span>
+<span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="n">start</span> <span class="o">|</span> <span class="n">stop</span> <span class="o">|</span> <span class="n">restart</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="access-dreamview-web-ui">
+<h3>Access Dreamview Web UI<a class="headerlink" href="#access-dreamview-web-ui" title="永久链接至标题">¶</a></h3>
+<p>Open <a class="reference external" href="http://localhost:8888">http://localhost:8888</a> in your favorite browser,
+e.g. Chrome, and you should see this screen. However, no module(s) except
+monitor is running in the background at this moment.</p>
+<p><img alt="Access Dreamview" src="../../_images/apollo_bootstrap_screen.png" /></p>
+</section>
+<section id="select-drive-mode-and-map">
+<h3>Select Drive Mode and Map<a class="headerlink" href="#select-drive-mode-and-map" title="永久链接至标题">¶</a></h3>
+<p>From the dropdown box of Mode Setup, select “Mkz Standard Debug” mode. From the
+dropdown box of Map, select “Sunnyvale with Two Offices”.</p>
+<p><img alt="Drive Mode and Map Selection" src="../../_images/dreamview_6_0_setup_profile.png" /></p>
+</section>
+<section id="replay-demo-record">
+<h3>Replay Demo Record<a class="headerlink" href="#replay-demo-record" title="永久链接至标题">¶</a></h3>
+<p>To see if the system works, use the demo record to “feed” the system.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># You need to download the demo record using the following commands</span>
+<span class="n">cd</span> <span class="n">docs</span><span class="o">/</span><span class="n">demo_guide</span><span class="o">/</span>
+<span class="n">python3</span> <span class="n">record_helper</span><span class="o">.</span><span class="n">py</span> <span class="n">demo_3</span><span class="mf">.5</span><span class="o">.</span><span class="n">record</span>
+
+<span class="c1"># You can now replay this demo &quot;record&quot; in a loop with the &#39;-l&#39; flag</span>
+<span class="n">cyber_recorder</span> <span class="n">play</span> <span class="o">-</span><span class="n">f</span> <span class="n">docs</span><span class="o">/</span><span class="n">demo_guide</span><span class="o">/</span><span class="n">demo_3</span><span class="mf">.5</span><span class="o">.</span><span class="n">record</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+</div>
+<p>Dreamview should show a running vehicle now. (The following image might be
+different due to frontend code changes.)</p>
+<p><img alt="Dreamview with Trajectory" src="../../_images/dv_trajectory_6.0.png" /></p>
+</section>
+<section id="congrats">
+<h3>Congrats!<a class="headerlink" href="#congrats" title="永久链接至标题">¶</a></h3>
+<p>You have successfully built Apollo! Now you can revisit
+<a class="reference internal" href="../../README.html"><span class="doc std std-doc">Apollo Readme</span></a> for additional guidelines on the neccessary
+hardware setup.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_leverage_rtk_mode.html" title="How to Leverage Apollo’s RTK mode"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_install_apollo_kernel_cn.html" title="如何为 Apollo 安装低时延/实时内核"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Launch and Run Apollo</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

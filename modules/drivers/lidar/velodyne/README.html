@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Velodyne &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/drivers/lidar/velodyne/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="velodyne" href="README_cn.html" />
+    <link rel="prev" title="Parameter Introduction" href="../robosense/doc/parameter_intro.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../../README.html">Home</a></li>
+    <li><a href="../../../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../../../contents.html">Docs</a></li>
+    <li><a href="../../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../../README.html">
+      <img src="../../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="README_cn.html" title="velodyne"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../robosense/doc/parameter_intro.html" title="Parameter Introduction"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Velodyne</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Velodyne</a><ul>
+<li><a class="reference internal" href="#output-channels">Output Channels</a></li>
+<li><a class="reference internal" href="#coordination">Coordination</a></li>
+<li><a class="reference internal" href="#start">Start</a></li>
+<li><a class="reference internal" href="#faq">FAQ</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../robosense/doc/parameter_intro.html"
+                        title="上一章">Parameter Introduction</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="README_cn.html"
+                        title="下一章">velodyne</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/modules/drivers/lidar/velodyne/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="velodyne">
+<h1>Velodyne<a class="headerlink" href="#velodyne" title="永久链接至标题">¶</a></h1>
+<p>velodyne driver runs as component, including:</p>
+<ol class="simple">
+<li><p>data packet processing –&gt; /driver</p></li>
+<li><p>point cloud generation –&gt; /convert</p></li>
+<li><p>velodyne 16 fusion –&gt; /fusion</p></li>
+<li><p>compensation –&gt; /compensator</p></li>
+</ol>
+<p>Compensation relies on <code class="docutils literal notranslate"><span class="pre">tf</span></code> to query the coordination transform, so gnss_driver is required to run the velodyne components.</p>
+<section id="output-channels">
+<h2>Output Channels<a class="headerlink" href="#output-channels" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>data packet
+channel: /apollo/sensor/lidar128/Scan
+type: apollo::drivers::velodyne::VelodyneScan
+proto: <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/drivers/lidar/velodyne/proto/velodyne.proto">modules/drivers/lidar/velodyne/proto/velodyne.proto</a></p></li>
+<li><p>point cloud
+channel: /apollo/sensor/lidar128/PointCloud2
+type: apollo::drivers::PointCloud
+proto: [modules/drivers/proto/pointcloud.proto]<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/drivers/proto/pointcloud.proto">https://github.com/ApolloAuto/apollo/blob/master/modules/drivers/proto/pointcloud.proto</a></p></li>
+<li><p>compensation point cloud
+channel: /apollo/sensor/lidar128/compensator/PointCloud2
+type: apollo::drivers::PointCloud
+proto: [modules/drivers/proto/pointcloud.proto]<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/drivers/proto/pointcloud.proto">https://github.com/ApolloAuto/apollo/blob/master/modules/drivers/proto/pointcloud.proto</a></p></li>
+</ol>
+</section>
+<section id="coordination">
+<h2>Coordination<a class="headerlink" href="#coordination" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>world</p></li>
+<li><p>novatel</p></li>
+<li><p>velodyne128</p></li>
+</ul>
+</section>
+<section id="start">
+<h2>Start<a class="headerlink" href="#start" title="永久链接至标题">¶</a></h2>
+<p><strong>Please change the parameters in the launch file for cars when you start</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#in docker</span>
+cyber_launch start velodyne.launch
+</pre></div>
+</div>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>“basetime is zero”
+The position pack is not valid, please check gps signal.</p></li>
+<li><p>‘velodyne port 2368 poll() timeout’
+The network between the host and velodyne is having problem. Please use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">tcpdump</span> <span class="pre">-i</span> <span class="pre">eth0</span> <span class="pre">udp</span> <span class="pre">port</span> <span class="pre">2368</span></code> to check if velodyne packets are received.</p></li>
+<li><p>‘cannot find transform …’
+<code class="docutils literal notranslate"><span class="pre">Compensaton</span></code> relies on <code class="docutils literal notranslate"><span class="pre">tf</span></code>, please double check if <code class="docutils literal notranslate"><span class="pre">gnss_driver</span></code> has been started, and also use cyber_monitor check <code class="docutils literal notranslate"><span class="pre">/tf</span></code> channel output.</p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="README_cn.html" title="velodyne"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../robosense/doc/parameter_intro.html" title="Parameter Introduction"
+             >上一页</a> |</li>
+        <li><a href="../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Velodyne</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

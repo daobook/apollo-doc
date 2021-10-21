@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bridge &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/bridge/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Canbus" href="../canbus/README.html" />
+    <link rel="prev" title="Dump audio to wave" href="../audio/tools/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../canbus/README.html" title="Canbus"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../audio/tools/README.html" title="Dump audio to wave"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Bridge</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bridge</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+<li><a class="reference internal" href="#launch">Launch</a></li>
+<li><a class="reference internal" href="#modify-the-configuration">modify the configuration</a></li>
+<li><a class="reference internal" href="#add-new-message">Add new message</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../audio/tools/README.html"
+                        title="上一章">Dump audio to wave</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../canbus/README.html"
+                        title="下一章">Canbus</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/modules/bridge/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="bridge">
+<h1>Bridge<a class="headerlink" href="#bridge" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>This module provides a way for other Apollo modules interactiving with process
+outside of Apollo by socket. It includes sender and receiver components.</p>
+</section>
+<section id="input">
+<h2>Input<a class="headerlink" href="#input" title="永久链接至标题">¶</a></h2>
+<p>In sender component, there is only one input, which is the proto struct sender
+handled. In receiver comonent, its input is different with others. Its input
+comes from UDP socket.</p>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="永久链接至标题">¶</a></h2>
+<p>Sender’s output is by way of UDP socket. Receiver has one output which is
+receiver handled.</p>
+</section>
+<section id="launch">
+<h2>Launch<a class="headerlink" href="#launch" title="永久链接至标题">¶</a></h2>
+<p>The startup of Bridge is consistent with the startup of other modules. Bridge
+contains two sub-modules, other than: sender and receiver. The sender is
+responsible for sending the udp data, and the receiver is responsible for
+receiving the data packet sent by the udp client, and parsing it, and then
+sending it to the module that has registered to respond to the message. The
+start command of Sender is as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cyber_launch start /apollo/modules/bridge/launch/bridge_receiver.launch
+</pre></div>
+</div>
+<p>The start command of Receiver is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cyber_launch start /apollo/modules/bridge/launch/bridge_sender.launch
+</pre></div>
+</div>
+</section>
+<section id="modify-the-configuration">
+<h2>modify the configuration<a class="headerlink" href="#modify-the-configuration" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Receiver listens to port 8900 by default, and can change the port number to be
+monitored by modifying its corresponding configuration file. The corresponding
+configuration file can be queried in the dag file, as shown in the following
+figure. <img alt="" src="../../_images/Picture1.png" /></p></li>
+</ul>
+<p>Its configuration file:
+/Apollo/modules/bridge/conf/udp_bridge_receiver_chassis.pb.txt</p>
+<p><img alt="" src="../../_images/Picture2.png" /></p>
+<p>Note: If you want to receive data from the client outside the docker, you need
+to do port mapping with the -p parameter when starting docker, you need to
+modify the docker/scripts/dev_start.sh file, as shown below.
+<img alt="" src="../../_images/Picture3.png" /></p>
+<p>Add a new line -p 8900:8900 after -d . This allows you to map the internal and
+external ports of docker, and you can accept the data sent by the external
+client of docker.</p>
+<ul class="simple">
+<li><p>The sender configuration file is searched in the same way as the receiver. The
+sender that sends the ADCTrajectory is sent to 127.0.0.1:8900 by default; the
+sender that sends the LocalizationEstimate is sent to 127.0.0.1:8901 by
+default. The above ip address and port number can be modified through the
+corresponding configuration file. The configuration file information is as
+shown below. <img alt="" src="../../_images/Picture4.png" /></p></li>
+</ul>
+</section>
+<section id="add-new-message">
+<h2>Add new message<a class="headerlink" href="#add-new-message" title="永久链接至标题">¶</a></h2>
+<p>To send/receive new messages via udp, you can add two lines of code to the
+corresponding file. If you want to add the message apollo::test::PbTest, as
+shown below. <img alt="" src="../../_images/Picture5.png" /> Add a new line after the 80th line of this
+file udp_bridge_receiver_component.h:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RECEIVER_BRIDGE_COMPONENT_REGISTER</span><span class="p">(</span><span class="n">test</span><span class="p">::</span><span class="n">PbTest</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Also add after 197 lines of udp_bridge_receiver_component.cc</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BRIDGE_RECV_IMPL</span><span class="p">(</span><span class="n">test</span><span class="p">::</span><span class="n">PbTest</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="" src="../../_images/Picture6.png" /> The addition of Sender is consistent with the receiver.
+After the code is modified, save it, then add the corresponding configuration
+file, startup file, and dag file. Recompile the code and start it.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../canbus/README.html" title="Canbus"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../audio/tools/README.html" title="Dump audio to wave"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Bridge</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PARKING SCENARIO &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/parking_scenario.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Planning Component Introduction" href="planning_component.html" />
+    <link rel="prev" title="GENERATE FINAL TRAJECTORY" href="open_space_trajectory_provider_en.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="planning_component.html" title="Planning Component Introduction"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_provider_en.html" title="GENERATE FINAL TRAJECTORY"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">PARKING SCENARIO</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PARKING SCENARIO</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a><ul>
+<li><a class="reference internal" href="#park-and-go-scenario">PARK AND GO SCENARIO</a></li>
+<li><a class="reference internal" href="#pull-over-scenario">PULL OVER SCENARIO</a></li>
+<li><a class="reference internal" href="#valet-parking-scenario">VALET PARKING SCENARIO</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="open_space_trajectory_provider_en.html"
+                        title="上一章">GENERATE FINAL TRAJECTORY</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="planning_component.html"
+                        title="下一章">Planning Component Introduction</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/parking_scenario.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="parking-scenario">
+<h1>PARKING SCENARIO<a class="headerlink" href="#parking-scenario" title="永久链接至标题">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>Apollo planning is scenario based, where each driving use case is treated as a different driving scenario.</p>
+<p>There are three scenairos, park and go, pull over and valet parking, which related to park planning.</p>
+<ol class="simple">
+<li><p>park and go: the park and go scenario was designed to handle curb side parking, planning a new trajectory to the next destination and then driving along that trajectory. This scenario is extremely useful in situations like curb-side delivery or passenger pickup or drop-off.</p></li>
+<li><p>pull over: the pull over scenario was designed especially for maneuvering to the side of the road upon reaching your destination like for curb-side parallel parking.</p></li>
+<li><p>valet parking: the valet parking scenario was designed to safely park your ego car in a targeted parking spot.</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="where-is-the-code">
+<h1>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h1>
+<p>Please refer <a class="reference external" href="https://github.com/ApolloAuto/apollo/modules/planning/scenarios/park/">park</a> &amp; <a class="reference external" href="https://github.com/ApolloAuto/apollo/modules/planning/scenarios/park_and_go/">park and go</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code-reading">
+<h1>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h1>
+<p>All three scenarios contain specific stages, the function of scenarios are realized through the conversion of stages. Thus, figure out the process of stages conversion is the key to understand this code.</p>
+<section id="park-and-go-scenario">
+<h2>PARK AND GO SCENARIO<a class="headerlink" href="#park-and-go-scenario" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p>This scenario consists of four stages, check stage, adjust stage, pre cruise stage and cruise stage.</p></li>
+<li><p>check stage:</p>
+<ol class="simple">
+<li><p>In check stage, by calling <code class="docutils literal notranslate"><span class="pre">checkadcreadytocruise()</span></code>to check whether ADC’s gear info, ADC’s velocity, obstacle position, ADC’s heading and ADC’s lateral station meet the requirements.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckADCReadyToCruise</span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">common</span><span class="o">::</span><span class="n">VehicleStateProvider</span><span class="o">*</span><span class="w"> </span><span class="n">vehicle_state_provider</span><span class="p">,</span><span class="w"> </span><span class="n">Frame</span><span class="o">*</span><span class="w"> </span><span class="n">frame</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">ScenarioParkAndGoConfig</span><span class="o">&amp;</span><span class="w"> </span><span class="n">scenario_config</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If ADC is ready to cruise, check stage is finished and we switch to cruise stage. Otherwise we switch to adjust stage.</p></li>
+</ol>
+</li>
+<li><p>adjust stage:</p>
+<ol class="simple">
+<li><p>In adjust stage, we run open space planning algorithms to adjust ADC position.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ExecuteTaskOnOpenSpace</span><span class="p">(</span><span class="n">Frame</span><span class="o">*</span><span class="w"> </span><span class="n">frame</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Once position adjustment is done, we check whether ADC reaches the end of trajectory.</p></li>
+<li><p>Then we check whether ADC is ready to cruise by calling <code class="docutils literal notranslate"><span class="pre">CheckADCReadyToCruise()</span></code>.</p></li>
+<li><p>If ADC is ready to cruise and reaches the end of trajectory, adjust stage is finished.</p>
+<ol class="simple">
+<li><p>If steering percentage within the threshold, we switch to cruise stage.</p></li>
+<li><p>Otherwise we reset init position of ADC and switch to pre cruise stage.</p></li>
+</ol>
+</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">void</span><span class="w"> </span><span class="nf">ResetInitPostion</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Otherwise ADC stay in adjust stage to adjust ADC position.</p></li>
+</ol>
+</li>
+<li><p>pre cruise stage:</p>
+<ol class="simple">
+<li><p>In pre cruise stage, we run open space planning algorithms to adjust ADC with the init position.</p></li>
+<li><p>Then we check whether the steering percentage within the threshold.</p></li>
+<li><p>If so, pre cruise stage is finished and we switch to cruise stage.</p></li>
+<li><p>Otherwise ADC stay in pre cruise stage.</p></li>
+</ol>
+</li>
+<li><p>cruise stage:</p>
+<ol class="simple">
+<li><p>We run an on lane planning algorithms to adjust ADC position.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">ExecuteTaskOnReferenceLine</span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">common</span><span class="o">::</span><span class="n">TrajectoryPoint</span><span class="o">&amp;</span><span class="w"> </span><span class="n">planning_start_point</span><span class="p">,</span><span class="w"> </span><span class="n">Frame</span><span class="o">*</span><span class="w"> </span><span class="n">frame</span><span class="p">);</span><span class="w">         </span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Then we check whether the lateral distacne between ADC and target line within the threshold.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="n">ParkAndGoStatus</span><span class="w"> </span><span class="nf">CheckADCParkAndGoCruiseCompleted</span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="k">const</span><span class="w"> </span><span class="n">ReferenceLineInfo</span><span class="o">&amp;</span><span class="w"> </span><span class="n">reference_line_info</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If so, cruise stage is finished and quit park and go scenario is done.</p></li>
+<li><p>Otherwise ADC stay in cruise stage until ADC cruises to a desired position.</p></li>
+<li><p>The conversion of stages can be seen in
+<img alt="Diagram" src="../../_images/parking_scenairo_fig_1.png" />.</p></li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="pull-over-scenario">
+<h2>PULL OVER SCENARIO<a class="headerlink" href="#pull-over-scenario" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p>This scenario consists of three stages, approach stage, retry approach parking stage and retry parking stage.</p></li>
+<li><p>approach stage:</p>
+<ol class="simple">
+<li><p>We run an on lane planning algorithms to approach pull over target position.</p></li>
+<li><p>At first, we check path points data to see whether the s, l and theta error between ADC and the target path point within the threshold.</p>
+<ol class="simple">
+<li><p>If so, the pull over status is set to PARK_COMPLETE.</p></li>
+<li><p>Otherwise we add a stop fence for adc to pause at a better position.</p></li>
+<li><p>However, if we can’t find a suitable new stop fence, approach stage is finished and we switch to retry appoach parking stage.</p></li>
+</ol>
+</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="n">PullOverStatus</span><span class="w"> </span><span class="nf">CheckADCPullOverPathPoint</span><span class="p">(</span><span class="w"></span>
+<span class="w">          </span><span class="k">const</span><span class="w"> </span><span class="n">ReferenceLineInfo</span><span class="o">&amp;</span><span class="w"> </span><span class="n">reference_line_info</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="k">const</span><span class="w"> </span><span class="n">ScenarioPullOverConfig</span><span class="o">&amp;</span><span class="w"> </span><span class="n">scenario_config</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="k">const</span><span class="w"> </span><span class="n">common</span><span class="o">::</span><span class="n">PathPoint</span><span class="o">&amp;</span><span class="w"> </span><span class="n">path_point</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="k">const</span><span class="w"> </span><span class="n">PlanningContext</span><span class="o">*</span><span class="w"> </span><span class="n">planning_context</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Then we check whether adc parked properly.</p>
+<ol class="simple">
+<li><p>If ADC pass the destination or park properly, approach stage is finished and pull over scenario is done.</p></li>
+<li><p>If adc park failed, approach stage is finished and we switch to retry appoach parking stage.</p></li>
+</ol>
+</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="n">PullOverStatus</span><span class="w"> </span><span class="nf">CheckADCPullOver</span><span class="p">(</span><span class="w"></span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">common</span><span class="o">::</span><span class="n">VehicleStateProvider</span><span class="o">*</span><span class="w"> </span><span class="n">vehicle_state_provider</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">ReferenceLineInfo</span><span class="o">&amp;</span><span class="w"> </span><span class="n">reference_line_info</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">ScenarioPullOverConfig</span><span class="o">&amp;</span><span class="w"> </span><span class="n">scenario_config</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">PlanningContext</span><span class="o">*</span><span class="w"> </span><span class="n">planning_context</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>retry approach parking stage:</p>
+<ol class="simple">
+<li><p>We run an on lane planning algorithms to reach the stop line of open space planner.</p></li>
+<li><p>Check whether ADC stop properly.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckADCStop</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Frame</span><span class="o">&amp;</span><span class="w"> </span><span class="n">frame</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If so, retry approach parking stage is finished and switch to retry parking stage.</p></li>
+</ol>
+</li>
+<li><p>retry parking stage:</p>
+<ol class="simple">
+<li><p>We run an open space planning algorithms to park.</p></li>
+<li><p>Check whether ADC park properly(check distance and theta diff).</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckADCPullOverOpenSpace</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If so, retry parking stage is finished and pull over scenario is done.</p></li>
+<li><p>Otherwise ADC stay in the stage until ADC park properly.</p></li>
+<li><p>The conversion of stages can be seen in
+<img alt="Diagram" src="../../_images/parking_scenairo_fig_2.png" />.</p></li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="valet-parking-scenario">
+<h2>VALET PARKING SCENARIO<a class="headerlink" href="#valet-parking-scenario" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p>This scenario consists of two stages, approach parking spot stage and parking stage.</p></li>
+<li><p>approach parking spot stage:</p>
+<ol class="simple">
+<li><p>We run an on lane planning algorithms to approach the designated parking spot.</p></li>
+<li><p>ADC cruises to a halt once it has found the right stopping point required in order to reverse into the parking spot.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckADCStop</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Frame</span><span class="o">&amp;</span><span class="w"> </span><span class="n">frame</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If stop properly, approach parking spot stage is finished and switch to parking stage.</p></li>
+<li><p>Otherwise ADC stay in the stage until it approaches to desired parking spot.</p></li>
+</ol>
+</li>
+<li><p>parking stage:</p>
+<ol class="simple">
+<li><p>Open Space Planner algorithm is used to generate a zig-zag trajectory which involves both forward and reverse driving (gear changes) in order to safely park the ego car.</p></li>
+<li><p>The conversion of stages can be seen in
+<img alt="Diagram" src="../../_images/parking_scenairo_fig_3.png" />.</p></li>
+</ol>
+</li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="planning_component.html" title="Planning Component Introduction"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_provider_en.html" title="GENERATE FINAL TRAJECTORY"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">PARKING SCENARIO</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

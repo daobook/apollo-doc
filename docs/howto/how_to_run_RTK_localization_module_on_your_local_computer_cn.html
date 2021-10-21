@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>如何在本地运行RTK定位模块 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_run_RTK_localization_module_on_your_local_computer_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to run the Map Data Verification Tool" href="how_to_run_map_verification_tool.html" />
+    <link rel="prev" title="How to Run RTK Localization Module On Your Local Computer" href="how_to_run_RTK_localization_module_on_your_local_computer.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_map_verification_tool.html" title="How to run the Map Data Verification Tool"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_run_RTK_localization_module_on_your_local_computer.html" title="How to Run RTK Localization Module On Your Local Computer"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何在本地运行RTK定位模块</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">如何在本地运行RTK定位模块</a><ul>
+<li><a class="reference internal" href="#id1">1. 事先准备</a></li>
+<li><a class="reference internal" href="#apollo">2. 编译apollo工程</a><ul>
+<li><a class="reference internal" href="#apollodocker">2.1 启动并进入Apollo开发版Docker容器</a></li>
+<li><a class="reference internal" href="#id2">2.2 编译工程</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">3. 运行RTK模式定位</a></li>
+<li><a class="reference internal" href="#record">4. 播放record文件</a></li>
+<li><a class="reference internal" href="#id4">6. 可视化定位结果（可选）</a><ul>
+<li><a class="reference internal" href="#id5">可视化定位结果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_run_RTK_localization_module_on_your_local_computer.html"
+                        title="上一章">How to Run RTK Localization Module On Your Local Computer</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_run_map_verification_tool.html"
+                        title="下一章">How to run the Map Data Verification Tool</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_run_RTK_localization_module_on_your_local_computer_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="rtk">
+<h1>如何在本地运行RTK定位模块<a class="headerlink" href="#rtk" title="永久链接至标题">¶</a></h1>
+<p>本文档提供了如何在本地运行RTK定位模块的方法。</p>
+<section id="id1">
+<h2>1. 事先准备<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>从<a class="reference external" href="https://github.com/ApolloAuto/apollo">GitHub网站</a>下载Apollo源代码</p></li>
+<li><p>按照<a class="reference internal" href="../quickstart/apollo_software_installation_guide.html"><span class="doc std std-doc">教程</span></a>设置Docker环境</p></li>
+<li><p>从<a class="reference external" href="http://data.apollo.auto/?name=sensor%20data&amp;data_key=multisensor&amp;data_type=1&amp;locale=en-us&amp;lang=en">Apollo数据平台</a>下载多传感器融合定位demo数据包（仅限美国地区），使用其中<em>apollo3.5</em>文件夹下的数据。</p></li>
+</ul>
+</section>
+<section id="apollo">
+<h2>2. 编译apollo工程<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h2>
+<section id="apollodocker">
+<h3>2.1 启动并进入Apollo开发版Docker容器<a class="headerlink" href="#apollodocker" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="n">docker</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">dev_start</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">bash</span> <span class="n">docker</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">dev_into</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>2.2 编译工程<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># (Optional) To make sure you start clean</span>
+<span class="n">bash</span> <span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">clean</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="n">bash</span> <span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">build_opt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>3. 运行RTK模式定位<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cyber_launch</span> <span class="n">start</span> <span class="o">/</span><span class="n">apollo</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">localization</span><span class="o">/</span><span class="n">launch</span><span class="o">/</span><span class="n">rtk_localization</span><span class="o">.</span><span class="n">launch</span>
+</pre></div>
+</div>
+<p>在/apollo/data/log目录下，可以看到定位模块输出的相关log文件。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://localization.INFO">localization.INFO</a> : INFO级别的log信息</p></li>
+<li><p>localization.WARNING : WARNING级别的log信息</p></li>
+<li><p>localization.ERROR : ERROR级别的log信息</p></li>
+<li><p>localization.out : 标准输出重定向文件</p></li>
+<li><p>localizaiton.flags : 启动localization模块使用的配置</p></li>
+</ul>
+</section>
+<section id="record">
+<h2>4. 播放record文件<a class="headerlink" href="#record" title="永久链接至标题">¶</a></h2>
+<p>在下载好的定位demo数据中，找到一个名为”apollo3.5”的文件夹，假设该文件夹所在路径为DATA_PATH。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">DATA_PATH</span><span class="o">/</span><span class="n">records</span>
+<span class="n">cyber_recorder</span> <span class="n">play</span> <span class="o">-</span><span class="n">f</span> <span class="n">record</span><span class="o">.*</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>6. 可视化定位结果（可选）<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<section id="id5">
+<h3>可视化定位结果<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>运行可视化工具</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cyber_launch</span> <span class="n">start</span> <span class="o">/</span><span class="n">apollo</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">localization</span><span class="o">/</span><span class="n">launch</span><span class="o">/</span><span class="n">msf_visualizer</span><span class="o">.</span><span class="n">launch</span>
+</pre></div>
+</div>
+<p>该可视化工具首先根据定位地图生成用于可视化的缓存文件，存放在/apollo/cyber/data/map_visual目录下。</p>
+<p>然后接收以下topic并进行可视化绘制。</p>
+<ul class="simple">
+<li><p>/apollo/sensor/lidar128/compensator/PointCloud2</p></li>
+<li><p>/apollo/localization/pose</p></li>
+</ul>
+<p>可视化效果如下
+<img alt="1" src="../../_images/online_visualizer2.png" /></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_map_verification_tool.html" title="How to run the Map Data Verification Tool"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_run_RTK_localization_module_on_your_local_computer.html" title="How to Run RTK Localization Module On Your Local Computer"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何在本地运行RTK定位模块</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

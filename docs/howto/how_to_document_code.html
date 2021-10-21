@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to Document Source Code in Apollo &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_document_code.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Generate Local Map For MSF Localization Module" href="how_to_generate_local_map_for_MSF_localization_module.html" />
+    <link rel="prev" title="How to do performance profiling" href="how_to_do_performance_profiling.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_generate_local_map_for_MSF_localization_module.html" title="How to Generate Local Map For MSF Localization Module"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_do_performance_profiling.html" title="How to do performance profiling"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Document Source Code in Apollo</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Document Source Code in Apollo</a><ul>
+<li><a class="reference internal" href="#file">File</a></li>
+<li><a class="reference internal" href="#namespace">Namespace</a></li>
+<li><a class="reference internal" href="#class">Class</a></li>
+<li><a class="reference internal" href="#function">Function</a></li>
+<li><a class="reference internal" href="#public-protected-class-member-variables">Public / protected class member variables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_do_performance_profiling.html"
+                        title="上一章">How to do performance profiling</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_generate_local_map_for_MSF_localization_module.html"
+                        title="下一章">How to Generate Local Map For MSF Localization Module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_document_code.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-document-source-code-in-apollo">
+<h1>How to Document Source Code in Apollo<a class="headerlink" href="#how-to-document-source-code-in-apollo" title="永久链接至标题">¶</a></h1>
+<p>Apollo uses <a class="reference external" href="https://www.doxygen.nl/index.html">Doxygen</a> for source code
+documentation. Developers who are not familiar with Doxygen can refer to
+official Doxygen Manual(<a class="reference external" href="https://www.doxygen.nl/manual/index.html">https://www.doxygen.nl/manual/index.html</a>) for an
+in-depth knowledge on documenting code with Doxygen. This document serves as a
+brief version of
+<a class="reference external" href="https://www.doxygen.nl/manual/docblocks.html">Doxygen Manual: Documenting the code</a>)
+focusing specificly on C/C++ and Python.</p>
+<p>We will take
+<span class="xref myst">modules/common/math/kalman_filter.h</span>
+as an example to show you how to document code the Doxygen way. Note that
+Javadoc style is preferred rather than Qt style for comment blocks.</p>
+<section id="file">
+<h2>File<a class="headerlink" href="#file" title="永久链接至标题">¶</a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @file</span>
+<span class="cm"> * @brief Defines the templated KalmanFilter class.</span>
+<span class="cm"> */</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="namespace">
+<h2>Namespace<a class="headerlink" href="#namespace" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@namespace</span> <span class="n">apollo</span><span class="p">::</span><span class="n">common</span><span class="p">::</span><span class="n">math</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">apollo</span><span class="p">::</span><span class="n">common</span><span class="p">::</span><span class="n">math</span>
+ <span class="o">*/</span>
+
+<span class="n">namespace</span> <span class="n">apollo</span> <span class="p">{</span>
+<span class="n">namespace</span> <span class="n">common</span> <span class="p">{</span>
+<span class="n">namespace</span> <span class="n">math</span> <span class="p">{</span>
+</pre></div>
+</div>
+</section>
+<section id="class">
+<h2>Class<a class="headerlink" href="#class" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="nd">@class</span> <span class="n">KalmanFilter</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Implements</span> <span class="n">a</span> <span class="n">discrete</span><span class="o">-</span><span class="n">time</span> <span class="n">Kalman</span> <span class="nb">filter</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">XN</span> <span class="n">dimension</span> <span class="n">of</span> <span class="n">state</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">ZN</span> <span class="n">dimension</span> <span class="n">of</span> <span class="n">observations</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="n">UN</span> <span class="n">dimension</span> <span class="n">of</span> <span class="n">controls</span>
+ <span class="o">*/</span>
+<span class="n">template</span> <span class="o">&lt;</span><span class="n">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">XN</span><span class="p">,</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">ZN</span><span class="p">,</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">UN</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">KalmanFilter</span> <span class="p">{</span>
+ <span class="n">public</span><span class="p">:</span>
+ <span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="function">
+<h2>Function<a class="headerlink" href="#function" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="o">/**</span>
+   <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Sets</span> <span class="n">the</span> <span class="n">initial</span> <span class="n">state</span> <span class="n">belief</span> <span class="n">distribution</span><span class="o">.</span>
+   <span class="o">*</span>
+   <span class="o">*</span> <span class="nd">@param</span> <span class="n">x</span> <span class="n">Mean</span> <span class="n">of</span> <span class="n">the</span> <span class="n">state</span> <span class="n">belief</span> <span class="n">distribution</span>
+   <span class="o">*</span> <span class="nd">@param</span> <span class="n">P</span> <span class="n">Covariance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">state</span> <span class="n">belief</span> <span class="n">distribution</span>
+   <span class="o">*/</span>
+  <span class="n">void</span> <span class="n">SetStateEstimate</span><span class="p">(</span><span class="n">const</span> <span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">XN</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
+                        <span class="n">const</span> <span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">XN</span><span class="p">,</span> <span class="n">XN</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">P</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">}</span>
+
+  <span class="o">/**</span>
+   <span class="o">*</span> <span class="nd">@brief</span> <span class="n">Get</span> <span class="n">initialization</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">filter</span>
+   <span class="o">*</span> <span class="nd">@return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">the</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="n">initialized</span>
+   <span class="o">*/</span>
+  <span class="nb">bool</span> <span class="n">IsInitialized</span><span class="p">()</span> <span class="n">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">is_initialized_</span><span class="p">;</span> <span class="p">}</span>
+
+</pre></div>
+</div>
+</section>
+<section id="public-protected-class-member-variables">
+<h2>Public / protected class member variables<a class="headerlink" href="#public-protected-class-member-variables" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">protected</span><span class="p">:</span>
+  <span class="o">///</span> <span class="n">Mean</span> <span class="n">of</span> <span class="n">current</span> <span class="n">state</span> <span class="n">belief</span> <span class="n">distribution</span>
+  <span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">XN</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">x_</span><span class="p">;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Note: There is no public/protected member variables for <code class="docutils literal notranslate"><span class="pre">KalmanFilter</span></code>. The
+code above serves for illustration purpose only.</p>
+</div></blockquote>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_generate_local_map_for_MSF_localization_module.html" title="How to Generate Local Map For MSF Localization Module"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_do_performance_profiling.html" title="How to do performance profiling"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Document Source Code in Apollo</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

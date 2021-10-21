@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>GENERATE FINAL TRAJECTORY &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/open_space_trajectory_provider_en.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="PARKING SCENARIO" href="parking_scenario.html" />
+    <link rel="prev" title="OPEN SPACE TRAJECTORY PARTITION" href="open_space_trajectory_partition.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="parking_scenario.html" title="PARKING SCENARIO"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_partition.html" title="OPEN SPACE TRAJECTORY PARTITION"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">GENERATE FINAL TRAJECTORY</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GENERATE FINAL TRAJECTORY</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a></li>
+<li><a class="reference internal" href="#algorithm-detail">Algorithm Detail</a></li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="open_space_trajectory_partition.html"
+                        title="上一章">OPEN SPACE TRAJECTORY PARTITION</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="parking_scenario.html"
+                        title="下一章">PARKING SCENARIO</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/open_space_trajectory_provider_en.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="generate-final-trajectory">
+<h1>GENERATE FINAL TRAJECTORY<a class="headerlink" href="#generate-final-trajectory" title="永久链接至标题">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>The goal of this part is to generate the final trajectory in the open space. Open_space_trajectory_provider is very important to control the flow and call the hybrid a star and trajectory smoothing algorithm.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="where-is-the-code">
+<h1>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h1>
+<p>Please refer to <a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/modules/planning/tasks/optimizers/open_space_trajectory_generation/open_space_trajectory_provider.cc">open_space_trajectory_provider.cc</a></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code-reading">
+<h1>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h1>
+<ol>
+<li><p>Input: open_space_trajectory_provider::Process() is called by the OPEN_SPACE_TRAJECTORY_PROVIDER task of VALET_PARKING_PARKING stage, please refer to <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/planning/conf/scenario/valet_parking_config.pb.txt">valet_parking_config.pb.txt</a>.</p></li>
+<li><p>There is a stop trajectory which generated in the park and go check stage. In order to ensure safety, it is necessary in this case.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">injector_</span><span class="o">-&gt;</span><span class="n">planning_context</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="o">-&gt;</span><span class="n">mutable_planning_status</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="o">-&gt;</span><span class="n">mutable_park_and_go</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="o">-&gt;</span><span class="n">in_check_stage</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ADEBUG</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ParkAndGo Stage Check.&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">GenerateStopTrajectory</span><span class="p">(</span><span class="n">trajectory_data</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Status</span><span class="o">::</span><span class="n">OK</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Start thread when getting in Process() for the first time. This will call the GenerateTrajectoryThread() function to plan the first trajectory and will update three kinds of trajectory state: trajectory_updated_, trajectory_skipped_, trajectory_error_.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FLAGS_enable_open_space_planner_thread</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">thread_init_flag_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">task_future_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cyber</span><span class="o">::</span><span class="n">Async</span><span class="p">(</span><span class="o">&amp;</span><span class="n">OpenSpaceTrajectoryProvider</span><span class="o">::</span><span class="n">GenerateTrajectoryThread</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">thread_init_flag_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Whether vehicle is stoped due to fallback is determined by the IsVehicleStopDueToFallBack() function. This determines the final trajectory planning.</p></li>
+<li><p>If vehicle is stopped due to fallback, replan stitching trajectory by ComputeReinitStitchingTrajectory() function. If not, replan stitching trajectory by ComputeStitchingTrajectory(), please refer to <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/planning/common/trajectory_stitcher.cc">trajectory_stitcher.cc</a>.</p></li>
+<li><p>Generate trajectory depends on the FLAGS_enable_open_space_planner_thread. A stop trajectory is generated in the following cases:</p>
+<ol class="simple">
+<li><p>Planning thread is stopped.</p></li>
+<li><p>The vehicle arrives near the destination.</p></li>
+<li><p>trajectory_error_ is triggered for more than 10 seconds.</p></li>
+<li><p>Previous frame planning failed.</p></li>
+<li><p>If the trajectory can be updated normally, the optimized trajectory is output normally.</p></li>
+</ol>
+</li>
+<li><p>Output: the optput is final trajectory information.</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="algorithm-detail">
+<h1>Algorithm Detail<a class="headerlink" href="#algorithm-detail" title="永久链接至标题">¶</a></h1>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>``` cpp
+bool OpenSpaceTrajectoryProvider::IsVehicleStopDueToFallBack(const bool is_on_fallback, 
+                                                             const common::VehicleState&amp; vehicle_state)
+```
+The function is used to judge whether the vehicle is stopped due to fallback.
+</pre></div>
+</div>
+<ol>
+<li><p>Parameter: The input parameter is fallback flag of previous frame and vehicle states.</p></li>
+<li><p>Introduction: The flag and vehicle state can be used to design the logic.</p></li>
+<li><p>Process detail:</p>
+<ol class="simple">
+<li><p>Fallback flag judgment: if the flag is false, then return false.</p></li>
+<li><p>When the vehicle speed and acceleration are less than the threshold, the result is true, indicating that it is caused by fall        back.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajectoryPoint</span><span class="o">&gt;</span><span class="w"> </span><span class="n">TrajectoryStitcher</span><span class="o">::</span><span class="n">ComputeStitchingTrajectory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">VehicleState</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_state</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                                                            </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">current_timestamp</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                                            </span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">planning_cycle_time</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                                                            </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">preserved_points_num</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                                            </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">replan_by_offset</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                                                            </span><span class="k">const</span><span class="w"> </span><span class="n">PublishableTrajectory</span><span class="o">*</span><span class="w"> </span><span class="n">prev_trajectory</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                                            </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="w"> </span><span class="n">replan_reason</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The function is used to stitch trajectory and is used to replan based on some unreasonable case.</p>
+</li>
+<li><p>Parameter: Vehicle state, current_timestamp, planning cycle time, replan_by_offset, previous trajectory and the reason of replanning.</p></li>
+<li><p>Introduction: Handle some unreasonable case by replanning, stitch trajectory and post process.</p></li>
+<li><p>Process detail:</p>
+<ol class="simple">
+<li><p>It will re-plan the trajectory in following cases:</p>
+<ol class="simple">
+<li><p>Stitching trajectory is disabled by gflag.</p></li>
+<li><p>There is no previous trajectory.</p></li>
+<li><p>Not in autopilot mode.</p></li>
+<li><p>The number of points in the previous frame is zero.</p></li>
+<li><p>The current time is less than the trajectory start time of the previous frame.</p></li>
+<li><p>The current time is more than the trajetory end time of the previous frame.</p></li>
+<li><p>The matching path point is empty.</p></li>
+<li><p>The horizontal and vertical deviation of the projection point is greater than the threshold.</p></li>
+</ol>
+</li>
+<li><p>Stitch trajectory according to the planning period and the position of the projection point.</p></li>
+<li><p>Determine whether each trajectory point of the stitching trajectory is empty, and if it is empty, it will replan.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajectoryPoint</span><span class="o">&gt;</span><span class="n">TrajectoryStitcher</span><span class="o">::</span><span class="n">ComputeReinitStitchingTrajectory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">planning_cycle_time</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                                                                 </span><span class="k">const</span><span class="w"> </span><span class="n">VehicleState</span><span class="o">&amp;</span><span class="w"> </span><span class="n">vehicle_state</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The function is used to initialize stitching trajectory and get the initial point.</p>
+</li>
+<li><p>Parameter: The planned cycle time and vehicle state</p></li>
+<li><p>Introduction: The function can get the diffrent initial point based on the different logic.</p></li>
+<li><p>Process detail:</p>
+<ol class="simple">
+<li><p>When the vehicle speed and acceleration are less than the threshold, the message of initial point is from vehicle state.           2. When the vehicle speed and acceleration satisfy the threshold, the vehicle state is calculated based on the kinematics model.</p></li>
+</ol>
+</li>
+</ol>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="parking_scenario.html" title="PARKING SCENARIO"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_partition.html" title="OPEN SPACE TRAJECTORY PARTITION"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">GENERATE FINAL TRAJECTORY</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

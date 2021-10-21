@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo传感器集成说明 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/tabs.js"></script>
+    <script src="../../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/D-kit/Vehicle_Guide/D-KIT_Lite/Apollo_D-kit_sensor_integration_V04.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="本文档适用于车辆编号为：2019051~2019080" href="Quick_Start_V03.html" />
+    <link rel="prev" title="快速介绍" href="../D-KIT_Advanced/Quick_Start_V01.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../../README.html">Home</a></li>
+    <li><a href="../../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../../contents.html">Docs</a></li>
+    <li><a href="../../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../../README.html">
+      <img src="../../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Quick_Start_V03.html" title="本文档适用于车辆编号为：2019051~2019080"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../D-KIT_Advanced/Quick_Start_V01.html" title="快速介绍"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href=""><strong>Apollo传感器集成说明</strong></a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><strong>Apollo传感器集成说明</strong></a><ul>
+<li><a class="reference internal" href="#id1"><strong>快速介绍</strong></a></li>
+<li><a class="reference internal" href="#id2"><strong>Apollo上装电气原理图</strong></a></li>
+<li><a class="reference internal" href="#id3"><strong>1. 上装传感器供电线束简介</strong></a></li>
+<li><a class="reference internal" href="#id4"><strong>2. 传感器电源接口介绍</strong></a><ul>
+<li><a class="reference internal" href="#id5"><strong>1、工控机电源接口</strong></a></li>
+<li><a class="reference internal" href="#m2">2、M2电源接口</a></li>
+<li><a class="reference internal" href="#id6">3、毫米波雷达电源接口</a></li>
+<li><a class="reference internal" href="#id7">4、激光雷达电源接口</a></li>
+<li><a class="reference internal" href="#id8">5、屏幕供电</a></li>
+<li><a class="reference internal" href="#id9">6、路由器供电</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10"><strong>3. 传感器固定介绍</strong></a><ul>
+<li><a class="reference internal" href="#id11">1、工控机固定</a></li>
+<li><a class="reference internal" href="#id12">2、M2及线束保险丝盒固定</a></li>
+<li><a class="reference internal" href="#id13">3、激光雷达固定</a><ul>
+<li><a class="reference internal" href="#id14">3.1激光雷达支架固定</a></li>
+<li><a class="reference internal" href="#id15">3.2激光雷达固定</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16">4、摄像头固定</a></li>
+<li><a class="reference internal" href="#id17">5、激光雷达与摄像头相对水平调整</a></li>
+<li><a class="reference internal" href="#id18">6、毫米波雷达固定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../D-KIT_Advanced/Quick_Start_V01.html"
+                        title="上一章">快速介绍</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Quick_Start_V03.html"
+                        title="下一章"><strong>本文档适用于车辆编号为：2019051~2019080</strong></a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/docs/D-kit/Vehicle_Guide/D-KIT_Lite/Apollo_D-kit_sensor_integration_V04.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo">
+<h1><strong>Apollo传感器集成说明</strong><a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>传感器上车集成前，请优先或同步完成工控机的Apollo系统安装，教程详见“循迹搭建——Apollo系统安装”。工控机安装Apollo系统时开采用自带的直流电源模块供电，显示器可使用电脑显示器。</p>
+<section id="id1">
+<h2><strong>快速介绍</strong><a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>请您在传感器集成前仔细阅读本文档。本文档介绍了传感器供电线束安装的注意事项。</p>
+</section>
+<section id="id2">
+<h2><strong>Apollo上装电气原理图</strong><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>Apollo上装电气原理图如下图所示：</p>
+<p><img alt="Apollo_electrical_schematic" src="../../../../_images/Apollo_electrical_schematic.jpg" /></p>
+<p>通过电气原理图可知，6108/8108工控机（IPC）由底盘独立提供24V电源，显示器、激光雷达、毫米波雷达、IMU和路由器则由底盘通过保险盒提供12V电源。</p>
+</section>
+<section id="id3">
+<h2><strong>1. 上装传感器供电线束简介</strong><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>Apollo电气原理图中的供电部分集成在了一条供电线束中，如下图所示。</p>
+<p><img alt="apollo_power_wire_harness" src="../../../../_images/apollo_power_wire_harness.jpg" /></p>
+<p>保险丝盒取消了负极接线，负极回路集成在线束内部。</p>
+<p>底盘后部电气面板如下图所示：</p>
+<p><img alt="Electrical_panel" src="../../../../_images/Motor_Enable_1.jpg" /></p>
+<p>上装供电插座的脚位定义如图所示:1、Pin1—12V+；2、Pin2—12V-；3、Pin3—24V+；4、Pin4—24V-。</p>
+<p><img alt="apollo_to_chassis" src="../../../../_images/apollo_to_chassis.jpg" /></p>
+<p>底盘can口通过db9延长线与工控机相连。上装供电线通过4pin航插与底盘供电插座相连。
+<strong><font color=#FF0000> 提示：请在检查供电线束与传感器连接插头极性之后，再连接供电线束与底盘供电口的航插。</font></strong></p>
+</section>
+<section id="id4">
+<h2><strong>2. 传感器电源接口介绍</strong><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<section id="id5">
+<h3><strong>1、工控机电源接口</strong><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p><img alt="8108_Power_1" src="../../../../_images/8108_Power_1.jpg" /></p>
+<p><img alt="8108_Power_2" src="../../../../_images/8108_Power_2.jpg" /></p>
+<p><img alt="8108_Power_3" src="../../../../_images/8108_Power_3.jpg" /></p>
+</section>
+<section id="m2">
+<h3>2、M2电源接口<a class="headerlink" href="#m2" title="永久链接至标题">¶</a></h3>
+<p>M2自带数据线缆为1分5线缆，一端为与工控机相连的航插接头，另一端为M2电源输入口，网口、激光雷达授时输出口，USB输出口，db9输出口（M2配置串口）。详细如下图所示：</p>
+<p><img alt="M2_1" src="../../../../_images/M2_1.jpg" /></p>
+<p>注意：M2线缆电源输入口为白色2pin插头，红色为12V正极，蓝色为12V负极；上装线束M2供电插头为蓝色2pin插头，红色为12V正极，黑色色为12V负极，对插后红色对红色，黑色对蓝色。连接插头时请确认线色或用万用表检查线束端供电插头电源极性。连接如下图所示：</p>
+<p><img alt="M2_2" src="../../../../_images/M2_2.jpg" /></p>
+</section>
+<section id="id6">
+<h3>3、毫米波雷达电源接口<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>毫米波雷达线束，一端为毫米波雷达连接插头，另一端是电源插头2pin凤凰端子和CAN口。</p>
+<p><img alt="Radar_1" src="../../../../_images/Radar_1.jpg" /></p>
+<p><img alt="Radar_2" src="../../../../_images/Radar_2.jpg" /></p>
+<p><strong><font color=#FF0000 >注意：毫米波雷达线束电源插头：红色正+，蓝色负-；线束供电端为红色正+，黑色负-；再插接时，保证红对红，黑对蓝。</font></strong></p>
+</section>
+<section id="id7">
+<h3>4、激光雷达电源接口<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p><img alt="Lidar_1" src="../../../../_images/Lidar_1.jpg" /></p>
+<p><img alt="Lidar_2" src="../../../../_images/Lidar_2.jpg" /></p>
+<p><img alt="Lidar_3" src="../../../../_images/Lidar_3.jpg" /></p>
+<p><img alt="Lidar_4" src="../../../../_images/Lidar_4.jpg" /></p>
+</section>
+<section id="id8">
+<h3>5、屏幕供电<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>车载屏幕供电线为单独一段线束：1端为DJ7021-1.5-11插件（公头），连接供电线束端DJ7021-1.5-21（母头）；另一端为DC5.5mm插头，接口如下图所示：</p>
+<p><img alt="power_line_of_display" src="../../../../_images/Display.jpg" /></p>
+</section>
+<section id="id9">
+<h3>6、路由器供电<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>路由器线束断供电插头为DC5.5直流插头，如下图所示：</p>
+<p><img alt="apollo_power_wire_harness" src="../../../../_images/apollo_power_wire_harness.jpg" /></p>
+</section>
+</section>
+<section id="id10">
+<h2><strong>3. 传感器固定介绍</strong><a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<section id="id11">
+<h3>1、工控机固定<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p><img alt="IPC_integration_1" src="../../../../_images/IPC_integration_1.jpg" /></p>
+</section>
+<section id="id12">
+<h3>2、M2及线束保险丝盒固定<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p><img alt="IMU_fusebox_integration" src="../../../../_images/IMU.jpg" /></p>
+</section>
+<section id="id13">
+<h3>3、激光雷达固定<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<p><img alt="lidar_integration_installation" src="../../../../_images/lidar_integration_installation.jpg" /></p>
+<section id="id14">
+<h4>3.1激光雷达支架固定<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
+<p><img alt="lidar_bracket" src="../../../../_images/lidar_bracket.jpg" /></p>
+</section>
+<section id="id15">
+<h4>3.2激光雷达固定<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h4>
+<p><img alt="lidar_integration_look" src="../../../../_images/lidar_integration_look.jpg" /></p>
+<p><img alt="Lidar_integration" src="../../../../_images/Lidar_integration.jpg" /></p>
+<p><img alt="lidar_integration_slot" src="../../../../_images/lidar_integration_slot1.jpg" /></p>
+</section>
+</section>
+<section id="id16">
+<h3>4、摄像头固定<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<p>摄像头安装位置如下图</p>
+<p><img alt="camera_integration_installation" src="../../../../_images/camera_integration_installation1.jpg" /></p>
+<p><img alt="camera_integration_overview" src="../../../../_images/camera_integration_overview.jpg" /></p>
+<p><img alt="camera_integration_look" src="../../../../_images/camera_integration_look1.jpg" /></p>
+<p><img alt="camera_integration_bolting" src="../../../../_images/camera_integration_bolting.jpg" /></p>
+<p><img alt="camera_integration_line" src="../../../../_images/camera_integration_line1.jpg" /></p>
+<p><img alt="camera_integration_background" src="../../../../_images/camera_integration_background.jpg" /></p>
+</section>
+<section id="id17">
+<h3>5、激光雷达与摄像头相对水平调整<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p><img alt="Lidar_integration_levelling" src="../../../../_images/Lidar_integration_levelling.jpg" /></p>
+<p><img alt="camera_integration_levelling" src="../../../../_images/camera_integration_levelling.jpg" /></p>
+</section>
+<section id="id18">
+<h3>6、毫米波雷达固定<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p><img alt="radar_look" src="../../../../_images/lidar_integration_radar_look1.jpg" /></p>
+<p><img alt="radar_integration" src="../../../../_images/radar_integration.jpg" /></p>
+<p><img alt="radar_installation_position" src="../../../../_images/lidar_integration_radar_installation_position.jpg" /></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Quick_Start_V03.html" title="本文档适用于车辆编号为：2019051~2019080"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../D-KIT_Advanced/Quick_Start_V01.html" title="快速介绍"
+             >上一页</a> |</li>
+        <li><a href="../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href=""><strong>Apollo传感器集成说明</strong></a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

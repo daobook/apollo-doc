@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Download &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/contrib/elo/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Changelog for package lgsvl_msgs" href="../lgsvl_msgs/CHANGELOG.html" />
+    <link rel="prev" title="e2e" href="../e2e/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../lgsvl_msgs/CHANGELOG.html" title="Changelog for package lgsvl_msgs"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../e2e/README.html" title="e2e"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Download</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Download</a><ul>
+<li><a class="reference internal" href="#introduction">1. Introduction</a></li>
+<li><a class="reference internal" href="#requirements-software">2. Requirements: software</a><ul>
+<li><a class="reference internal" href="#a-external-dependencies">a. External dependencies</a></li>
+<li><a class="reference internal" href="#b-internal-dependencies">b. Internal dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#requirements-hardware">3. Requirements: hardware</a></li>
+<li><a class="reference internal" href="#data-format">4. Data format</a></li>
+<li><a class="reference internal" href="#installation">5. Installation</a></li>
+<li><a class="reference internal" href="#demo">6. Demo</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../e2e/README.html"
+                        title="上一章">e2e</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../lgsvl_msgs/CHANGELOG.html"
+                        title="下一章">Changelog for package lgsvl_msgs</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/modules/contrib/elo/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="download">
+<h1>Download<a class="headerlink" href="#download" title="永久链接至标题">¶</a></h1>
+<p>You can download the elo (aka Ego Localization) module here <a class="reference external" href="https://github.com/ApolloAuto/apollo/releases/download/v1.5.0/elo-1.5.zip">elo-1.5.zip</a></p>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>Baidu ego localization system is an accurate ego localization solution for self-driving. By combining sensor information, Global navigation satellite systems (GNSS), and Baidu HD Map into one system, Baidu ego localization system is able to offer a localization solution with high accuracy.</p>
+<p>GNSS positioning observes range measurements from orbiting GNSS satellites, while GNSS in general has some restrictions that it may not be available for high accuracy requirements of self-driving. Baidu ego localization system combines sensor information with HD Map and GNSS solution to provide high-accuracy localization solution. System extracts features from sensors and Baidu HD Map for feature matching. After feature matching, system is able to locate current vehicle in HD Map. Motion compensation is proposed to compensate current localization solution.</p>
+<p><img alt="components of Baidu ego localization system" src="../../../_images/flowchart.jpg" /></p>
+<p>The main components of Baidu ego localization system is introduced as follow:</p>
+<ul class="simple">
+<li><p>Sensors: include vision sensors (in-vehicle cameras, industrial camera CCDs and other image collecting sensors) and position sensors (include GPS, GLONASS, Beidou and other GNSS).</p></li>
+<li><p>HD Map: HD Map provides road information within specific area.</p></li>
+<li><p>Real-time location feature: Baidu ego localization system applies deep neural network architecture <code class="docutils literal notranslate"><span class="pre">ENet</span></code> (see: <a class="reference external" href="https://arxiv.org/abs/1606.02147">ENet: A Deep Neural Network Architecture for Real-Time Semantic Segmentation</a>) to extract lane lines and mark features by sensor for feature matching.</p></li>
+<li><p>Pre-stored location feature: obtains lane lines and mark features provided by HD Map.</p></li>
+<li><p>Feature matching: Baidu ego localization system locates current ego vehicle in HD Map by feature matching.</p></li>
+<li><p>Motion compensation: compensates current frame and adjusts the matching result via historical information.</p></li>
+</ul>
+</section>
+<section id="requirements-software">
+<h2>2. Requirements: software<a class="headerlink" href="#requirements-software" title="永久链接至标题">¶</a></h2>
+<section id="a-external-dependencies">
+<h3>a. External dependencies<a class="headerlink" href="#a-external-dependencies" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Requirements for <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">2.8.7</span></code> or higher (see: <a class="reference external" href="https://cmake.org/Wiki/CMake">cmake installation instructions</a>)</p></li>
+<li><p>Requirements for <code class="docutils literal notranslate"><span class="pre">OpenCV</span> <span class="pre">3.X</span></code> (see: <a class="reference external" href="http://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html">OpenCV installation instructions</a>)</p></li>
+<li><p>Recommended requirements for <code class="docutils literal notranslate"><span class="pre">Protobuf</span></code> (see: <a class="reference external" href="https://github.com/google/protobuf">github</a>)</p></li>
+<li><p>Recommended requirements for <code class="docutils literal notranslate"><span class="pre">CUDA</span></code> (see: <a class="reference external" href="http://docs.nvidia.com/cuda/index.html#installation-guides">CUDA installation instructions</a>)</p></li>
+<li><p>Recommended requirements for <code class="docutils literal notranslate"><span class="pre">Eigen</span> <span class="pre">3</span></code> (see: <a class="reference external" href="http://eigen.tuxfamily.org/dox/">Eigen installation instructions</a>)</p></li>
+<li><p>Recommended requirements for <code class="docutils literal notranslate"><span class="pre">jsoncpp</span></code> (see: <a class="reference external" href="https://github.com/open-source-parsers/jsoncpp">github</a>)</p></li>
+</ul>
+</section>
+<section id="b-internal-dependencies">
+<h3>b. Internal dependencies<a class="headerlink" href="#b-internal-dependencies" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Requirements for <code class="docutils literal notranslate"><span class="pre">modified</span> <span class="pre">Caffe</span></code>  (<code class="docutils literal notranslate"><span class="pre">lib/libcaffe.so</span></code>)</p></li>
+<li><p>Requirements for <code class="docutils literal notranslate"><span class="pre">HD</span> <span class="pre">Map</span> <span class="pre">database</span></code> (<code class="docutils literal notranslate"><span class="pre">config/hadmap/hadmap.db</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="requirements-hardware">
+<h2>3. Requirements: hardware<a class="headerlink" href="#requirements-hardware" title="永久链接至标题">¶</a></h2>
+<p>Deployed on NVIDIA Drive PX2 (PDK 4.1.4.0).</p>
+</section>
+<section id="data-format">
+<h2>4. Data format<a class="headerlink" href="#data-format" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>Input file:</p>
+<p>Note that optimum solution from SPAN-CPT (<code class="docutils literal notranslate"><span class="pre">ground_truth_longitude</span></code> and <code class="docutils literal notranslate"><span class="pre">ground_truth_latitude</span></code>) are provided to make comparison with solution from Baidu ego localization system.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image_name</span> <span class="n">longitude</span> <span class="n">latitude</span> <span class="n">ground_truth_longitude</span> <span class="n">ground_truth_latitude</span>
+</pre></div>
+</div>
+</li>
+<li><p>Config file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># effective image rectangle: top-left corner point, width and height of resulting cropped image in BGR format, pixel</span>
+<span class="n">top</span><span class="o">-</span><span class="n">left_corner_point_x</span> <span class="n">top</span><span class="o">-</span><span class="n">left_corner_point_y</span> <span class="n">width</span> <span class="n">height</span>
+
+<span class="c1"># width and height of ENet input image, pixel</span>
+<span class="n">segmented_image_width</span> <span class="n">segmented_image_height</span>
+
+<span class="c1"># camera parameters: principal point, focal length and rotation angle of camera related to vehicle coordinate system, pixel and radian</span>
+<span class="n">principal_point_x</span> <span class="n">principal_point_y</span> <span class="n">focal_length_x</span> <span class="n">focal_length_y</span> <span class="n">pitch</span> <span class="n">yaw</span> <span class="n">roll</span>
+
+<span class="c1"># center point of image, pixel</span>
+<span class="n">center_point_x</span> <span class="n">center_point_y</span>
+
+<span class="c1"># ENet parameters file</span>
+<span class="n">enet_para_path</span>
+
+<span class="c1"># ENet structure file</span>
+<span class="n">enet_structure_path</span>
+
+<span class="c1"># camera parameters: translation of camera related to vehicle coordinate system, pixel</span>
+<span class="n">translation_x</span> <span class="n">translation_y</span>
+
+<span class="c1"># database of HD Map</span>
+<span class="n">database_path</span>
+</pre></div>
+</div>
+<p>Sample config parameters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">510</span> <span class="mi">808</span> <span class="mi">1410</span> <span class="mi">1068</span>
+<span class="mi">448</span> <span class="mi">224</span>
+<span class="mf">948.617</span> <span class="mf">628.628</span> <span class="mf">1918.64</span> <span class="mf">1924.48</span> <span class="o">-</span><span class="mf">3.9</span> <span class="mf">0.6</span> <span class="mi">0</span>
+<span class="mi">960</span> <span class="mi">604</span>
+<span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">model_binary</span><span class="o">.</span><span class="n">caffemodel</span>
+<span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">net</span><span class="o">.</span><span class="n">prototxt</span>
+<span class="mi">0</span> <span class="mi">150</span>
+<span class="o">../</span><span class="n">data</span><span class="o">/</span><span class="n">hadmap</span><span class="o">/</span><span class="n">hadmap</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+</li>
+<li><p>Output format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image_name</span>
+<span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Begin</span> <span class="n">Localization</span>
+<span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">End</span> <span class="n">Localization</span><span class="p">,</span> <span class="n">misc</span> <span class="n">time</span><span class="p">:</span> <span class="n">runtime</span> <span class="c1">####</span>
+<span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">GROUNDTRUTH</span> <span class="p">(</span><span class="n">ground_truth_longitude</span><span class="p">,</span> <span class="n">ground_truth_latitude</span><span class="p">)</span>  <span class="n">LOCALIZATION</span> <span class="p">(</span><span class="n">localization_longitude</span><span class="p">,</span> <span class="n">localization_latitude</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sample output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">20170628_000039131.</span><span class="n">jpg</span>
+<span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Begin</span> <span class="n">Localization</span>
+<span class="p">[</span><span class="o">-</span><span class="p">]</span> <span class="n">End</span> <span class="n">Localization</span><span class="p">,</span> <span class="n">misc</span> <span class="n">time</span><span class="p">:</span> <span class="mf">91.95475700</span><span class="n">ms</span> <span class="c1">####</span>
+<span class="p">[</span><span class="n">INFO</span><span class="p">]</span> <span class="n">GROUNDTRUTH</span> <span class="p">(</span><span class="mf">133.02665542</span><span class="p">,</span> <span class="mf">25.40116628</span><span class="p">)</span>   <span class="n">LOCALIZATION</span> <span class="p">(</span><span class="mf">133.02666082</span><span class="p">,</span> <span class="mf">25.40117062</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="installation">
+<h2>5. Installation<a class="headerlink" href="#installation" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>Install and build dependencies in <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Recommended</span> <span class="pre">requirements:</span> <span class="pre">software</span></code>, then do the following steps.</p></li>
+<li><p>a. System software dependencies can be installed with:</p>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span>sudo apt-get install cmake libhdf5-dev liblmdb-dev libleveldb-dev libatlas-dev libatlas-base-dev libgflags-dev libgoogle-glog-dev libopencv-dev libmatio-dev libcurl4-openssl-dev
+</pre></div>
+</div>
+</li>
+<li><p>b. Find the <code class="docutils literal notranslate"><span class="pre">elo</span></code> in <code class="docutils literal notranslate"><span class="pre">modules</span></code>:</p>
+<p>We’ll call the directory <code class="docutils literal notranslate"><span class="pre">elo</span></code> into <code class="docutils literal notranslate"><span class="pre">P_ROOT</span></code></p>
+</li>
+<li><p>c. Compile and run localization:</p>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$P_ROOT</span>
+mkdir build
+<span class="nb">cd</span> build
+cmake ..
+make
+./localization_test config_file input_file image_path
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="demo">
+<h2>6. Demo<a class="headerlink" href="#demo" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>Hardware description:</p>
+<p>image: SEKONIX SF3323, 30 Hz;</p>
+<p>GNSS: U-Blox M8, 8 Hz;</p>
+<p>SPAN-CPT: 10 Hz;</p>
+</li>
+<li><p>Test data path:</p>
+<p><a class="reference external" href="http://data.apollo.auto">testdata.zip</a></p>
+<p>unzip testdata in /data folder.</p>
+</li>
+<li><p>To run the localization demo in testdata1:</p>
+<div class="highlight-Shell notranslate"><div class="highlight"><pre><span></span>./localization_test ../config/apollo_release.config ../data/testdata1/test_list.txt ../data/testdata1/image/
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../lgsvl_msgs/CHANGELOG.html" title="Changelog for package lgsvl_msgs"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../e2e/README.html" title="e2e"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Download</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

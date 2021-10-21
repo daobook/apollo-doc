@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 2.5 地图采集功能使用指南 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/quickstart/apollo_2_5_map_collection_guide_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo 2.5 Quick Start Guide" href="apollo_2_5_quick_start.html" />
+    <link rel="prev" title="Apollo 2.5 map collection guide" href="apollo_2_5_map_collection_guide.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo_2_5_quick_start.html" title="Apollo 2.5 Quick Start Guide"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_2_5_map_collection_guide.html" title="Apollo 2.5 map collection guide"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 2.5 地图采集功能使用指南</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 2.5 地图采集功能使用指南</a><ul>
+<li><a class="reference internal" href="#id1">软硬件环境准备</a></li>
+<li><a class="reference internal" href="#id2">数据采集流程</a></li>
+<li><a class="reference internal" href="#id3">地图数据生产服务</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo_2_5_map_collection_guide.html"
+                        title="上一章">Apollo 2.5 map collection guide</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo_2_5_quick_start.html"
+                        title="下一章">Apollo 2.5 Quick Start Guide</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/quickstart/apollo_2_5_map_collection_guide_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-2-5">
+<h1>Apollo 2.5 地图采集功能使用指南<a class="headerlink" href="#apollo-2-5" title="永久链接至标题">¶</a></h1>
+<p>本文档主要用来说明如何在 Apollo2.5 中使用地图数据采集的功能.重点介绍了数据采集所
+需的软硬件环境,数据采集的流程和注意事项.</p>
+<section id="id1">
+<h2>软硬件环境准备<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>1、硬件安装方法参
+见<a class="reference internal" href="apollo_2_5_hardware_system_installation_guide_v1.html"><span class="doc std std-doc">Apollo 2.5 硬件安装指南</span></a></p>
+<p>2、软件安装方法参
+见<a class="reference internal" href="apollo_software_installation_guide.html"><span class="doc std std-doc">Apollo 软件安装指南</span></a></p>
+<p>3、传感器标定方法参
+见<a class="reference internal" href="multiple_lidar_gnss_calibration_guide.html"><span class="doc std std-doc">Apollo 传感器标定方法使用指南</span></a></p>
+<p>4、NVMe SSD 硬盘。为了解决由于 IO 瓶颈导致可能的数据丢帧问题，建议工控机中安装
+NVME SSD 硬盘。</p>
+<p>5、卫星基站。为了得到精确的制图结果，需要搭建卫星基站，并且保证整个采集过程中采
+集车的 RTK 可以正常工作。</p>
+</section>
+<section id="id2">
+<h2>数据采集流程<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>1、启动地图采集模式 Apollo 环境启动参
+见<a class="reference internal" href="apollo_2_5_quick_start_cn.html"><span class="doc std std-doc">Apollo 2.5 快速上手指南</span></a></p>
+<p>选择[Module Controller]、[Map Collection],打
+开[GPS]、[Camera]、[Velodyne]、[Velodyne16]开关。</p>
+<p><img alt="" src="../../_images/map_collection_sensor_open.png" /></p>
+<p>确认各个传感器状态是否 OK。</p>
+<p><img alt="" src="../../_images/map_collection_sensor_check.png" /></p>
+<p>2、待确认各个传感器状态 OK 后，打开[Record Bag]开关，开始录制地图数据。</p>
+<p><img alt="" src="../../_images/map_collection_sensor_start_record.png" /></p>
+<p>正式采集数据之前，需要车辆静止 5 分钟，8 字绕行 5 分钟。采集过程中需要保证双向车
+道全覆盖采集五圈以上，车速 60KM/h 以下，尽量每圈走不同的车道，覆盖完全。在路口区
+域无需刻意停留，慢速通过即可。路口区域需对各方向道路外延采集至少 50m，保障道路各
+方向的红绿灯及车道线完整清晰。数据采集完成后，需要 8 字绕行五分钟，然后再静止五
+分钟。</p>
+<p>3、所有采集完成后，关闭[Record Bag]开关结束采集，然后关
+闭[GPS]、[Camera]、[Velodyne]、[Velodyne16]开关。</p>
+<p><img alt="" src="../../_images/map_collection_sensor_stop_record.png" /></p>
+<p>4、数据上传</p>
+<p>采集的数据放置在/apollo/data/bag/(采集开始时间,例如 2018-04-14-21-20-24)目录，把
+该目录下的数据打包为 tar.gz 压缩文件，
+到<a class="reference external" href="http://data.apollo.auto/hd_map_intro/?locale=zh-cn">Apollo 数据官网</a>进行数据
+上传。</p>
+</section>
+<section id="id3">
+<h2>地图数据生产服务<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>1、数据权限申请</p>
+<p>首先需要注册一个百度账号，登陆百度账号，申请地图制作服务使用权限(仅需申请一次),
+如果已经申请过，跳过此步。 <img alt="" src="../../_images/map_collection_request_ch.png" /></p>
+<p>2、地图技术服务</p>
+<p>用户可以在该页面进行新建区域、创建制图任务、管理地图数据、跟踪制图进度，下载地图
+数据。 <img alt="" src="../../_images/map_collection_Area_ch.png" /></p>
+<p>3、数据管理</p>
+<p>用户点击“采集数据管理”后可以进入采集数据管理页面，在该页面可以上传多份采集数据，
+所有数据上传上传后可以提交采集数据，之后进入制图流程，不能再对数据进行编辑操作。</p>
+<p><img alt="" src="../../_images/map_collection_Management_ch.png" /></p>
+<p>4、数据下载</p>
+<p>当需求状态是”已发布”时，点击“下载地图”可进行地图数据下载。如果需要更新地图，请点
+击“更新地图数据”发起制图流程，需重新进行数据上传及制图流程。</p>
+<p><img alt="" src="../../_images/map_collection_Download_ch.png" /></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo_2_5_quick_start.html" title="Apollo 2.5 Quick Start Guide"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_2_5_map_collection_guide.html" title="Apollo 2.5 map collection guide"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 2.5 地图采集功能使用指南</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

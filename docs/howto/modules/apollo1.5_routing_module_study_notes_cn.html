@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>routing模块分析 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/modules/apollo1.5_routing_module_study_notes_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Quick Start Guides" href="../../quickstart/README.html" />
+    <link rel="prev" title="Prediction模块分析" href="apollo1.5_prediction_module_study_notes_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../../quickstart/README.html" title="Quick Start Guides"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_prediction_module_study_notes_cn.html" title="Prediction模块分析"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">routing模块分析</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">routing模块分析</a><ul>
+<li><a class="reference internal" href="#id1">功能：</a></li>
+<li><a class="reference internal" href="#id2">输入：</a></li>
+<li><a class="reference internal" href="#id3">输出：</a></li>
+<li><a class="reference internal" href="#i-o">节点I/O：</a></li>
+<li><a class="reference internal" href="#id4">routing源码：</a><ul>
+<li><a class="reference internal" href="#routing-ccrouting-h">routing.cc和routing.h</a></li>
+<li><a class="reference internal" href="#navigation-ccnavigation-h">navigation.cc和navigation.h：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo1.5_prediction_module_study_notes_cn.html"
+                        title="上一章">Prediction模块分析</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../../quickstart/README.html"
+                        title="下一章">Quick Start Guides</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/howto/modules/apollo1.5_routing_module_study_notes_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="routing">
+<h1>routing模块分析<a class="headerlink" href="#routing" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>功能：<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>基于请求，输出两点之间导航信息。</p>
+</section>
+<section id="id2">
+<h2>输入：<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>用户的起始和终止位置。/apollo/routing_request[pb_msgs/RoutingRequest]。</p></li>
+<li><p>HD map。</p></li>
+<li><p>/apollo/monitor[pb_msgs/MonitorMessage]。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>输出：<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>请求的响应：/apollo/routing_response[pb_msgs/RoutingResponse],包含了最终的路由信息。</p></li>
+<li><p>/apollo/monitor[pb_msgs/MonitorMessage]。</p></li>
+</ul>
+</section>
+<section id="i-o">
+<h2>节点I/O：<a class="headerlink" href="#i-o" title="永久链接至标题">¶</a></h2>
+<p><img alt="routing data flow" src="../../../_images/routing_node_arch.bmp" /></p>
+</section>
+<section id="id4">
+<h2>routing源码：<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<section id="routing-ccrouting-h">
+<h3>routing.cc和routing.h<a class="headerlink" href="#routing-ccrouting-h" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Name()函数：返回节点名字。</p></li>
+<li><p>Routing()：构造函数，初始化monitor_。</p></li>
+<li><p>Init()：节点初始化函数。</p>
+<ul>
+<li><p>获取路由地图文件routing_map_file。</p></li>
+<li><p>创建导航器navigator_ptr_。</p></li>
+<li><p>读取导航配置文件：modules/routing/conf/routing.pb.txt到routing_conf_。</p></li>
+<li><p>根据Adapter配置文件：modules/routing/conf/adapter.conf，创建nodehandle和响应topics。</p></li>
+<li><p>设置路由请求话题的回调函数OnRouting_Request。这里为啥不直接使用rosservice？//TODO。</p></li>
+</ul>
+</li>
+<li><p>OnRouting_Request()：处理请求。</p>
+<ul>
+<li><p>输入路由请求。</p></li>
+<li><p>执行SearchRoute()函数，根据routing_request，寻找路由，并设置routing_response。</p></li>
+<li><p>发布routing_response。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="navigation-ccnavigation-h">
+<h3>navigation.cc和navigation.h：<a class="headerlink" href="#navigation-ccnavigation-h" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>SearchRoute()函数：</p>
+<ul>
+<li><p>显示请求命令的信息。</p></li>
+<li><p>检查导航器是否ready。构造函数时打开。</p></li>
+<li><p>通过初始化函数，将请求中的点转化为graph中的格式，并存储在way_nodes和way_s。</p></li>
+<li><p>通过a star算法由way_nodes和way_s计算出路由点result_nodes。</p></li>
+<li><p>将路由点result_nodes合并到response结构。</p></li>
+</ul>
+</li>
+<li><p>SearchRouteByStrategy()函数：
+主要是利用A star算法寻找一个全局路径。</p></li>
+<li><p>GetWayNodes()函数：
+将request转化为拓扑图graph_中的点。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../../quickstart/README.html" title="Quick Start Guides"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_prediction_module_study_notes_cn.html" title="Prediction模块分析"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">routing模块分析</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

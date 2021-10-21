@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Planning Component Introduction &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/planning_component.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Planning Piecewise Jerk Nonlinear Speed Optimizer Introduction" href="planning_piecewise_jerk_nonlinear_speed_optimizer.html" />
+    <link rel="prev" title="PARKING SCENARIO" href="parking_scenario.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="planning_piecewise_jerk_nonlinear_speed_optimizer.html" title="Planning Piecewise Jerk Nonlinear Speed Optimizer Introduction"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="parking_scenario.html" title="PARKING SCENARIO"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Planning Component Introduction</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Planning Component Introduction</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a><ul>
+<li><a class="reference internal" href="#cyber-component-related-knowledge">Cyber component related knowledge</a></li>
+<li><a class="reference internal" href="#how-the-messages-are-received-and-sent">How the messages are received and sent</a></li>
+<li><a class="reference internal" href="#how-the-trajectory-as-planning-component-output-is-produced">How the trajectory as planning component output is produced</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="parking_scenario.html"
+                        title="上一章">PARKING SCENARIO</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="planning_piecewise_jerk_nonlinear_speed_optimizer.html"
+                        title="下一章">Planning Piecewise Jerk Nonlinear Speed Optimizer Introduction</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/planning_component.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="planning-component-introduction">
+<h1>Planning Component Introduction<a class="headerlink" href="#planning-component-introduction" title="永久链接至标题">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>This article describes the architecture of planning module. It mainly consists of the following parts:</p>
+<ol class="simple">
+<li><p>Cyber component related knowledge</p></li>
+<li><p>How the messages are received and sent</p></li>
+<li><p>How the trajectory is arranged and made up</p></li>
+</ol>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="where-is-the-code">
+<h1>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h1>
+<p>Please refer to <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/planning/planning_component.h">code</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code-reading">
+<h1>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h1>
+<section id="cyber-component-related-knowledge">
+<h2>Cyber component related knowledge<a class="headerlink" href="#cyber-component-related-knowledge" title="永久链接至标题">¶</a></h2>
+<p>Please refer to <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/cyber/CyberRT_Terms.md">Cyber</a>.</p>
+</section>
+<section id="how-the-messages-are-received-and-sent">
+<h2>How the messages are received and sent<a class="headerlink" href="#how-the-messages-are-received-and-sent" title="永久链接至标题">¶</a></h2>
+<p><img alt="Diagram" src="../../_images/planning_component_api.png" /></p>
+<ol class="simple">
+<li><p>Input
+Messages are partially input from readers, which are defined in PlanningComponent::Init(). For Planning component, readers receive message types of RoutingResponse/TrafficLightDetection/PadMessage/Stories/MapMsg and store them in local for processing afterward.
+Another part of input messages are defined in PlanningComponent::Proc(), where the planning process is called when new messages arrives.</p></li>
+<li><p>Process. PlanningComponent::Proc() function works like Reader’s callback function. Each time there are new messages of prediction::PredictionObstacles/canbus::Chassis/localization::LocalizationEstimate, this process is implemented till the end of this function.</p></li>
+<li><p>Output. PlanningComponent output the message by the following line <code class="docutils literal notranslate"><span class="pre">planning_writer_-&gt;Write(adc_trajectory_pb)</span></code>, in which the writer send the final adc_trajectory_pb message to the cyber system. The writer is initialized in PlanningComponent::Init(), just after the readers are initialized.</p></li>
+</ol>
+</section>
+<section id="how-the-trajectory-as-planning-component-output-is-produced">
+<h2>How the trajectory as planning component output is produced<a class="headerlink" href="#how-the-trajectory-as-planning-component-output-is-produced" title="永久链接至标题">¶</a></h2>
+<p>Now we know how messages are input to and output from the planning component. The work of planning module is basically processing the input messages and producing an appropriate trajectory for the ADC. The final goal of this is to ensure safety, comfort and passability. And different algorithms are explored in Apollo in order to achieve or get closer to this goal.</p>
+<ul class="simple">
+<li><p>The basic and more mature algorithm is rule-based planning, where we use a two-layer state machine to manage the path in different scenarios. For details, please refer <a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/modules/planning/conf/scenario">scenarios</a>.</p></li>
+<li><p>The learning based algorithms including Hybrid Mode are under exploration, which can be enabled in <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/planning/conf/planning_config.pb.txt">planning_config</a>. The E2E mode outputs a planning trajectory when inputting a birdview image centered by the vehicle pose and current velocity. Note E2E methods are not tested on road, while it’s encouraged to do experiments in simulation for research purposes.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="planning_piecewise_jerk_nonlinear_speed_optimizer.html" title="Planning Piecewise Jerk Nonlinear Speed Optimizer Introduction"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="parking_scenario.html" title="PARKING SCENARIO"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Planning Component Introduction</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

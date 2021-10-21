@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to run the Map Data Verification Tool &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_run_map_verification_tool.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Run Perception Module on Your Local Computer" href="how_to_run_perception_module_on_your_local_computer.html" />
+    <link rel="prev" title="如何在本地运行RTK定位模块" href="how_to_run_RTK_localization_module_on_your_local_computer_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_perception_module_on_your_local_computer.html" title="How to Run Perception Module on Your Local Computer"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_run_RTK_localization_module_on_your_local_computer_cn.html" title="如何在本地运行RTK定位模块"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to run the Map Data Verification Tool</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to run the Map Data Verification Tool</a><ul>
+<li><a class="reference internal" href="#running-the-tool">Running the tool</a></li>
+<li><a class="reference internal" href="#tips">Tips</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_run_RTK_localization_module_on_your_local_computer_cn.html"
+                        title="上一章">如何在本地运行RTK定位模块</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_run_perception_module_on_your_local_computer.html"
+                        title="下一章">How to Run Perception Module on Your Local Computer</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_run_map_verification_tool.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-run-the-map-data-verification-tool">
+<h1>How to run the Map Data Verification Tool<a class="headerlink" href="#how-to-run-the-map-data-verification-tool" title="永久链接至标题">¶</a></h1>
+<p>The Map Data Verification tool is designed to help Apollo developers detect any issues in their map data collection process before the data is used for HD Map creation. The benefit of using this tool is to ensure that all issues are detected prior to map creation and also ensures that data can be efficiently recollected based on the suggestions in the tool.</p>
+<section id="running-the-tool">
+<h2>Running the tool<a class="headerlink" href="#running-the-tool" title="永久链接至标题">¶</a></h2>
+<p>In order to run your data on this tool, please follow the steps below:</p>
+<ol>
+<li><p>Build Apollo as recommended in the <a class="reference internal" href="../quickstart/apollo_software_installation_guide.html"><span class="doc std std-doc">Build Guide</span></a> until the <code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">build</span></code> step.</p></li>
+<li><p>Once instde dev docker and after running <code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">build</span></code> please go to the folder <code class="docutils literal notranslate"><span class="pre">modules/tools/map_datachecker/</span></code></p></li>
+<li><p>Starting the server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash server.sh start
+</pre></div>
+</div>
+<p>Note: You should see the following message displayed <code class="docutils literal notranslate"><span class="pre">Server</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">started</span> <span class="pre">successfully</span></code>. If not, please resolve the errors before trying again</p>
+</li>
+<li><p>Start the record verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage record_check --cmd start --record_path path_to_record
+</pre></div>
+</div>
+<p>Note: Do not close your terminal window throughout this process.
+If the verification is successful, you will not see any error messages.</p>
+</li>
+<li><p>Static alignment verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage static_align --cmd start
+</pre></div>
+</div>
+<p>Note: The window will display the progress of the static alignment.</p>
+</li>
+<li><p>Figure 8 verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage eight_route --cmd start
+</pre></div>
+</div>
+<p>Note: Your window displays the progress of the Figure 8 verification</p>
+</li>
+<li><p>Laps verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage loops_check --cmd start
+</pre></div>
+</div>
+<p>Note: Run this command post data collection to check the number of laps</p>
+</li>
+<li><p>Figure 8 verification: This is repeated to verify that the extrinsic parameters have not been changed</p></li>
+<li><p>Static alignment verification: Similar to 5, it is preferable to repeat this verification to ensure high accuracy</p></li>
+<li><p>Stop record verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage record_check --cmd stop
+</pre></div>
+</div>
+</li>
+<li><p>Clean the intermediate results</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash client.sh --stage clean
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="tips">
+<h2>Tips<a class="headerlink" href="#tips" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>The default value of <code class="docutils literal notranslate"><span class="pre">cmd</span></code> is <code class="docutils literal notranslate"><span class="pre">start</span></code></p></li>
+<li><p>All error messages will be printed to help better prepare your map data. Please follow the error messages exactly as recommended</p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_perception_module_on_your_local_computer.html" title="How to Run Perception Module on Your Local Computer"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_run_RTK_localization_module_on_your_local_computer_cn.html" title="如何在本地运行RTK定位模块"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to run the Map Data Verification Tool</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

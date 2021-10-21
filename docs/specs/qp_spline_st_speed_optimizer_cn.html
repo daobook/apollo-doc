@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>二次规划ST速度优化 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/qp_spline_st_speed_optimizer_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Reference Line Smoother" href="reference_line_smoother.html" />
+    <link rel="prev" title="QP-Spline-ST-Speed Optimizer" href="qp_spline_st_speed_optimizer.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="reference_line_smoother.html" title="Reference Line Smoother"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="qp_spline_st_speed_optimizer.html" title="QP-Spline-ST-Speed Optimizer"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">二次规划ST速度优化</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">二次规划ST速度优化</a><ul>
+<li><a class="reference internal" href="#id1">1  定义</a></li>
+<li><a class="reference internal" href="#id2">2  目标函数</a><ul>
+<li><a class="reference internal" href="#id3">2.1  获取样条段</a></li>
+<li><a class="reference internal" href="#id4">2.2  定义样条段函数</a></li>
+<li><a class="reference internal" href="#id5">2.3  定义样条段优化函数</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">3  约束条件</a><ul>
+<li><a class="reference internal" href="#id7">3.1 初始点约束</a></li>
+<li><a class="reference internal" href="#id8">3.2  单调约束</a></li>
+<li><a class="reference internal" href="#id9">3.3  平滑节点约束</a></li>
+<li><a class="reference internal" href="#id10">3.4  点采样边界约束</a></li>
+<li><a class="reference internal" href="#id11">3.5  速度边界优化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="qp_spline_st_speed_optimizer.html"
+                        title="上一章">QP-Spline-ST-Speed Optimizer</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="reference_line_smoother.html"
+                        title="下一章">Reference Line Smoother</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/qp_spline_st_speed_optimizer_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="st">
+<h1>二次规划ST速度优化<a class="headerlink" href="#st" title="永久链接至标题">¶</a></h1>
+<p><em><strong>Tip</strong>: 为了更好的展示本文档中的等式，我们建议使用者使用带有<a class="reference external" href="https://chrome.google.com/webstore/detail/tex-all-the-things/cbimabofgmfdkicghcadidpemeenbffn">插件</a>的Chrome浏览器，或者将Latex等式拷贝到<a class="reference external" href="http://www.hostmath.com/">在线编辑公式网站</a>进行浏览。</em></p>
+<section id="id1">
+<h2>1  定义<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>从二次规划样条路径中选取一条路径后，Apollo将路线上的所有障碍物和自动驾驶车辆（ADV）展现在一个时间-路径图上（path-time ST），该路径图表示了路径上的站点变化。速度优化的任务是在ST图上找到一条合理的，无障碍的路径。</p>
+<p>Apollo使用多个样条来表示速度参数，在ST图上表示为一系列的ST点。Apollo会对二次规划的结果做再次的平衡以获得最佳的速度参数。QP问题的标准类型定义为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+minimize \frac{1}{2} \cdot x^T \cdot H \cdot x + f^T \cdot x 
+\\
+s.t. LB \leq x \leq UB
+\\
+A_{eq}x = b_{eq}
+\\
+Ax \leq b
+$$
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>2  目标函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id3">
+<h3>2.1  获取样条段<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>将路ST速度参数分为 <strong>n</strong> 段，每段路径用一个多项式来表示。</p>
+</section>
+<section id="id4">
+<h3>2.2  定义样条段函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>每个样条段 <em><strong>i</strong></em> 都有沿着参考线的累加距离<span class="math notranslate nohighlight">\(d_i\)</span>。每段的路径默认用5介多项式表示。多项式介数可以通过配置参数进行调整。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+s = f_i(t) 
+  = a_{0i} + a_{1i} \cdot t + a_{2i} \cdot t^2 + a_{3i} \cdot t^3 + a_{4i} \cdot t^4 + a_{5i} \cdot t^5
+$$
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>2.3  定义样条段优化函数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>Apollo首先定义<span class="math notranslate nohighlight">\(cost_1\)</span>以使路径更加平滑：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+cost_1 = \sum_{i=1}^{n} \Big( w_1 \cdot \int\limits_{0}^{d_i} (f_i&#39;)^2(s) ds + w_2 \cdot \int\limits_{0}^{d_i} (f_i&#39;&#39;)^2(s) ds + w_3 \cdot \int\limits_{0}^{d_i} (f_i^{\prime\prime\prime})^2(s) ds \Big)
+$$
+</pre></div>
+</div>
+<p>然后，Apollo定义<span class="math notranslate nohighlight">\(cost_2\)</span>表示最后的S-T路径和S-T巡航路径（有速度限制且m个点）的差值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+cost_2 = \sum_{i=1}^{n}\sum_{j=1}^{m}\Big(f_i(t_j)- s_j\Big)^2
+$$
+</pre></div>
+</div>
+<p>同样地，Apollo定义了<span class="math notranslate nohighlight">\(cost_3\)</span>表示第一个S-T路径和随后的S-T路径（o个点）的差值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+cost_3 = \sum_{i=1}^{n}\sum_{j=1}^{o}\Big(f_i(t_j)- s_j\Big)^2
+$$
+</pre></div>
+</div>
+<p>最后得出的目标函数为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+cost = cost_1 + cost_2 + cost_3
+$$
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>3  约束条件<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<section id="id7">
+<h3>3.1 初始点约束<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>假设第一个点是(<span class="math notranslate nohighlight">\(t0\)</span>, <span class="math notranslate nohighlight">\(s0\)</span>)，且<span class="math notranslate nohighlight">\(s0\)</span>在路径<span class="math notranslate nohighlight">\(f_i(t)\)</span>, <span class="math notranslate nohighlight">\(f'i(t)\)</span>, 和<span class="math notranslate nohighlight">\(f_i(t)''\)</span>上（位置、速率、加速度）。Apollo将这些约束转换为QP约束的等式为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+A_{eq}x = b_{eq}
+$$
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>3.2  单调约束<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>路线必须是单调的，比如车辆只能往前开。</p>
+<p>在路径上采样 <strong>m</strong> 个点，对每一个 <span class="math notranslate nohighlight">\(j\)</span>和<span class="math notranslate nohighlight">\(j-1\)</span> 的点对，且(<span class="math notranslate nohighlight">\(j\in[1,...,m]\)</span>)，如果两个点都处在同一个样条<span class="math notranslate nohighlight">\(k\)</span>上，则：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix}  1 &amp; t_j &amp; t_j^2 &amp; t_j^3 &amp; t_j^4&amp;t_j^5 \\ \end{vmatrix} 
+\cdot 
+\begin{vmatrix}  a_k \\ b_k \\ c_k \\ d_k \\ e_k \\ f_k  \end{vmatrix} 
+&gt; 
+\begin{vmatrix}  1 &amp; t_{j-1} &amp; t_{j-1}^2 &amp; t_{j-1}^3 &amp; t_{j-1}^4&amp;t_{j-1}^5 \\ \end{vmatrix}  
+\cdot 
+\begin{vmatrix}  a_{k} \\ b_{k} \\ c_{k} \\ d_{k} \\ e_{k} \\ f_{k}  \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>如两个点分别处在不同的样条<span class="math notranslate nohighlight">\(k\)</span>和<span class="math notranslate nohighlight">\(l\)</span>上，则：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix}  1 &amp; t_j &amp; t_j^2 &amp; t_j^3 &amp; t_j^4&amp;t_j^5 \\ \end{vmatrix} 
+\cdot 
+\begin{vmatrix}  a_k \\ b_k \\ c_k \\ d_k \\ e_k \\ f_k  \end{vmatrix} 
+&gt; 
+\begin{vmatrix}  1 &amp; t_{j-1} &amp; t_{j-1}^2 &amp; t_{j-1}^3 &amp; t_{j-1}^4&amp;t_{j-1}^5 \\ \end{vmatrix}  
+\cdot 
+\begin{vmatrix}  a_{l} \\ b_{l} \\ c_{l} \\ d_{l} \\ e_{l} \\ f_{l}  \end{vmatrix}
+$$
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>3.3  平滑节点约束<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>该约束的目的是使样条的节点更加平滑。假设两个段<span class="math notranslate nohighlight">\(seg_k\)</span> 和<span class="math notranslate nohighlight">\(seg_{k+1}\)</span>互相连接，且<span class="math notranslate nohighlight">\(seg_k\)</span>的累计值 <strong>s</strong> 为<span class="math notranslate nohighlight">\(s_k\)</span>。计算约束的等式为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_k(t_k) = f_{k+1} (t_0)
+$$
+</pre></div>
+</div>
+<p>即：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; t_k &amp; t_k^2 &amp; t_k^3 &amp; t_k^4&amp;t_k^5 \\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k0} \\ a_{k1} \\ a_{k2} \\ a_{k3} \\ a_{k4} \\ a_{k5} 
+ \end{vmatrix} 
+ = 
+\begin{vmatrix} 
+ 1 &amp; t_{0} &amp; t_{0}^2 &amp; t_{0}^3 &amp; t_{0}^4&amp;t_{0}^5 \\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k+1,0} \\ a_{k+1,1} \\ a_{k+1,2} \\ a_{k+1,3} \\ a_{k+1,4} \\ a_{k+1,5} 
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>然后，</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; t_k &amp; t_k^2 &amp; t_k^3 &amp; t_k^4&amp;t_k^5 &amp;  -1 &amp; -t_{0} &amp; -t_{0}^2 &amp; -t_{0}^3 &amp; -t_{0}^4&amp;-t_{0}^5\\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k0} \\ a_{k1} \\ a_{k2} \\ a_{k3} \\ a_{k4} \\ a_{k5} \\ a_{k+1,0} \\ a_{k+1,1} \\ a_{k+1,2} \\ a_{k+1,3} \\ a_{k+1,4} \\ a_{k+1,5}   
+ \end{vmatrix} 
+ = 0
+$$
+</pre></div>
+</div>
+<p>等式中得出的结果为<span class="math notranslate nohighlight">\(t_0\)</span> = 0。</p>
+<p>同样地，为下述等式计算约束等式：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;_k(t_k) = f&#39;_{k+1} (t_0)
+\\
+f&#39;&#39;_k(t_k) = f&#39;&#39;_{k+1} (t_0)
+\\
+f&#39;&#39;&#39;_k(t_k) = f&#39;&#39;&#39;_{k+1} (t_0)
+$$
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>3.4  点采样边界约束<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>在路径上均匀的取样 <strong>m</strong> 个点，检查这些点上的障碍物边界。将这些约束转换为QP约束不等式，使用不等式：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+Ax \leq b
+$$
+</pre></div>
+</div>
+<p>首先基于道路宽度和周围的障碍物找到点 <span class="math notranslate nohighlight">\((s_j, l_j)\)</span>的下边界<span class="math notranslate nohighlight">\(l_{lb,j}\)</span>，且<span class="math notranslate nohighlight">\(j\in[0, m]\)</span>。计算约束的不等式为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; t_0 &amp; t_0^2 &amp; t_0^3 &amp; t_0^4&amp;t_0^5 \\
+  1 &amp; t_1 &amp; t_1^2 &amp; t_1^3 &amp; t_1^4&amp;t_1^5 \\
+ ...&amp;...&amp;...&amp;...&amp;...&amp;... \\
+ 1 &amp; t_m &amp; t_m^2 &amp; t_m^3 &amp; t_m^4&amp;t_m^5 \\
+ \end{vmatrix} \cdot \begin{vmatrix} a_i \\ b_i \\ c_i \\ d_i \\ e_i \\ f_i \end{vmatrix} 
+ \leq 
+ \begin{vmatrix}
+ l_{lb,0}\\
+ l_{lb,1}\\
+ ...\\
+ l_{lb,m}\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>同样地，对上边界<span class="math notranslate nohighlight">\(l_{ub,j}\)</span>，计算约束的不等式为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; t_0 &amp; t_0^2 &amp; t_0^3 &amp; t_0^4&amp;t_0^5 \\
+  1 &amp; t_1 &amp; t_1^2 &amp; t_1^3 &amp; t_1^4&amp;t_1^5 \\
+ ...&amp;...&amp;...&amp;...&amp;...&amp;... \\
+ 1 &amp; t_m &amp; t_m^2 &amp; t_m^3 &amp; t_m^4&amp;t_m^5 \\
+ \end{vmatrix} \cdot \begin{vmatrix} a_i \\ b_i \\ c_i \\ d_i \\ e_i \\ f_i \end{vmatrix} 
+ \leq
+ -1 \cdot
+ \begin{vmatrix}
+ l_{ub,0}\\
+ l_{ub,1}\\
+ ...\\
+ l_{ub,m}\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>3.5  速度边界优化<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>Apollo同样需要建立速度限制边界。</p>
+<p>在st曲线上取样 <strong>m</strong> 个点，为每个点<span class="math notranslate nohighlight">\(j\)</span>获取速度限制的上边界和下边界，例如<span class="math notranslate nohighlight">\(v{ub,j}\)</span> 和 <span class="math notranslate nohighlight">\(v{lb,j}\)</span>，约束定义为：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;(t_j) \geq v_{lb,j}
+$$
+</pre></div>
+</div>
+<p>即：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix}  
+0&amp; 1 &amp; t_0 &amp; t_0^2 &amp; t_0^3 &amp; t_0^4 \\  
+0 &amp; 1 &amp; t_1 &amp; t_1^2 &amp; t_1^3 &amp; t_1^4 \\ 
+...&amp;...&amp;...&amp;...&amp;...&amp;... \\ 
+0&amp; 1 &amp; t_m &amp; t_m^2 &amp; t_m^3 &amp; t_m^4 \\ 
+\end{vmatrix} 
+\cdot 
+\begin{vmatrix} 
+a_i \\ b_i \\ c_i \\ d_i \\ e_i \\ f_i 
+\end{vmatrix}  
+\geq  
+\begin{vmatrix} v_{lb,0}\\ v_{lb,1}\\ ...\\ v_{lb,m}\\ \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>且，</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;(t_j) \leq v_{ub,j}
+$$
+</pre></div>
+</div>
+<p>即：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 0&amp; 1 &amp; t_0 &amp; t_0^2 &amp; t_0^3 &amp; t_0^4 \\
+ 0 &amp; 1 &amp; t_1 &amp; t_1^2 &amp; t_1^3 &amp; t_1^4 \\
+ ...&amp;...&amp;...&amp;...&amp;...&amp;... \\
+ 0 &amp;1 &amp; t_m &amp; t_m^2 &amp; t_m^3 &amp; t_m^4 \\
+ \end{vmatrix} \cdot \begin{vmatrix} a_i \\ b_i \\ c_i \\ d_i \\ e_i \\ f_i \end{vmatrix} 
+ \leq
+ \begin{vmatrix}
+ v_{ub,0}\\
+ v_{ub,1}\\
+ ...\\
+ v_{ub,m}\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="reference_line_smoother.html" title="Reference Line Smoother"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="qp_spline_st_speed_optimizer.html" title="QP-Spline-ST-Speed Optimizer"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">二次规划ST速度优化</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

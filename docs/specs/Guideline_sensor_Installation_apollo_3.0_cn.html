@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 3.0传感器安装指南 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/Guideline_sensor_Installation_apollo_3.0_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Guide on Nuvo-6108GC Installation" href="IPC/Nuvo-6108GC_Installation_Guide.html" />
+    <link rel="prev" title="Guideline of sensor Installation for Apollo 3.0" href="Guideline_sensor_Installation_apollo_3.0.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="IPC/Nuvo-6108GC_Installation_Guide.html" title="Guide on Nuvo-6108GC Installation"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_3.0.html" title="Guideline of sensor Installation for Apollo 3.0"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0传感器安装指南</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 3.0传感器安装指南</a><ul>
+<li><a class="reference internal" href="#id1">需要的硬件</a></li>
+<li><a class="reference internal" href="#id2">坐标系</a></li>
+<li><a class="reference internal" href="#id3">传感器安装指南</a><ul>
+<li><a class="reference internal" href="#imu-gps">IMU/GPS</a></li>
+<li><a class="reference internal" href="#radar">Radar</a></li>
+<li><a class="reference internal" href="#camera">Camera</a><ul>
+<li><a class="reference internal" href="#id4">安装摄像机后的检验</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Guideline_sensor_Installation_apollo_3.0.html"
+                        title="上一章">Guideline of sensor Installation for Apollo 3.0</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="IPC/Nuvo-6108GC_Installation_Guide.html"
+                        title="下一章">Guide on Nuvo-6108GC Installation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/Guideline_sensor_Installation_apollo_3.0_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-3-0">
+<h1>Apollo 3.0传感器安装指南<a class="headerlink" href="#apollo-3-0" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>需要的硬件<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><img alt="Image" src="../../_images/perception_required_hardware.png" /></p>
+<p>外部设备</p>
+<p><img alt="Image" src="../../_images/perception_peripherals.png" /></p>
+</section>
+<section id="id2">
+<h2>坐标系<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>单位：毫米（mm）</p>
+<p>原点：车辆后轮轴中心</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure1.png" /></p>
+<p><strong>Figure 1. 原点和坐标系</strong></p>
+<p><img alt="Image" src="../../_images/perception_setup_figure2.png" /></p>
+<p><strong>Figure 2. 卡车坐标系和安装摄像机与雷达的示意图</strong></p>
+</section>
+<section id="id3">
+<h2>传感器安装指南<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<section id="imu-gps">
+<h3>IMU/GPS<a class="headerlink" href="#imu-gps" title="永久链接至标题">¶</a></h3>
+<p>IMU/GPS需要安装在靠近后车轮毂的位置。GPS天线需要安装在车辆顶部。</p>
+</section>
+<section id="radar">
+<h3>Radar<a class="headerlink" href="#radar" title="永久链接至标题">¶</a></h3>
+<p>远程雷达需要安装在车辆前保险杠上，请参考Figure 1 and Figure 2展示的信息。</p>
+</section>
+<section id="camera">
+<h3>Camera<a class="headerlink" href="#camera" title="永久链接至标题">¶</a></h3>
+<p>一个6mm镜头的摄像机应该面向车辆的前方。前向摄像机应当安装在车辆前部的中心位置，离地面高度为1600mm到2000mm（Camera 1），或者安装在车辆挡风玻璃上（Camera 2）。</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure3.png" /></p>
+<p><strong>Figure 3. 安装摄像机的示例图</strong></p>
+<p>摄像机安装完成后，摄像机w、r、t的物理坐标x、y、z应该被记录在校准文件里。</p>
+<section id="id4">
+<h4>安装摄像机后的检验<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h4>
+<p>三个摄像机的方位应当全部设置为0。摄像机安装后，需要车辆在公路以直线开动一段距离并记录一个rosbag，通过rosbag的回放，摄像机的方位需要重新调整以设置间距、偏航角并将角度转置为0度。如果摄像机被正确的安装，地平线应该在画面高度方向上的正中间并且不倾斜。灭点同样应该在画面的正中间。请参考下述图片以将摄像机设置为最佳状态：</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure4.png" /></p>
+<p><strong>Figure 4. 摄像机安装后的画面示例。地平线应该在画面高度方向上的正中间并且不倾斜。灭点同样应该在画面的正中间。 红色线段显示了画面高度和宽度方向上的中点。</strong></p>
+<p>估测的平移参数的示例如下所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">header</span><span class="p">:</span>
+    <span class="n">seq</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">stamp</span><span class="p">:</span>
+        <span class="n">secs</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="n">nsecs</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">frame_id</span><span class="p">:</span> <span class="n">white_mkz</span>
+<span class="n">child_frame_id</span><span class="p">:</span> <span class="n">onsemi_obstacle</span>
+<span class="n">transform</span><span class="p">:</span>
+    <span class="n">rotation</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">:</span>  <span class="mf">0.5</span>
+        <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span>
+        <span class="n">z</span><span class="p">:</span>  <span class="mf">0.5</span>
+        <span class="n">w</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span>
+    <span class="n">translation</span><span class="p">:</span>	
+        <span class="n">x</span><span class="p">:</span> <span class="mf">1.895</span>
+        <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.235</span>
+        <span class="n">z</span><span class="p">:</span> <span class="mf">1.256</span> 
+</pre></div>
+</div>
+<p>如果角度不为0，则上述数据需要重新校准并在四元数中表示（参考上例中的transform-&gt;rotation	）</p>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="IPC/Nuvo-6108GC_Installation_Guide.html" title="Guide on Nuvo-6108GC Installation"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_3.0.html" title="Guideline of sensor Installation for Apollo 3.0"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0传感器安装指南</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

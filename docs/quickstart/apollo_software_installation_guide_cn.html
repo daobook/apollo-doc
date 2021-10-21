@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo软件安装指南 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/quickstart/apollo_software_installation_guide_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo Upgraded Hardware and System Installation Guide" href="apollo_updated_hardware_system_installation_guide.html" />
+    <link rel="prev" title="Apollo Software Installation Guide" href="apollo_software_installation_guide.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo_updated_hardware_system_installation_guide.html" title="Apollo Upgraded Hardware and System Installation Guide"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_software_installation_guide.html" title="Apollo Software Installation Guide"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo软件安装指南</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo软件安装指南</a><ul>
+<li><a class="reference internal" href="#id1">前期准备</a></li>
+<li><a class="reference internal" href="#id2">下载Apollo源文件</a></li>
+<li><a class="reference internal" href="#docker">启动Docker容器</a></li>
+<li><a class="reference internal" href="#apollodocker">进入Apollo的Docker容器</a></li>
+<li><a class="reference internal" href="#id3">在容器内构建Apollo</a></li>
+<li><a class="reference internal" href="#id4">启动并运行Apollo</a></li>
+<li><a class="reference internal" href="#dreamview">（可选）在Dreamview中支持新的车型</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo_software_installation_guide.html"
+                        title="上一章">Apollo Software Installation Guide</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo_updated_hardware_system_installation_guide.html"
+                        title="下一章">Apollo Upgraded Hardware and System Installation Guide</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/quickstart/apollo_software_installation_guide_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo">
+<h1>Apollo软件安装指南<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>本文档介绍了在Ubuntu 18.04.5 LTS（Bionic Beaver）（建议用于Apollo 6.0的Ubuntu版本）上安装Apollo软件所需的步骤。</p>
+<section id="id1">
+<h2>前期准备<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>在开始之前，请确保已按照<a class="reference internal" href="../specs/prerequisite_software_installation_guide.html"><span class="doc std std-doc">必备软件安装指南</span></a>中的说明完成了所有必备步骤。</p>
+<p>同时也要确保Docker正在运行。键入<code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">docker</span></code>以检查Docker守护进程的运行状态，并根据需要键入<code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">docker</span></code>以启动 Docker。</p>
+</section>
+<section id="id2">
+<h2>下载Apollo源文件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>运行以下命令克隆<a class="reference external" href="https://github.com/ApolloAuto/apollo.git">Apollo的GitHub仓库</a>。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 使用 SSH 的方式</span>
+git clone git@github.com:ApolloAuto/apollo.git
+
+<span class="c1"># 使用 HTTPS 的方式</span>
+git clone https://github.com/ApolloAuto/apollo.git
+</pre></div>
+</div>
+<p>切换到<code class="docutils literal notranslate"><span class="pre">master</span></code>分支:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> apollo
+git checkout master
+</pre></div>
+</div>
+<p>对于中国用户, 如果从GitHub克隆仓库有困难，可参考<a class="reference internal" href="../howto/how_to_clone_apollo_repo_from_china_cn.html"><span class="doc std std-doc">国内环境下如何克隆Apollo仓库</span></a>。</p>
+<p>（可选）为方便起见，可以在Apollo的根目录运行以下命令来设置指向该目录的环境变量<code class="docutils literal notranslate"><span class="pre">APOLLO_ROOT_DIR</span></code>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export APOLLO_ROOT_DIR=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span> &gt;&gt; ~/.bashrc  <span class="o">&amp;&amp;</span> <span class="nb">source</span> ~/.bashrc
+</pre></div>
+</div>
+<p><img alt="tip" src="../../_images/tip_icon1.png" /> 在下面的章节中，我们会把Apollo的根目录称为<code class="docutils literal notranslate"><span class="pre">$APOLLO_ROOT_DIR</span></code>。</p>
+</section>
+<section id="docker">
+<h2>启动Docker容器<a class="headerlink" href="#docker" title="永久链接至标题">¶</a></h2>
+<p>在<code class="docutils literal notranslate"><span class="pre">${APOLLO_ROOT_DIR}</span></code>目录, 输入：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash docker/scripts/dev_start.sh
+</pre></div>
+</div>
+<p>来启动Apollo的Docker开发容器。</p>
+<p>如果成功，你将在屏幕下方看到以下信息：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span> OK <span class="o">]</span> Congratulations! You have successfully finished setting up Apollo Dev Environment.
+<span class="o">[</span> OK <span class="o">]</span> To login into the newly created apollo_dev_michael container, please run the following command:
+<span class="o">[</span> OK <span class="o">]</span>   bash docker/scripts/dev_into.sh
+<span class="o">[</span> OK <span class="o">]</span> Enjoy!
+</pre></div>
+</div>
+</section>
+<section id="apollodocker">
+<h2>进入Apollo的Docker容器<a class="headerlink" href="#apollodocker" title="永久链接至标题">¶</a></h2>
+<p>运行以下命令以登录到新启动的容器：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash docker/scripts/dev_into.sh
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>在容器内构建Apollo<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>在Docker容器的<code class="docutils literal notranslate"><span class="pre">/apollo</span></code>目录中, 输入:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./apollo.sh build
+</pre></div>
+</div>
+<p>以构建整个Apollo工程。或者输入</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./apollo.sh build_opt
+</pre></div>
+</div>
+<p>来进行优化模式的构建。可以参考<a class="reference internal" href="../specs/apollo_build_and_test_explained.html"><span class="doc std std-doc">Apollo构建和测试说明</span></a>来全面了解Apollo的构建和测试。</p>
+</section>
+<section id="id4">
+<h2>启动并运行Apollo<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>请参考<a class="reference internal" href="../howto/how_to_launch_and_run_apollo.html"><span class="doc std std-doc">如何启动并运行Apollo</span></a>中的<a class="reference external" href="../howto/how_to_launch_and_run_apollo.md#run-apollo">运行Apollo</a>部分。</p>
+</section>
+<section id="dreamview">
+<h2>（可选）在Dreamview中支持新的车型<a class="headerlink" href="#dreamview" title="永久链接至标题">¶</a></h2>
+<p>为了在Dreamview中支持新的车型，请按照以下步骤操作：</p>
+<ol class="simple">
+<li><p>在<code class="docutils literal notranslate"><span class="pre">modules/calibration/data</span></code>目录下为你的车型创建一个新文件夹。</p></li>
+<li><p>在<code class="docutils literal notranslate"><span class="pre">modules/calibration/data</span></code>文件夹中已经有一个叫作<code class="docutils literal notranslate"><span class="pre">mkz_example</span></code>的示例文件夹。请参考此结构，并以此结构包含所有必需的配置文件。如果需要的话，请记得使用自己的参数更新配置文件。</p></li>
+<li><p>重启Dreamview，你将能够在可选车型列表中看到你的新车型（名称与你创建的文件夹相同）。</p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo_updated_hardware_system_installation_guide.html" title="Apollo Upgraded Hardware and System Installation Guide"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_software_installation_guide.html" title="Apollo Software Installation Guide"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo软件安装指南</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

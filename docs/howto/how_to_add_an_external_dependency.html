@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to Add a New External Dependency &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_add_an_external_dependency.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Build, Test and Run your Python Application" href="how_to_build_and_run_python_app.html" />
+    <link rel="prev" title="如何在Apollo中添加新的车辆" href="how_to_add_a_new_vehicle_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_build_and_run_python_app.html" title="How to Build, Test and Run your Python Application"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_vehicle_cn.html" title="如何在Apollo中添加新的车辆"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Add a New External Dependency</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Add a New External Dependency</a><ul>
+<li><a class="reference internal" href="#library-that-supports-bazel">1. Library that supports bazel</a></li>
+<li><a class="reference internal" href="#library-with-handcrafted-build-file">2. Library with handcrafted BUILD file</a></li>
+<li><a class="reference internal" href="#library-which-is-pre-installed-into-the-operating-system">3. Library which is pre-installed into the operating system</a></li>
+<li><a class="reference internal" href="#note">Note</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_vehicle_cn.html"
+                        title="上一章">如何在Apollo中添加新的车辆</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_build_and_run_python_app.html"
+                        title="下一章">How to Build, Test and Run your Python Application</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_add_an_external_dependency.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-add-a-new-external-dependency">
+<h1>How to Add a New External Dependency<a class="headerlink" href="#how-to-add-a-new-external-dependency" title="永久链接至标题">¶</a></h1>
+<p>The bazel files about third-party dependencies are all in the folder
+<span class="xref myst">third_party</span>
+which has a structure as following.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  third_party
+      ├── absl
+      │   ├── BUILD
+      │   └── workspace.bzl
+      ├── ACKNOWLEDGEMENT.txt
+      ├── adolc
+      │   ├── adolc.BUILD
+      │   ├── BUILD
+      │   └── workspace.bzl
+      ├── ad_rss_lib
+      │   ├── ad_rss_lib.BUILD
+      │   ├── BUILD
+      │   └── workspace.bzl
+      ├── benchmark
+      │   ├── benchmark.BUILD
+      │   ├── BUILD
+      │   └── workspace.bzl
+      ├── boost
+      │   ├── boost.BUILD
+      │   ├── BUILD
+      │   └── workspace.bzl
+      ├── BUILD
+  ......
+</pre></div>
+</div>
+<p>For each external denpendency library, there is a seperate folder that contains
+a <code class="docutils literal notranslate"><span class="pre">BUILD</span></code> file with the contents of:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">package</span><span class="p">(</span>
+    <span class="n">default_visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Further, libraries can be divided into several categories.</p>
+<section id="library-that-supports-bazel">
+<h2>1. Library that supports bazel<a class="headerlink" href="#library-that-supports-bazel" title="永久链接至标题">¶</a></h2>
+<p>For example,</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/abseil/abseil-cpp">Abseil</a></p></li>
+<li><p><a class="reference external" href="https://github.com/google/googletest">Google Test</a></p></li>
+</ul>
+<p>Import it into workspace.bzl:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@bazel_tools//tools/build_defs/repo:http.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;http_archive&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">repo</span><span class="p">():</span>
+    <span class="n">http_archive</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;com_google_absl&quot;</span><span class="p">,</span>
+        <span class="n">sha256</span> <span class="o">=</span> <span class="s2">&quot;f41868f7a938605c92936230081175d1eae87f6ea2c248f41077c8f88316f111&quot;</span><span class="p">,</span>
+        <span class="n">strip_prefix</span> <span class="o">=</span> <span class="s2">&quot;abseil-cpp-20200225.2&quot;</span><span class="p">,</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;https://github.com/abseil/abseil-cpp/archive/20200225.2.tar.gz&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="library-with-handcrafted-build-file">
+<h2>2. Library with handcrafted BUILD file<a class="headerlink" href="#library-with-handcrafted-build-file" title="永久链接至标题">¶</a></h2>
+<p>It’s pretty common to do so. But it needs very solid knowledge with bazel.</p>
+<p><span class="xref myst">workspace.bzl</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@bazel_tools//tools/build_defs/repo:http.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;http_archive&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">clean_dep</span><span class="p">(</span><span class="n">dep</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">dep</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">repo</span><span class="p">():</span>
+    <span class="n">http_archive</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;com_github_jbeder_yaml_cpp&quot;</span><span class="p">,</span>
+        <span class="n">build_file</span> <span class="o">=</span> <span class="n">clean_dep</span><span class="p">(</span><span class="s2">&quot;//third_party/yaml_cpp:yaml_cpp.BUILD&quot;</span><span class="p">),</span>
+        <span class="n">sha256</span> <span class="o">=</span> <span class="s2">&quot;77ea1b90b3718aa0c324207cb29418f5bced2354c2e483a9523d98c3460af1ed&quot;</span><span class="p">,</span>
+        <span class="n">strip_prefix</span> <span class="o">=</span> <span class="s2">&quot;yaml-cpp-yaml-cpp-0.6.3&quot;</span><span class="p">,</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.6.3.tar.gz&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="xref myst">yaml.BUILD</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_cc//cc:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cc_library&quot;</span><span class="p">)</span>
+
+<span class="n">cc_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;yaml-cpp&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span>
+        <span class="s2">&quot;src/*.cpp&quot;</span><span class="p">,</span>
+    <span class="p">]),</span>
+    <span class="n">hdrs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span>
+        <span class="s2">&quot;include/yaml-cpp/*.h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;src/*.h&quot;</span><span class="p">,</span>
+    <span class="p">]),</span>
+    <span class="n">includes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;include&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;src&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="library-which-is-pre-installed-into-the-operating-system">
+<h2>3. Library which is pre-installed into the operating system<a class="headerlink" href="#library-which-is-pre-installed-into-the-operating-system" title="永久链接至标题">¶</a></h2>
+<p>It’s NOT recommended, as it breaks the rule of a self-contained bazel WORKSPACE.
+However, some libraries are very complicated to build with bazel, while the
+operating system, such as Ubuntu, provides easy installation.</p>
+<p>Please do raise a discussion before doing so. Then we can add it to the docker
+image.</p>
+<p>For example,</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/pocoproject/poco">Poco</a></p></li>
+</ul>
+<p><span class="xref myst">workspace.bzl</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_dep</span><span class="p">(</span><span class="n">dep</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">dep</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">repo</span><span class="p">():</span>
+    <span class="n">native</span><span class="o">.</span><span class="n">new_local_repository</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;poco&quot;</span><span class="p">,</span>
+        <span class="n">build_file</span> <span class="o">=</span> <span class="n">clean_dep</span><span class="p">(</span><span class="s2">&quot;//third_party/poco:poco.BUILD&quot;</span><span class="p">),</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;/opt/apollo/sysroot/include&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="xref myst">poco.BUILD</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@rules_cc//cc:defs.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;cc_library&quot;</span><span class="p">)</span>
+
+<span class="n">package</span><span class="p">(</span><span class="n">default_visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">])</span>
+
+<span class="n">licenses</span><span class="p">([</span><span class="s2">&quot;notice&quot;</span><span class="p">])</span>
+
+<span class="n">cc_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PocoFoundation&quot;</span><span class="p">,</span>
+    <span class="n">includes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">],</span>
+    <span class="n">linkopts</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;-L/opt/apollo/sysroot/lib&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-lPocoFoundation&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that in such case, you should include the headers like
+<code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;Poco/SharedLibrary.h&gt;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&quot;Poco/SharedLibrary.h&quot;</span></code>
+as they are in the system path.</p>
+</section>
+<section id="note">
+<h2>Note<a class="headerlink" href="#note" title="永久链接至标题">¶</a></h2>
+<p>For all of the above types of external dependencies, we also need to add them
+into
+<span class="xref myst">tools/workspace.bzl</span></p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="永久链接至标题">¶</a></h2>
+<p>For a detailed description on adding a dependency with Bazel, refer to the
+following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bazel.build/versions/master/docs/be/workspace.html">Workspace Rules</a></p></li>
+<li><p><a class="reference external" href="https://docs.bazel.build/versions/master/external.html">Working with external dependencies</a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_build_and_run_python_app.html" title="How to Build, Test and Run your Python Application"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_vehicle_cn.html" title="如何在Apollo中添加新的车辆"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Add a New External Dependency</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

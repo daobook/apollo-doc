@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Innovusion安装指南 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/Lidar/Innovusion_Note_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Apollo LiDAR" href="README.html" />
+    <link rel="prev" title="Installation guide of Innovusion" href="Innovusion_Note.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="README.html" title="Apollo LiDAR"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Innovusion_Note.html" title="Installation guide of Innovusion"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Innovusion安装指南</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Innovusion安装指南</a><ul>
+<li><a class="reference internal" href="#id1">产品简介</a></li>
+<li><a class="reference internal" href="#id2">免责声明</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Innovusion_Note.html"
+                        title="上一章">Installation guide of Innovusion</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="README.html"
+                        title="下一章">Apollo LiDAR</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/specs/Lidar/Innovusion_Note_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="innovusion">
+<h1>Innovusion安装指南<a class="headerlink" href="#innovusion" title="永久链接至标题">¶</a></h1>
+<p>请注意，Innovusion的激光雷达产品目前必须由经过培训的工程师安装。 欲了解更多信息，<a class="reference external" href="http://%E8%AF%B7%E9%80%9A%E8%BF%87%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6Yimin.li">请通过电子邮件Yimin.li</a>&#64;innovusion.com与Yimin Li联系。</p>
+<section id="id1">
+<h2>产品简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p><strong>解决方案</strong>: 提供接近图像质量，在垂直和水平尺寸上具有超过300行分辨率和数百个像素。</p></li>
+<li><p><strong>探测范围</strong>: 在距离最远150米处检测到明暗物体，这使得汽车能够在高速公路上以及在复杂的驾驶情况下做出反应并做出决定。</p></li>
+<li><p><strong>传感器融合</strong>: 将LiDAR原始数据与硬件层中的摄像头视频融合在一起，可显著减少延迟，提高计算效率并创建出色的传感器体验。</p></li>
+<li><p><strong>易用性</strong>: 设计紧凑，可以轻松灵活地集成，而不会影响车辆的空气动力学性能。 Innovusion的产品利用成熟供应链合作伙伴提供的组件，实现快速上市和批量生产，且定价合理。</p></li>
+</ol>
+</section>
+<section id="id2">
+<h2>免责声明<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>该设备由<code class="docutils literal notranslate"><span class="pre">Apollo硬件开发平台提供支持</span></code></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="README.html" title="Apollo LiDAR"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Innovusion_Note.html" title="Installation guide of Innovusion"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Innovusion安装指南</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

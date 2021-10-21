@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to set up Apollo 3.5’s software on Dual-IPCs &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_setup_dual_ipc.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="国内环境 GitHub 拉取仓库速度慢的缓解方案" href="how_to_solve_slow_pull_from_cn.html" />
+    <link rel="prev" title="How to Save and Load Apollo Docker Images" href="how_to_save_and_load_docker_image.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_solve_slow_pull_from_cn.html" title="国内环境 GitHub 拉取仓库速度慢的缓解方案"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_save_and_load_docker_image.html" title="How to Save and Load Apollo Docker Images"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to set up Apollo 3.5’s software on Dual-IPCs</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to set up Apollo 3.5’s software on Dual-IPCs</a><ul>
+<li><a class="reference internal" href="#software">Software</a></li>
+<li><a class="reference internal" href="#runtime-framework">Runtime Framework</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#clone-and-install-linux-ptp">Clone and install linux PTP</a></li>
+<li><a class="reference internal" href="#clone-apollo-3-5">Clone Apollo 3.5</a></li>
+<li><a class="reference internal" href="#build-docker-environment">Build Docker environment</a></li>
+<li><a class="reference internal" href="#run-cyberrt-on-both-of-ipcs">Run CyberRT on both of IPCs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#future-work-to-do">Future work (To Do)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_save_and_load_docker_image.html"
+                        title="上一章">How to Save and Load Apollo Docker Images</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_solve_slow_pull_from_cn.html"
+                        title="下一章">国内环境 GitHub 拉取仓库速度慢的缓解方案</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_setup_dual_ipc.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-set-up-apollo-3-5s-software-on-dual-ipcs">
+<h1>How to set up Apollo 3.5’s software on Dual-IPCs<a class="headerlink" href="#how-to-set-up-apollo-3-5s-software-on-dual-ipcs" title="永久链接至标题">¶</a></h1>
+<p>The modules of Apollo 3.5 are separately launched from two industrial PCs. This guide introduces the hardware/software setup on two parallel IPCs.</p>
+<section id="software">
+<h2>Software<a class="headerlink" href="#software" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Apollo 3.5</p></li>
+<li><p>Linux precision time protocol</p></li>
+</ul>
+</section>
+<section id="runtime-framework">
+<h2>Runtime Framework<a class="headerlink" href="#runtime-framework" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>CyberRT</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="永久链接至标题">¶</a></h2>
+<p>There are two steps in the installation process:</p>
+<ul class="simple">
+<li><p>Clone and install linux PTP code on both of IPCs</p></li>
+<li><p>Clone Apollo 3.5 Github code on both of IPCs</p></li>
+</ul>
+<section id="clone-and-install-linux-ptp">
+<h3>Clone and install linux PTP<a class="headerlink" href="#clone-and-install-linux-ptp" title="永久链接至标题">¶</a></h3>
+<p>Install PTP utility and synchorize the system time on both of IPCs.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>  git clone https://github.com/richardcochran/linuxptp.git
+  <span class="nb">cd</span> linuxptp
+  make
+
+  <span class="c1"># on IPC1:</span>
+  sudo ./ptp4l -i eth0 -m <span class="p">&amp;</span>
+
+  <span class="c1"># on IPC2:</span>
+  sudo ./ptp4l -i eth0 -m -s <span class="p">&amp;</span>
+  sudo ./phc2sys -a -r <span class="p">&amp;</span>
+</pre></div>
+</div>
+</section>
+<section id="clone-apollo-3-5">
+<h3>Clone Apollo 3.5<a class="headerlink" href="#clone-apollo-3-5" title="永久链接至标题">¶</a></h3>
+<p>Install Apollo 3.5 on local ubuntu machine</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>  git clone https://github.com/ApolloAuto/apollo.git
+</pre></div>
+</div>
+</section>
+<section id="build-docker-environment">
+<h3>Build Docker environment<a class="headerlink" href="#build-docker-environment" title="永久链接至标题">¶</a></h3>
+<p>Refer to the <a class="reference internal" href="../quickstart/apollo_software_installation_guide.html"><span class="doc std std-doc">How to build docker environment</span></a></p>
+</section>
+<section id="run-cyberrt-on-both-of-ipcs">
+<h3>Run CyberRT on both of IPCs<a class="headerlink" href="#run-cyberrt-on-both-of-ipcs" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>Change directory to apollo</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   <span class="nb">cd</span> apollo
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Start docker environment</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   bash docker/scripts/dev_start.sh
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Enter docker environment</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   bash docker/scripts/dev_into.sh
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Build Apollo in the Container:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   bash apollo.sh build_opt_gpu
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Change CYBER_IP in cyber/setup.bash to IPC1’s ip address:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   <span class="nb">source</span> cyber/setup.bash
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Start CyberRT and Dreamview:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   bash scripts/bootstrap.sh
+</pre></div>
+</div>
+<ol>
+<li><p>Open Chrome and go to localhost:8888 to access Apollo Dreamview:</p>
+<ul>
+<li><p>on IPC1</p>
+<p>The header has 3 drop-downs, mode selector, vehicle selector and map selector.</p>
+<p><img alt="IPC1 Task" src="../../_images/IPC1_dv.png" /></p>
+<p>Select mode, for example “ipc1 Mkz Standard Debug”</p>
+<p><img alt="IPC1 mode" src="../../_images/IPC1_mode.png" /></p>
+<p>Select vehicle, for example “Mkz Example”</p>
+<p><img alt="IPC1 car" src="../../_images/IPC1_car.png" /></p>
+<p>Select map, for example “Sunnyvale Big Loop”</p>
+<p><img alt="IPC1 map" src="../../_images/IPC1_map.png" /></p>
+<p>All the tasks that you could perform in DreamView, in general, setup button turns on all the modules.</p>
+<p><img alt="IPC1 setup" src="../../_images/IPC1_setup.png" /></p>
+<p>All the hardware components should be connected to IPC1 and the modules, localization, perception, routing, recorder, traffic light and transform, are allocated on IPC1 also.</p>
+<p>Module Control on sidebar panel is used to check the modules on IPC1</p>
+<p><img alt="IPC1 check" src="../../_images/IPC1_check.png" /></p>
+<p>In order to open dreamview on IPC2, user must stop it on IPC1 by using the below command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>  <span class="c1"># Stop dreamview on IPC1</span>
+  bash scripts/bootstrap.sh stop
+</pre></div>
+</div>
+</li>
+<li><p>on IPC2
+Change CYBER_IP in cyber/setup.bash to IPC2’s ip address:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>  <span class="nb">source</span> cyber/setup.bash
+</pre></div>
+</div>
+<p>Start dreamview on IPC2 by using the below command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>  <span class="c1"># Start dremview on IPC2</span>
+  bash scripts/bootstrap.sh
+</pre></div>
+</div>
+<p>Select mode, vehicle and map on dreamview as the same operations on IPC1
+<img alt="IPC2 Task" src="../../_images/IPC2_setup.png" /></p>
+<p>The modules - planning, prediction and control are assigned on IPC2.</p>
+<p>Module Control on sidebar panel is used to check the modules on IPC2</p>
+<p><img alt="IPC2 modules" src="../../_images/IPC2_check.png" /></p>
+<p><a class="reference internal" href="../specs/dreamview_usage_table.html"><span class="doc std std-doc">See Dreamview user’s guide</span></a></p>
+</li>
+</ul>
+</li>
+<li><p>How to start/stop Dreamview:</p></li>
+</ol>
+<p>The current version of Dreamview shouldn’t run on the different IPCs simultaneously, so the user must perform it alternatively on IPC1 or IPC2.</p>
+<p>The code below can be used to stop Dreamview on IPC2 and start it on IPC1.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   <span class="c1"># Stop Dreamview on IPC2</span>
+   bash scripts/bootstrap.sh stop
+
+   <span class="c1"># Start Dreamview on IPC1</span>
+   bash scripts/bootstrap.sh
+</pre></div>
+</div>
+<ol>
+<li><p>Cyber monitor</p>
+<p>Cyber monitor is CyberRT’s tool used to check the status of all of the modules on local and remote machines. The User may observe the activity status of all the hardware and software components and ensure that they are working correctly.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="future-work-to-do">
+<h2>Future work (To Do)<a class="headerlink" href="#future-work-to-do" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Multiple Dreamviews may run simultaneously</p></li>
+<li><p>Fix a bug that modules are still greyed-out after clicking the setup button. Users may check each modules’ status by using the command</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>   ps aux <span class="p">|</span> grep mainboard
+</pre></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="license">
+<h1>License<a class="headerlink" href="#license" title="永久链接至标题">¶</a></h1>
+<p><span class="xref myst">Apache license</span></p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_solve_slow_pull_from_cn.html" title="国内环境 GitHub 拉取仓库速度慢的缓解方案"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_save_and_load_docker_image.html" title="How to Save and Load Apollo Docker Images"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to set up Apollo 3.5’s software on Dual-IPCs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

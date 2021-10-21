@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Localization &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/localization/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="定位" href="README_cn.html" />
+    <link rel="prev" title="ultrasonic_radar" href="../drivers/radar/ultrasonic_radar/README_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="README_cn.html" title="定位"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../drivers/radar/ultrasonic_radar/README_cn.html" title="ultrasonic_radar"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Localization</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Localization</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#input">Input</a></li>
+<li><a class="reference internal" href="#output">Output</a></li>
+<li><a class="reference internal" href="#implementing-localization">Implementing Localization</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../drivers/radar/ultrasonic_radar/README_cn.html"
+                        title="上一章">ultrasonic_radar</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="README_cn.html"
+                        title="下一章">定位</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/modules/localization/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="localization">
+<h1>Localization<a class="headerlink" href="#localization" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>This module provides localization services. There are two ways in which localization is provided:</p>
+<ul class="simple">
+<li><p>The RTK (Real Time Kinematic) based method which incorporates GPS and IMU (Inertial Measurement Unit) information</p></li>
+<li><p>The  multi-sensor fusion method which incorporates GPS, IMU, and LiDAR information.</p></li>
+</ul>
+</section>
+<section id="input">
+<h2>Input<a class="headerlink" href="#input" title="永久链接至标题">¶</a></h2>
+<p>In the provided RTK localization method, there are two inputs:</p>
+<ul class="simple">
+<li><p>GPS - The Global Positioning System</p></li>
+<li><p>IMU - Inertial Measurement Unit</p></li>
+</ul>
+<p>In the  multi-sensor fusion localization method, there are three inputs:</p>
+<ul class="simple">
+<li><p>GPS - The Global Positioning System</p></li>
+<li><p>IMU - Inertial Measurement Unit</p></li>
+<li><p>LiDAR - Light Detection And Ranging Sensor</p></li>
+</ul>
+<p>For more information, refer to</p>
+<p>Guowei Wan, Xiaolong Yang, Renlan Cai, Hao Li, Yao Zhou, Hao Wang, Shiyu Song. “Robust and Precise Vehicle Localization Based on Multi-Sensor Fusion in Diverse City Scenes,” 2018 IEEE International Conference on Robotics and Automation (ICRA), Brisbane, QLD, 2018, pp. 4670-4677.
+doi: 10.1109/ICRA.2018.8461224. <a class="reference external" href="https://ieeexplore.ieee.org/document/8461224">link</a></p>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="永久链接至标题">¶</a></h2>
+<p>An object instance defined by Protobuf message <code class="docutils literal notranslate"><span class="pre">LocalizationEstimate</span></code>, which can be found in file <code class="docutils literal notranslate"><span class="pre">localization/proto/localization.proto</span></code>.</p>
+</section>
+<section id="implementing-localization">
+<h2>Implementing Localization<a class="headerlink" href="#implementing-localization" title="永久链接至标题">¶</a></h2>
+<p>Currently the RTK based localization is implemented in class <code class="docutils literal notranslate"><span class="pre">RTKLocalization</span></code>. If you are implementing a new localization method, for example, <code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code>, you would need to perform the following steps:</p>
+<ol class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">proto/localization_config.proto</span></code>, add a value <code class="docutils literal notranslate"><span class="pre">FOO</span></code> to the <code class="docutils literal notranslate"><span class="pre">LocalizationType</span></code> enum type</p></li>
+<li><p>Go to the <code class="docutils literal notranslate"><span class="pre">modules/localization</span></code> directory, and create a <code class="docutils literal notranslate"><span class="pre">foo</span></code> directory. In the <code class="docutils literal notranslate"><span class="pre">foo</span></code> directory, implement the class <code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code> by following the code in the <code class="docutils literal notranslate"><span class="pre">RTKLocalization</span></code> class in the <code class="docutils literal notranslate"><span class="pre">rtk</span></code> directory. <code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code> has to be a subclass of <code class="docutils literal notranslate"><span class="pre">LocalizationBase</span></code>. Also create a file <code class="docutils literal notranslate"><span class="pre">foo/BUILD</span></code> by following the file <code class="docutils literal notranslate"><span class="pre">rtk/BUILD</span></code></p></li>
+<li><p>You need to register the <code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code> class in the function <code class="docutils literal notranslate"><span class="pre">Localization::RegisterLocalizationMethods()</span></code>, which is located in the <code class="docutils literal notranslate"><span class="pre">localization.cc</span></code> file. You can register it by inserting the following code at the end of the function:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">localization_factory_</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="n">LocalizationConfig</span><span class="p">::</span><span class="n">FOO</span><span class="p">,</span> <span class="p">[]()</span><span class="o">-&gt;</span><span class="n">LocalizationBase</span><span class="o">*</span> <span class="p">{</span> <span class="k">return</span> <span class="n">new</span> <span class="n">FooLocalization</span><span class="p">();</span> <span class="p">});</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Make sure your code compiles by including the header files that defines class <code class="docutils literal notranslate"><span class="pre">FooLocalization</span></code></p></li>
+<li><p>Now you can go back to the <code class="docutils literal notranslate"><span class="pre">apollo</span></code> root directory and build your code with command <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">build</span></code></p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="README_cn.html" title="定位"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../drivers/radar/ultrasonic_radar/README_cn.html" title="ultrasonic_radar"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Localization</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

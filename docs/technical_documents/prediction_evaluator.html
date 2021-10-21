@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PREDICTION EVALUATOR &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/prediction_evaluator.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="PREDICTION PREDICTOR" href="prediction_predictor.html" />
+    <link rel="prev" title="Planning Speed Bounds Decider Introduction" href="planning_speed_bounds_decider.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="prediction_predictor.html" title="PREDICTION PREDICTOR"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="planning_speed_bounds_decider.html" title="Planning Speed Bounds Decider Introduction"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">PREDICTION EVALUATOR</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PREDICTION EVALUATOR</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a><ul>
+<li><a class="reference internal" href="#solcial-interaction-evaluator">Solcial interaction evaluator</a></li>
+<li><a class="reference internal" href="#semantic-lstm-evaluator">Semantic LSTM evaluator</a></li>
+<li><a class="reference internal" href="#junction-map-evaluator">Junction map evaluator</a></li>
+<li><a class="reference internal" href="#junction-mlp-evaluator">Junction mlp evaluator</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="planning_speed_bounds_decider.html"
+                        title="上一章">Planning Speed Bounds Decider Introduction</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="prediction_predictor.html"
+                        title="下一章">PREDICTION PREDICTOR</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/prediction_evaluator.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="prediction-evaluator">
+<h1>PREDICTION EVALUATOR<a class="headerlink" href="#prediction-evaluator" title="永久链接至标题">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>The prediction module comprises 4 main functionalities: Container, Scenario, Evaluator and Predictor.</p>
+<p>The Evaluator predicts path and speed separately for any given obstacle. An evaluator evaluates a path by outputting a probability for it (lane sequence) using the given model stored in prediction/data/.</p>
+<p>The list of available evaluators include:</p>
+<ul class="simple">
+<li><p>Cost evaluator: probability is calculated by a set of cost functions</p></li>
+<li><p>MLP evaluator: probability is calculated using an MLP model</p></li>
+<li><p>RNN evaluator: probability is calculated using an RNN model</p></li>
+<li><p>Cruise MLP + CNN-1d evaluator: probability is calculated using a mix of MLP and CNN-1d models for the cruise scenario</p></li>
+<li><p>Junction MLP evaluator: probability is calculated using a MLP model for junction scenario</p></li>
+<li><p>Junction Map evaluator: probability is calculated using an semantic map-based CNN model for junction scenario. This evaluator was created for caution level obstacles</p></li>
+<li><p>Social Interaction evaluator: this model is used for pedestrians, for short term trajectory prediction. It uses social LSTM. This evaluator was created for caution level obstacles</p></li>
+<li><p>Semantic LSTM evaluator: this evaluator is used in the new Caution Obstacle model to generate short term trajectory points which are calculated using CNN and LSTM. Both vehicles and pedestrians are using this same model, but with different parameters</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="where-is-the-code">
+<h1>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h1>
+<p>Please refer <a class="reference external" href="https://github.com/ApolloAuto/apollo/modules/prediction/evaluator">prediction evaluator</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code-reading">
+<h1>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h1>
+<section id="solcial-interaction-evaluator">
+<h2>Solcial interaction evaluator<a class="headerlink" href="#solcial-interaction-evaluator" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p>The evaluator uses social LSTM to predict short-term trajectroy for pedestrians with caution level. In the code, the evaluator is named by pedestrain interaction evalutor.</p></li>
+<li><p>Extract features from obstacles.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">ExtractFeatures</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Obstacle</span><span class="o">*</span><span class="w"> </span><span class="n">obstacle_ptr</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">feature_values</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Using social LSTM module to predict short-term trajectory by following steps:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Get social embedding</p></li>
+<li><p>Get position embedding</p></li>
+<li><p>Conduct single LSTM and update hidden states</p></li>
+<li><p>Get a predicted trajectory</p></li>
+</ul>
+</section>
+<section id="semantic-lstm-evaluator">
+<h2>Semantic LSTM evaluator<a class="headerlink" href="#semantic-lstm-evaluator" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>Get and process feature map by obstacles’id.</p></li>
+<li><p>Build input features for torch.</p></li>
+<li><p>Get predicted trajectory with different parameters for different types of obstacles.</p></li>
+</ol>
+</section>
+<section id="junction-map-evaluator">
+<h2>Junction map evaluator<a class="headerlink" href="#junction-map-evaluator" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>Only care about obstalces at intersections. Obstacles are not closed to any junction exit cannot be evaluated by this evaluator.</p></li>
+<li><p>Take the obstacle as the center and the orientation as the reference direction, 12 fan-shaped areas are divided.
+<img alt="Diagram" src="../../_images/prediction_evaluator_fig_1.png" /></p></li>
+<li><p>Since the juction exit is associated with these 12 fan-shaped areas, the probability can be calculated by solving the fan-shaped areas classification problem.</p></li>
+<li><p>Assign all lane sequence probability.</p></li>
+</ol>
+</section>
+<section id="junction-mlp-evaluator">
+<h2>Junction mlp evaluator<a class="headerlink" href="#junction-mlp-evaluator" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>Using a MLP model to solve the classification problem mentioned in junction map evaluator.</p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="prediction_predictor.html" title="PREDICTION PREDICTOR"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="planning_speed_bounds_decider.html" title="Planning Speed Bounds Decider Introduction"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">PREDICTION EVALUATOR</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

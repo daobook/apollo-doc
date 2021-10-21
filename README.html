@@ -6,10 +6,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Sphinx Action &#8212; Sphinx Action alpha 文档</title>
+    <title>Apollo Auto 文档 &#8212; Sphinx documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx13.css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -18,29 +19,130 @@
     <script src="_static/translations.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="_static/favicon.svg"/>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="Sphinx Action 项目文档概述" href="docs/index.html" />
-    <link rel="prev" title="Sphinx 项目模板" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="next" title="Apollo documents" href="docs/README.html" />
+    <link rel="prev" title="Apollo Auto 目录" href="contents.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
 
   </head><body>
-  
+<div class="pageheader">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="docs/quickstart/README.html">Get it</a></li>
+    <li><a href="contents.html">Docs</a></li>
+    <li><a href="development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="#">
+      <img src="_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="docs/README.html" title="Apollo documents"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Apollo Auto 目录"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="index.html">Apollo home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo Auto 文档</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo Auto 文档</a><ul>
+<li><a class="reference internal" href="#id1">项目结构</a></li>
+<li><a class="reference internal" href="#id2">功能清单</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="contents.html"
+                        title="上一章">Apollo Auto 目录</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="docs/README.html"
+                        title="下一章">Apollo documents</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="sphinx-action">
-<h1>Sphinx Action<a class="headerlink" href="#sphinx-action" title="永久链接至标题">¶</a></h1>
-<p><a class="reference external" href="https://github.com/xinetzone/sphinx-action/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/xinetzone/sphinx-action" /></a> <a class="reference external" href="https://github.com/xinetzone/sphinx-action/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/xinetzone/sphinx-action" /></a> <a class="reference external" href="https://github.com/xinetzone/sphinx-action/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/xinetzone/sphinx-action" /></a> <a class="reference external" href="https://github.com/xinetzone/sphinx-action/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/xinetzone/sphinx-action" /></a>  <img alt="repo size" src="https://img.shields.io/github/repo-size/xinetzone/sphinx-action.svg" /> <a class="reference external" href="https://github.com/xinetzone/sphinx-action/graphs/contributors"><img alt="contributors" src="https://img.shields.io/github/contributors/xinetzone/sphinx-action.svg" /></a> <a class="reference external" href="https://github.com/xinetzone/sphinx-action/watchers"><img alt="watcher" src="https://img.shields.io/github/watchers/xinetzone/sphinx-action.svg" /></a> <img alt="" src="https://github.com/xinetzone/sphinx-action/actions/workflows/docs.yml/badge.svg" /></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-auto">
+<h1>Apollo Auto 文档<a class="headerlink" href="#apollo-auto" title="永久链接至标题">¶</a></h1>
+<p><a class="reference external" href="https://github.com/daobook/apollo-doc/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/daobook/apollo-doc" /></a> <a class="reference external" href="https://github.com/daobook/apollo-doc/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/daobook/apollo-doc" /></a> <a class="reference external" href="https://github.com/daobook/apollo-doc/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/daobook/apollo-doc" /></a> <a class="reference external" href="https://github.com/daobook/apollo-doc/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/daobook/apollo-doc" /></a>  <img alt="repo size" src="https://img.shields.io/github/repo-size/daobook/apollo-doc.svg" /> <a class="reference external" href="https://github.com/daobook/apollo-doc/graphs/contributors"><img alt="contributors" src="https://img.shields.io/github/contributors/daobook/apollo-doc.svg" /></a> <a class="reference external" href="https://github.com/daobook/apollo-doc/watchers"><img alt="watcher" src="https://img.shields.io/github/watchers/daobook/apollo-doc.svg" /></a> <img alt="" src="https://github.com/daobook/apollo-doc/actions/workflows/docs.yml/badge.svg" /></p>
 <p>本项目灵感来源于 <a class="reference external" href="https://docutils.sourceforge.io/">Docutils</a> 项目。</p>
 <section id="id1">
 <h2>项目结构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
@@ -62,90 +164,40 @@
 <section id="id2">
 <h2>功能清单<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>角色 <code class="xref rst rst-role docutils literal notranslate"><span class="pre">:daobook:</span></code> 和 <code class="xref rst rst-role docutils literal notranslate"><span class="pre">:xinetzone:</span></code> 分别是 <a class="reference external" href="https://daobook.github.io/">daobook/</a> 和 <a class="reference external" href="https://xinetzone.github.io/">xinetzone/</a> 网址的缩写。</p></li>
+<li><p>角色 <code class="xref rst rst-role docutils literal notranslate"><span class="pre">:daobook:</span></code> 和 <code class="xref rst rst-role docutils literal notranslate"><span class="pre">:daobook:</span></code> 分别是 <a class="reference external" href="https://daobook.github.io/">daobook/</a> 和 <a class="reference external" href="https://daobook.github.io/">daobook/</a> 网址的缩写。</p></li>
+<li><p>网站主题借鉴 <a class="reference external" href="https://www.sphinx-doc.org/en/master/">sphinx-doc</a></p></li>
 </ul>
-<p><a class="reference external" href="https://xinetzone.github.io/wiki">xinetzone/wiki</a></p>
-<p><a class="reference external" href="https://daobook.github.io/sphinx-doc">daobook/sphinx-doc</a></p>
 </section>
 </section>
 
 
+            <div class="clearer"></div>
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Sphinx Action</a></h1>
-
-
-
-
-
-
-
-
-<h3>导航</h3>
-<p class="caption" role="heading"><span class="caption-text">目录</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Sphinx Action</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">项目结构</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">功能清单</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="docs/index.html">Sphinx Action 项目文档概述</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BUGS.html">BUGS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="FAQ.html">FAQs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RELEASE-NOTES.html">发布</a></li>
-<li class="toctree-l1"><a class="reference internal" href="HISTORY.html">历史</a></li>
-<li class="toctree-l1"><a class="reference internal" href="THANKS.html">致谢</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="上一章">Sphinx 项目模板</a></li>
-      <li>Next: <a href="docs/index.html" title="下一章">Sphinx Action 项目文档概述</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="转向" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2021, xinetzone.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/README.md.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="docs/README.html" title="Apollo documents"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Apollo Auto 目录"
+             >上一页</a> |</li>
+        <li><a href="index.html">Apollo home</a>&#160;|</li>
+        <li><a href="contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo Auto 文档</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
   </body>
 </html>

@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to add a new GPS Receiver &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_add_a_gps_receiver.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="如何添加新的GPS接收器" href="how_to_add_a_gps_receiver_cn.html" />
+    <link rel="prev" title="Apollo 系统架构代码分析" href="arch/apollo1.5_top_study_notes_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_gps_receiver_cn.html" title="如何添加新的GPS接收器"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="arch/apollo1.5_top_study_notes_cn.html" title="Apollo 系统架构代码分析"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to add a new GPS Receiver</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to add a new GPS Receiver</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#steps-to-add-a-new-gps-receiver">Steps to add a new GPS Receiver</a><ul>
+<li><a class="reference internal" href="#step-1">Step 1</a></li>
+<li><a class="reference internal" href="#step-2">Step 2</a></li>
+<li><a class="reference internal" href="#step-3">Step 3</a></li>
+<li><a class="reference internal" href="#step-4">Step 4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="arch/apollo1.5_top_study_notes_cn.html"
+                        title="上一章">Apollo 系统架构代码分析</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_gps_receiver_cn.html"
+                        title="下一章">如何添加新的GPS接收器</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_add_a_gps_receiver.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-add-a-new-gps-receiver">
+<h1>How to add a new GPS Receiver<a class="headerlink" href="#how-to-add-a-new-gps-receiver" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>GPS receiver is a device that receives information from GPS satellites and then calculates the device’s geographical position, velocity and precise time. The device usually includes a receiver, an IMU (depends on the model), an interface to a wheel encoder, and a fusion engine that combines information from those sensors. The Default GPS receiver used in Apollo is Novatel cards. The instruction demonstrates how to add and use a new GPS Receiver.</p>
+</section>
+<section id="steps-to-add-a-new-gps-receiver">
+<h2>Steps to add a new GPS Receiver<a class="headerlink" href="#steps-to-add-a-new-gps-receiver" title="永久链接至标题">¶</a></h2>
+<p>Please follow the steps below to add a new GPS Receiver.</p>
+<ol class="simple">
+<li><p>Implement the new data parser for the new GPS receiver, by inheriting class <code class="docutils literal notranslate"><span class="pre">Parser</span></code></p></li>
+<li><p>Add new interfaces in <code class="docutils literal notranslate"><span class="pre">Parser</span></code> class for the new GPS receiver</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">config.proto</span></code>, add the new data format for the new GPS receiver</p></li>
+<li><p>In function <code class="docutils literal notranslate"><span class="pre">create_parser</span></code> from file data_parser.cpp, add the new parser instance for the new GPS receiver</p></li>
+</ol>
+<p>Let’s look at how to add the GPS Receiver using the above-mentioned steps for Receiver: <code class="docutils literal notranslate"><span class="pre">u-blox</span></code>.</p>
+<section id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="永久链接至标题">¶</a></h3>
+<p>Let us implement the new data parser for the new GPS receiver, by inheriting class <code class="docutils literal notranslate"><span class="pre">Parser</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">UbloxParser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Parser</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">UbloxParser</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">MessageType</span><span class="w"> </span><span class="nf">get_message</span><span class="p">(</span><span class="n">MessagePtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message_ptr</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">verify_checksum</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Parser</span><span class="o">::</span><span class="n">MessageType</span><span class="w"> </span><span class="nf">prepare_message</span><span class="p">(</span><span class="n">MessagePtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message_ptr</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// The handle_xxx functions return whether a message is ready.</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_esf_raw</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">EsfRaw</span><span class="o">*</span><span class="w"> </span><span class="n">raw</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_esf_ins</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">EsfIns</span><span class="o">*</span><span class="w"> </span><span class="n">ins</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_hnr_pvt</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">HnrPvt</span><span class="o">*</span><span class="w"> </span><span class="n">pvt</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_nav_att</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">NavAtt</span><span class="w"> </span><span class="o">*</span><span class="n">att</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_nav_pvt</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">NavPvt</span><span class="o">*</span><span class="w"> </span><span class="n">pvt</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_nav_cov</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">NavCov</span><span class="w"> </span><span class="o">*</span><span class="n">cov</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">handle_rxm_rawx</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ublox</span><span class="o">::</span><span class="n">RxmRawx</span><span class="w"> </span><span class="o">*</span><span class="n">raw</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">_gps_seconds_base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">_gyro_scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">_accel_scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">_imu_measurement_span</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">_imu_frame_mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">_imu_measurement_time_previous</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">-1.0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_buffer</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">_total_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">::</span><span class="n">apollo</span><span class="o">::</span><span class="n">drivers</span><span class="o">::</span><span class="n">gnss</span><span class="o">::</span><span class="n">Gnss</span><span class="w"> </span><span class="n">_gnss</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="o">::</span><span class="n">apollo</span><span class="o">::</span><span class="n">drivers</span><span class="o">::</span><span class="n">gnss</span><span class="o">::</span><span class="n">Imu</span><span class="w"> </span><span class="n">_imu</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="o">::</span><span class="n">apollo</span><span class="o">::</span><span class="n">drivers</span><span class="o">::</span><span class="n">gnss</span><span class="o">::</span><span class="n">Ins</span><span class="w"> </span><span class="n">_ins</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="永久链接至标题">¶</a></h3>
+<p>Let us now add the new interfaces in the Parser class for the new GPS receiver:</p>
+<p>Add the function <code class="docutils literal notranslate"><span class="pre">create_ublox</span></code> in <code class="docutils literal notranslate"><span class="pre">Parser</span></code> class:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parser</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Return a pointer to a NovAtel parser. The caller should take ownership.</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">Parser</span><span class="o">*</span><span class="w"> </span><span class="n">create_novatel</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Return a pointer to a u-blox parser. The caller should take ownership.</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">Parser</span><span class="o">*</span><span class="w"> </span><span class="nf">create_ublox</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Parser</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Updates the parser with new data. The caller must keep the data valid until get_message()</span>
+<span class="w">    </span><span class="c1">// returns NONE.</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">_data_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">update</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">update</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">data</span><span class="p">()),</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">enum</span> <span class="k">class</span><span class="w"> </span><span class="nc">MessageType</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NONE</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">GNSS</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">GNSS_RANGE</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">IMU</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">INS</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">WHEEL</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">EPHEMERIDES</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">OBSERVATION</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">GPGGA</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Gets a parsed protobuf message. The caller must consume the message before calling another</span>
+<span class="w">    </span><span class="c1">// get_message() or update();</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">MessageType</span><span class="w"> </span><span class="nf">get_message</span><span class="p">(</span><span class="n">MessagePtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message_ptr</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">protected</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Parser</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Point to the beginning and end of data. Do not take ownership.</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">_data_end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">DISABLE_COPY_AND_ASSIGN</span><span class="p">(</span><span class="n">Parser</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">Parser</span><span class="o">*</span><span class="w"> </span><span class="nf">Parser::create_ublox</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UbloxParser</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="永久链接至标题">¶</a></h3>
+<p>In config.proto, let us add the new data format definition for the new GPS receiver:</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">UBLOX_TEXT</span></code> and <code class="docutils literal notranslate"><span class="pre">UBLOX_BINARY</span></code> in the config file: modules/drivers/gnss/proto/config.proto</p>
+<div class="highlight-txt notranslate"><div class="highlight"><pre><span></span>message Stream {
+    enum Format {
+        UNKNOWN = 0;
+        NMEA = 1;
+        RTCM_V2 = 2;
+        RTCM_V3 = 3;
+
+        NOVATEL_TEXT = 10;
+        NOVATEL_BINARY = 11;
+
+        UBLOX_TEXT = 20;
+        UBLOX_BINARY = 21;
+    }
+... ...
+</pre></div>
+</div>
+</section>
+<section id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="永久链接至标题">¶</a></h3>
+<p>In function <code class="docutils literal notranslate"><span class="pre">create_parser</span></code> from file data_parser.cpp, let us add the new parser instance for the new GPS receiver.
+We will do so by adding code to process <code class="docutils literal notranslate"><span class="pre">config::Stream::UBLOX_BINARY</span></code> as below:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Parser</span><span class="o">*</span><span class="w"> </span><span class="nf">create_parser</span><span class="p">(</span><span class="n">config</span><span class="o">::</span><span class="n">Stream</span><span class="o">::</span><span class="n">Format</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_base_station</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">format</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">config</span><span class="o">::</span><span class="n">Stream</span><span class="o">::</span><span class="nl">NOVATEL_BINARY</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Parser</span><span class="o">::</span><span class="n">create_novatel</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">config</span><span class="o">::</span><span class="n">Stream</span><span class="o">::</span><span class="nl">UBLOX_BINARY</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Parser</span><span class="o">::</span><span class="n">create_ubloxl</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_gps_receiver_cn.html" title="如何添加新的GPS接收器"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="arch/apollo1.5_top_study_notes_cn.html" title="Apollo 系统架构代码分析"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to add a new GPS Receiver</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

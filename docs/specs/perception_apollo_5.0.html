@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Perception &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/perception_apollo_5.0.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Pre-requisite Software Installation Guide" href="prerequisite_software_installation_guide.html" />
+    <link rel="prev" title="感知" href="perception_apollo_3.0_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="prerequisite_software_installation_guide.html" title="Pre-requisite Software Installation Guide"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="perception_apollo_3.0_cn.html" title="感知"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Perception</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Perception</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#perception-module">Perception module</a><ul>
+<li><a class="reference internal" href="#supports-paddlepaddle">Supports PaddlePaddle</a><ul>
+<li><a class="reference internal" href="#using-paddlepaddle-features">Using PaddlePaddle Features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#online-sensor-calibration-service">Online sensor calibration service</a></li>
+<li><a class="reference internal" href="#manual-camera-calibration">Manual Camera Calibration</a></li>
+<li><a class="reference internal" href="#closest-in-path-object-cipo-detection">Closest In-Path Object (CIPO) Detection</a></li>
+<li><a class="reference internal" href="#vanishing-point-detection">Vanishing Point Detection</a><ul>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#output-of-perception">Output of Perception</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="perception_apollo_3.0_cn.html"
+                        title="上一章">感知</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="prerequisite_software_installation_guide.html"
+                        title="下一章">Pre-requisite Software Installation Guide</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/perception_apollo_5.0.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="perception">
+<h1>Perception<a class="headerlink" href="#perception" title="永久链接至标题">¶</a></h1>
+<p>Apollo 5.0
+June 27, 2019</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>Apollo 5.0 Perception module introduced a few major features to provide diverse functionality, a more reliable platform and a more robust solution to enhance your AV performance. These include:</p>
+<ul class="simple">
+<li><p><strong>Supports Caffe and PaddlePaddle</strong>: <a class="reference external" href="https://github.com/PaddlePaddle/Paddle">PaddlePaddle</a> (PArallel Distributed Deep LEarning) is an easy-to-use, efficient, flexible and scalable deep learning platform, which was originally developed by Baidu scientists and engineers for the purpose of applying deep learning to many products at Baidu.</p></li>
+<li><p><strong>Online sensor calibration service</strong></p></li>
+<li><p><strong>Manual camera calibration</strong></p></li>
+<li><p><strong>Closest In-Path Object (CIPO) Detection</strong></p></li>
+<li><p><strong>Vanishing Point Detection</strong></p></li>
+</ul>
+<p><em><strong>Safety alert</strong></em></p>
+<p>Apollo 5.0 <em>does not</em> support a high curvature road, roads without lane lines including local roads and intersections. The perception module is based on visual detection using a deep network with limited data. Therefore, before we release a better network, the driver should be careful while driving and always be ready to disengage the autonomous driving mode by intervening (hit the brakes or turn the steering wheel). While testing Apollo 3.0, please choose a path that has the necessary conditions mentioned above and be vigilant.</p>
+</section>
+<section id="perception-module">
+<h2>Perception module<a class="headerlink" href="#perception-module" title="永久链接至标题">¶</a></h2>
+<p>The flow chart of Apollo 5.0 Perception module:</p>
+<p><img alt="Image" src="../../_images/Apollo3.5_perception_detail.png" /></p>
+<p>To learn more about individual sub-modules, please visit <a class="reference internal" href="perception_apollo_3.0.html"><span class="doc std std-doc">Perception - Apollo 3.0</span></a></p>
+<section id="supports-paddlepaddle">
+<h3>Supports PaddlePaddle<a class="headerlink" href="#supports-paddlepaddle" title="永久链接至标题">¶</a></h3>
+<p>The Apollo platform’s perception module actively depended on Caffe for its modelling, but will now support PaddlePaddle, an open source platform developed by Baidu to support its various deep learning projects.
+Some features include:</p>
+<ul class="simple">
+<li><p><strong>PCNNSeg</strong>: Object detection from 128-channel lidar or a fusion of three 16-channel lidars using PaddlePaddle</p></li>
+<li><p><strong>PCameraDetector</strong>: Object detection from a camera</p></li>
+<li><p><strong>PlaneDetector</strong>: Lane line detection from a camera</p></li>
+</ul>
+<section id="using-paddlepaddle-features">
+<h4>Using PaddlePaddle Features<a class="headerlink" href="#using-paddlepaddle-features" title="永久链接至标题">¶</a></h4>
+<ol class="simple">
+<li><p>To use the PaddlePaddle model for Camera Obstacle Detector, set <code class="docutils literal notranslate"><span class="pre">camera_obstacle_perception_conf_file</span></code> to <code class="docutils literal notranslate"><span class="pre">obstacle_paddle.pt</span></code> in the following <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/perception/production/conf/perception/camera/fusion_camera_detection_component.pb.txt">configuration file</a></p></li>
+<li><p>To use the PaddlePaddle model for LiDAR Obstacle Detector, set <code class="docutils literal notranslate"><span class="pre">use_paddle</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code> in the following <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/modules/perception/production/data/perception/lidar/models/cnnseg/velodyne128/cnnseg.conf">configuration file</a></p></li>
+</ol>
+</section>
+</section>
+<section id="online-sensor-calibration-service">
+<h3>Online sensor calibration service<a class="headerlink" href="#online-sensor-calibration-service" title="永久链接至标题">¶</a></h3>
+<p>Apollo currently offers a robust calibration service to support your calibration requirements from LiDARs to IMU to Cameras. This service is currently being offered to select partners only. If you would like to learn more about the calibration service, please reach out to us via email: <strong><a class="reference external" href="mailto:apollopartner&#37;&#52;&#48;baidu&#46;com">apollopartner<span>&#64;</span>baidu<span>&#46;</span>com</a></strong></p>
+</section>
+<section id="manual-camera-calibration">
+<h3>Manual Camera Calibration<a class="headerlink" href="#manual-camera-calibration" title="永久链接至标题">¶</a></h3>
+<p>In Apollo 5.0, Perception launched a manual camera calibration tool for camera extrinsic parameters. This tool is simple, reliable and user-friendly. It comes equipped with a visualizer and the calibration can be performed using your keyboard. It helps to estimate the camera’s orientation (pitch, yaw, roll). It provides a vanishing point, horizon, and top down view as guidelines. Users would need to change the 3 angles to align a horizon and make the lane lines parallel.</p>
+<p>The process of manual calibration can be seen below:</p>
+<p><img alt="" src="../../_images/Manual_calib.png" /></p>
+</section>
+<section id="closest-in-path-object-cipo-detection">
+<h3>Closest In-Path Object (CIPO) Detection<a class="headerlink" href="#closest-in-path-object-cipo-detection" title="永久链接至标题">¶</a></h3>
+<p>The CIPO includes detection of key objects on the road for longitudinal control. It utilizes the object and ego-lane line detection output. It creates a virtual ego lane line using the vehicle’s ego motion prediction. Any vehicle model including Sphere model, Bicycle model and 4-wheel tire model can be used for the ego motion prediction. Based on the vehicle model using the translation of velocity and angular velocity, the length and curvature of the pseudo lanes are determined.
+Some examples of CIPO using Pseudo lane lines can be seen below:</p>
+<ol class="simple">
+<li><p>CIPO used for curved roads
+<img alt="" src="../../_images/CIPO_1.png" /></p></li>
+<li><p>CIPO for a street with no lane lines
+<img alt="" src="../../_images/CIPO_2.png" /></p></li>
+</ol>
+</section>
+<section id="vanishing-point-detection">
+<h3>Vanishing Point Detection<a class="headerlink" href="#vanishing-point-detection" title="永久链接至标题">¶</a></h3>
+<p>In Apollo 5.0, an additional branch of network is attached to the end of the lane encoder to detect the vanishing point. This branch is composed of convolutional layers and fully connected layers, where convolutional layers translate lane features for the vanishing point task and fully connected layers make a global summary of the whole image to output the vanishing point location. Instead of giving an output in <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinate directly, the output of vanishing point is in the form of <code class="docutils literal notranslate"><span class="pre">dx</span></code>, <code class="docutils literal notranslate"><span class="pre">dy</span></code> which indicate its distances to the image center in <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates. The new branch of network is trained separately by using pre-trained lane features directly, where the model weights with respect to the lane line network is fixed. The Flow Diagram is included below, note that the red color denotes the flow of the vanishing point detection algorithm.</p>
+<p><img alt="" src="../../_images/Vpt.png" /></p>
+<p>Two challenging visual examples of our vanishing point detection with lane network output are shown below:</p>
+<ol>
+<li><p>Illustrates the case that vanishing point can be detected when there is obstacle blocking the view:</p>
+<p><img alt="" src="../../_images/Vpt1.png" /></p>
+</li>
+<li><p>Illustrates the case of turning road with altitude changes:</p>
+<p><img alt="" src="../../_images/Vpt2.png" /></p>
+</li>
+</ol>
+<section id="key-features">
+<h4>Key Features<a class="headerlink" href="#key-features" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li><p>Regression to <code class="docutils literal notranslate"><span class="pre">(dx,</span> <span class="pre">dy)</span></code> rather than <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> reduces the search space</p></li>
+<li><p>Additional convolution layer is needed for feature translation which casts CNN features for vanishing point purpose</p></li>
+<li><p>Fully Connected layer is applied for holistic spatial summary of information, which is required for vanishing point estimation</p></li>
+<li><p>The branch design supports diverse training strategies, e.g. fine tune pre-trained laneline model, only train the subnet with direct use of laneline features, co-train of multi-task network</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="output-of-perception">
+<h2>Output of Perception<a class="headerlink" href="#output-of-perception" title="永久链接至标题">¶</a></h2>
+<p>The input of Planning and Control modules will be quite different with that of the previous Lidar-based system for Apollo 3.0.</p>
+<ul class="simple">
+<li><p>Lane line output</p>
+<ul>
+<li><p>Polyline and/or a polynomial curve</p></li>
+<li><p>Lane type by position: L1(next left lane line), L0(left lane line), R0(right lane line), R1(next right lane line)</p></li>
+</ul>
+</li>
+<li><p>Object output</p>
+<ul>
+<li><p>3D rectangular cuboid</p></li>
+<li><p>Relative velocity and direction</p></li>
+<li><p>Type: CIPV, PIHP, others</p></li>
+<li><p>Classification type: car, truck, bike, pedestrian</p></li>
+<li><p>Drops: trajectory of an object</p></li>
+</ul>
+</li>
+</ul>
+<p>The world coordinate system is used as ego-coordinate in 3D where the rear center axle is an origin.</p>
+<p>If you want to try our perception modules and their associated visualizer, please refer to the <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/howto/how_to_run_perception_module_on_your_local_computer.md">following document</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="prerequisite_software_installation_guide.html" title="Pre-requisite Software Installation Guide"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="perception_apollo_3.0_cn.html" title="感知"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Perception</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

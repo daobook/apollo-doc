@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dreamland &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/Dreamland_introduction.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Guideline of sensor Installation for Apollo 2.5" href="Guideline_sensor_Installation_apollo_2.5.html" />
+    <link rel="prev" title="Planning模块架构和概述" href="Class_Architecture_Planning_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_2.5.html" title="Guideline of sensor Installation for Apollo 2.5"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Class_Architecture_Planning_cn.html" title="Planning模块架构和概述"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Dreamland</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dreamland</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#scenarios">Scenarios</a></li>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#dreamland-tool">Dreamland Tool</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Class_Architecture_Planning_cn.html"
+                        title="上一章">Planning模块架构和概述</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Guideline_sensor_Installation_apollo_2.5.html"
+                        title="下一章">Guideline of sensor Installation for Apollo 2.5</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/Dreamland_introduction.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="dreamland">
+<h1>Dreamland<a class="headerlink" href="#dreamland" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>Dreamland is Apollo’s web-based simulation platform. Based on an enormous amount of driving scenario data and large-scale cloud computing capacity, Apollo simulation engine creates a powerful testing environment for the development of an autonomous driving system, from algorithms to grading, and then back to improved algorithms. It enables the developers and start-ups to run millions of miles of simulation daily, which dramatically accelerates the development cycle.</p>
+<p>To access Dreamland, please visit <a class="reference external" href="http://apollo.auto/platform/simulation.html">our Simulation website</a></p>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p><strong>An Array of Scenarios:</strong>
+The simulation platform allows users to choose different road types, obstacles, driving plans, and traffic light states. There are currently around 200 scenario cases provided including:</p>
+<ul class="simple">
+<li><p>Different types of roads, such as intersection, U-turn lane, through lane, T-junction and curved lane.</p></li>
+<li><p>Different types of obstacles, such as pedestrians, motor vehicles, bicycles etc.</p></li>
+<li><p>Different driving plans, such as lane follow, U-turn, lane change, left-turn, right-turn and lane merge.</p></li>
+<li><p>Different traffic light status, such as red, yellow and green.</p></li>
+</ul>
+</li>
+<li><p><strong>Execution Modes:</strong>
+The simulation platform gives users a complete setup to run multiple scenarios parallelly in the cloud and verify modules in the Apollo environment.</p></li>
+<li><p><strong>Automatic Grading System:</strong>
+The current Automatic Grading System tests via 12 metrics:</p>
+<ul class="simple">
+<li><p>Collision detection</p></li>
+<li><p>Red-light violation detection</p></li>
+<li><p>Speeding detection</p></li>
+<li><p>Off-road detection</p></li>
+<li><p>Arrival test</p></li>
+<li><p>Hard braking detection</p></li>
+<li><p>Acceleration test</p></li>
+<li><p>Routing test</p></li>
+<li><p>Lane-change in junction detection</p></li>
+<li><p>Yield to pedestrians at crosswalks</p></li>
+<li><p>Brake Taps</p></li>
+<li><p>Stop at stop-signs</p></li>
+</ul>
+<p>These grading metrics test different aspects of autonomous driving, ranging from traffic and road safety to the rider’s comfort. The Apollo team is committed to safety while providing excellent user experience during the drive hence these metrics are tailored to ensure a rigorous testing environment before the car is even put on the road.</p>
+</li>
+<li><p><strong>3D Visualization:</strong>
+3D Visualization illustrates real-time road conditions and helps to visualize the output from different modules. It also displays the status of the autonomous vehicle, such as velocity, heading etc. It also helps in visualizing the output of modules, such as routing, obstacles and planned trajectory.</p></li>
+</ol>
+</section>
+<section id="scenarios">
+<h2>Scenarios<a class="headerlink" href="#scenarios" title="永久链接至标题">¶</a></h2>
+<p>Through Dreamland, you could run millions of scenarios on the Apollo platform, but broadly speaking, there are two types of scenarios:</p>
+<ol class="simple">
+<li><p><strong>Worldsim:</strong>
+Worldsim is synthetic data created manually with specific and well-defined obstacle behavior and traffic light status. They are simple yet effective for testing the autonomous car in a well-defined environment. They do however lack the complexity found in real-world traffic conditions.</p></li>
+<li><p><strong>Logsim:</strong>
+Logsim is extracted from real world data using our sensors. They are more realistic but also less deterministic. The obstacles perceived may be fuzzy and the traffic conditions are more complicated.</p></li>
+</ol>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p><strong>Web Based:</strong> Dreamland does not require you to download large packages or heavy software, it is a web based tool that can be accessed from any browser-friendly device</p></li>
+<li><p><strong>Highly Customizable Scenarios:</strong> With a comprehensive list of traffic elements you can fine tune Dreamland to suit your niche development.</p></li>
+<li><p><strong>Rigorous Grading Metrics:</strong> The grading metrics include:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Collision detection - Checks whether there is a collision (any distance between objects less than 0.1m is considered a collision)</p></li>
+<li><p>Red-light violation detection - Checks whether the autonomous car runs a red light</p></li>
+<li><p>Speeding detection - Checks whether the speed of the autonomous car exceeds the current speed limit</p></li>
+<li><p>Off-road detection - Checks whether the autonomous car stays on the road</p></li>
+<li><p>Arrival test - Checks whether the autonomous car arrives at its destination</p></li>
+<li><p>Hard braking detection - Checks whether the autonomous car is braking too hard (deceleration is greater than 4m/s^2)</p></li>
+<li><p>Acceleration test - Check whether the autonomous car is speeding up too fast (acceleration is greater than 4m/s^2)</p></li>
+<li><p>Routing test - Checks whether a routing response is present</p></li>
+<li><p>Lane-change in junction detection - Checks whether the planning trajectory makes a lane-change in a traffic junction</p></li>
+<li><p>Yield to pedestrians at crosswalks - Checks whether the planning trajectory yields to pedestrians at crosswalks</p></li>
+<li><p>Brake Taps - Checks whether the autonomous car has quick brake taps.</p></li>
+<li><p>Stop at stop-signs - Checks whether the autonomous car stops at stop-signs</p></li>
+</ul>
+<ol class="simple">
+<li><p><strong>Instant Verification on the Cloud:</strong> Dreamland offers you the unique opportunity to instantly verify your Apollo build on the cloud and test your code against a vast and diverse set of scenarios that can run with the push of a button.</p></li>
+</ol>
+</section>
+<section id="dreamland-tool">
+<h2>Dreamland Tool<a class="headerlink" href="#dreamland-tool" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>To access Dreamland, please visit <a class="reference external" href="https://azure.apollo.auto/">our Dreamland Homepage</a></p></li>
+<li><p>You will then be redirected to a login screen. You could use either your existing accounts (Baidu, Google, Github, Microsoft) or create your own Dreamland account.
+<img alt="" src="../../_images/Dreamland_login.png" /></p></li>
+<li><p>Upon successful logging in, you will be redirected to the Dreamland Introduction page which includes a basic introduction and offerings
+<img alt="" src="../../_images/Dreamland_home.png" /></p></li>
+</ol>
+<p>Dreamland platform offers a number of features that you could explore to help you accelerate your autonomous driving testing and deployment.</p>
+<ol>
+<li><p><strong>User Manual</strong> - This section includes documentation to help you get up and running with Dreamland.</p>
+<ul>
+<li><p><a class="reference external" href="https://azure.apollo.auto/user-manual/quick-start">Quickstart</a>: This section will walk you through testing your build using our APIs and also how to manage and edit existing scenarios.</p></li>
+<li><p><span class="xref myst">Scenario Editor</span>: The scenario editor is a new feature to be launched in Apollo 5.0 which enables our developers to create their own scenarios to test niche aspects of their algorithm. In order to use this feature, you will have to comeplete the form on the screen as seen in the image below:</p>
+<p><img alt="" src="../../_images/form.png" /></p>
+<p>You should receive the following activation confirmation via email:</p>
+<p><img alt="" src="../../_images/email.png" /></p>
+<p>Feel free to reach out to the team if you do not receive an activation confirmation within 3 days.</p>
+</li>
+<li><p><a class="reference external" href="https://azure.apollo.auto/user-manual/faq">FAQ</a>:
+This section will answer frequently encountered issues or questions to help make using Dreamland simpler. For any additional questions or issues you may face, feel free to reach out to the team on <a class="reference external" href="https://github.com/ApolloAuto/apollo/issues">Apollo’s Github issues</a></p></li>
+</ul>
+</li>
+<li><p><strong>Sample Scenarios:</strong> A large number of existing worldsim and logsim scenarios that you can later use to test your build and algorithms. It is always good to acclimate yourself to the existing scenario list to help you decide which scenarios will benefit which aspects of your development.
+<img alt="" src="../../_images/Dreamland_sample.png" /></p></li>
+<li><p><strong>Scenario Management:</strong> Scenario management helps you filter, search through and group scenarios together. You can then view your existing groups. This is especially helpful when running tasks in <code class="docutils literal notranslate"><span class="pre">Task</span> <span class="pre">Management</span></code> that does not require you to re-select from the scenario list and simply choose the existing group.</p></li>
+</ol>
+<p><img alt="" src="../../_images/Dreamland_sm.png" /></p>
+<ol class="simple">
+<li><p><strong>Task Management:</strong> Like Scenario Editor, Task Management is also a service offering currently in beta testing and open only to selective partners. In order to use this feature, you will have to comeplete the form on the screen and request for activation.
+The Task Management tab is extremely useful when testing any one particular type of scenario like side pass or U-turns. It helps test your algorithms against very specific test cases.</p></li>
+</ol>
+<p>Within the Task Management page, you can run a <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Task</span></code> to test your personal Apollo github repository against a list of scenarios. You will receive a summary of the task which highlights if the build passed or not, along with the passing rate of both worldsim and logsim scenarios and finally the total miles tested virtually. You can also view the number of failed scenarios along with a description detailing the failed timestamp and the grading metric which failed. Finally, you can run the comparison tool to check how your build performed versus previous builds.</p>
+<ol class="simple">
+<li><p><strong>Daily Build:</strong> The Daily Build shows how well the current Apollo official Github repository runs against all the scenarios. It is run once every morning Pacific Time.</p></li>
+</ol>
+<p><img alt="" src="../../_images/Dreamland_build_1.png" /></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_2.5.html" title="Guideline of sensor Installation for Apollo 2.5"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Class_Architecture_Planning_cn.html" title="Planning模块架构和概述"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Dreamland</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

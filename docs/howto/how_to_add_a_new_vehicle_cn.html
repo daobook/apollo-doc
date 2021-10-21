@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>如何在Apollo中添加新的车辆 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_add_a_new_vehicle_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Add a New External Dependency" href="how_to_add_an_external_dependency.html" />
+    <link rel="prev" title="How to Add a New Vehicle to Apollo" href="how_to_add_a_new_vehicle.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_an_external_dependency.html" title="How to Add a New External Dependency"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_vehicle.html" title="How to Add a New Vehicle to Apollo"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何在Apollo中添加新的车辆</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">如何在Apollo中添加新的车辆</a><ul>
+<li><a class="reference internal" href="#id1">简介</a></li>
+<li><a class="reference internal" href="#id2">增加新车辆</a><ul>
+<li><a class="reference internal" href="#id3">实现新的车辆控制器</a></li>
+<li><a class="reference internal" href="#id4">实现新的消息管理器</a></li>
+<li><a class="reference internal" href="#id5">实现新的车辆工厂类</a></li>
+<li><a class="reference internal" href="#id6">更新配置文件</a></li>
+<li><a class="reference internal" href="#id7">更新配置文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_vehicle.html"
+                        title="上一章">How to Add a New Vehicle to Apollo</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_add_an_external_dependency.html"
+                        title="下一章">How to Add a New External Dependency</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_add_a_new_vehicle_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo">
+<h1>如何在Apollo中添加新的车辆<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>本文描述了如何向Apollo中添加新的车辆。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">注意</span><span class="p">:</span> <span class="n">Apollo控制算法将林肯MKZ配置为默认车辆</span>
+</pre></div>
+</div>
+<p>添加新的车辆时，如果您的车辆需要不同于Apollo控制算法提供的属性，请参考：</p>
+<ul class="simple">
+<li><p>使用适合您的车辆的其它控制算法。</p></li>
+<li><p>修改现有算法的参数以获得更好的结果。</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>增加新车辆<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>添加新车辆需要完成以下任务：</p>
+<ul class="simple">
+<li><p>实现新的车辆控制器</p></li>
+<li><p>实现新的消息管理器</p></li>
+<li><p>实现新的车辆工厂类</p></li>
+<li><p>更新配置文件</p></li>
+</ul>
+<section id="id3">
+<h3>实现新的车辆控制器<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>新的车辆控制器是从 <code class="docutils literal notranslate"><span class="pre">VehicleController</span></code>类继承的。 下面提供了一个头文件示例。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @class NewVehicleController</span>
+<span class="cm"> *</span>
+<span class="cm"> * @brief this class implements the vehicle controller for a new vehicle.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">NewVehicleController</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">VehicleController</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief initialize the new vehicle controller.</span>
+<span class="cm">   * @return init error_code</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="o">::</span><span class="n">apollo</span><span class="o">::</span><span class="n">common</span><span class="o">::</span><span class="n">ErrorCode</span><span class="w"> </span><span class="n">Init</span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">VehicleParameter</span><span class="o">&amp;</span><span class="w"> </span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">CanSender</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">can_sender</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="n">MessageManager</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">message_manager</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief start the new vehicle controller.</span>
+<span class="cm">   * @return true if successfully started.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief stop the new vehicle controller.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">Stop</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief calculate and return the chassis.</span>
+<span class="cm">   * @returns a copy of chassis. Use copy here to avoid multi-thread issues.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="n">Chassis</span><span class="w"> </span><span class="nf">chassis</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// more functions implemented here</span>
+<span class="w">  </span><span class="p">...</span><span class="w"></span>
+
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>实现新的消息管理器<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>新的消息管理器是从 <code class="docutils literal notranslate"><span class="pre">MessageManager</span></code> 类继承的。 下面提供了一个头文件示例。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @class NewVehicleMessageManager</span>
+<span class="cm"> *</span>
+<span class="cm"> * @brief implementation of MessageManager for the new vehicle</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">NewVehicleMessageManager</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">MessageManager</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief construct a lincoln message manager. protocol data for send and</span>
+<span class="cm">   * receive are added in the construction.</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="n">NewVehicleMessageManager</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">NewVehicleMessageManager</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// define more functions here.</span>
+<span class="w">  </span><span class="p">...</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>实现新的车辆工厂类<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>新的车辆工厂是从 <code class="docutils literal notranslate"><span class="pre">AbstractVehicleFactory</span></code> 类继承的。下面提供了一个头文件示例。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * @class NewVehicleFactory</span>
+<span class="cm"> *</span>
+<span class="cm"> * @brief this class is inherited from AbstractVehicleFactory. It can be used to</span>
+<span class="cm"> * create controller and message manager for lincoln vehicle.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">NewVehicleFactory</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">AbstractVehicleFactory</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">  * @brief destructor</span>
+<span class="cm">  */</span><span class="w"></span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">NewVehicleFactory</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief create lincoln vehicle controller</span>
+<span class="cm">   * @returns a unique_ptr that points to the created controller</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VehicleController</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CreateVehicleController</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="cm">/**</span>
+<span class="cm">   * @brief create lincoln message manager</span>
+<span class="cm">   * @returns a unique_ptr that points to the created message manager</span>
+<span class="cm">   */</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MessageManager</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CreateMessageManager</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div>
+</div>
+<p>一个.cc示例文件如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VehicleController</span><span class="o">&gt;</span><span class="w"></span>
+<span class="n">NewVehicleFactory</span><span class="o">::</span><span class="n">CreateVehicleController</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VehicleController</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">lincoln</span><span class="o">::</span><span class="n">LincolnController</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MessageManager</span><span class="o">&gt;</span><span class="w"> </span><span class="n">NewVehicleFactory</span><span class="o">::</span><span class="n">CreateMessageManager</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MessageManager</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">lincoln</span><span class="o">::</span><span class="n">LincolnMessageManager</span><span class="p">());</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Apollo提供可以用于实现新的车辆协议的基类 <code class="docutils literal notranslate"><span class="pre">ProtocolData</span></code>。</p>
+</section>
+<section id="id6">
+<h3>更新配置文件<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>在<code class="docutils literal notranslate"><span class="pre">modules/canbus/vehicle/vehicle_factory.cc</span></code>里注册新的车辆。 下面提供了一个头文件示例。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">VehicleFactory::RegisterVehicleFactory</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Register</span><span class="p">(</span><span class="n">VehicleParameter</span><span class="o">::</span><span class="n">LINCOLN_MKZ</span><span class="p">,</span><span class="w"> </span><span class="p">[]()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">AbstractVehicleFactory</span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LincolnVehicleFactory</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// register the new vehicle here.</span>
+<span class="w">  </span><span class="n">Register</span><span class="p">(</span><span class="n">VehicleParameter</span><span class="o">::</span><span class="n">NEW_VEHICLE_BRAND</span><span class="p">,</span><span class="w"> </span><span class="p">[]()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">AbstractVehicleFactory</span><span class="o">*</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewVehicleFactory</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>更新配置文件<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>在 <code class="docutils literal notranslate"><span class="pre">modules/canbus/conf/canbus_conf.pb.txt</span></code> 中更新配置，在Apollo系统中激活车辆。</p>
+<div class="highlight-config notranslate"><div class="highlight"><pre><span></span>vehicle_parameter {
+  brand: NEW_VEHICLE_BRAND
+  // put other parameters below
+  ...
+}
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_an_external_dependency.html" title="How to Add a New External Dependency"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_vehicle.html" title="How to Add a New Vehicle to Apollo"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何在Apollo中添加新的车辆</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

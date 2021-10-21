@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>adapter设计架构代码分析 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/arch/apollo1.5_adapter_arch_study_notes_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Apollo 系统架构代码分析" href="apollo1.5_top_study_notes_cn.html" />
+    <link rel="prev" title="Howto Guides" href="../README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo1.5_top_study_notes_cn.html" title="Apollo 系统架构代码分析"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../README.html" title="Howto Guides"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">adapter设计架构代码分析</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">adapter设计架构代码分析</a><ul>
+<li><a class="reference internal" href="#id1">代码分析：</a><ul>
+<li><a class="reference internal" href="#adaptermanager">类AdapterManager分析：</a></li>
+<li><a class="reference internal" href="#id2">类AdapterManager使用：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../README.html"
+                        title="上一章">Howto Guides</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo1.5_top_study_notes_cn.html"
+                        title="下一章">Apollo 系统架构代码分析</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/howto/arch/apollo1.5_adapter_arch_study_notes_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="adapter">
+<h1>adapter设计架构代码分析<a class="headerlink" href="#adapter" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>代码分析：<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>主要文件：adapter_manager.cc, adapter_manager.h。</p>
+<section id="adaptermanager">
+<h3>类AdapterManager分析：<a class="headerlink" href="#adaptermanager" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Init(AdapterManagerConfig &amp;configs)函数：根据传入的AdapterManagerConfig类，配置ros节点，包括创建Nodehandle，创建订阅或者发布话题。</p></li>
+<li><p>Init(const std::string &amp;adapter_config_filename)函数：根据传入的配置文件路径，通过调用Init(AdapterManagerConfig &amp;configs)函数，配置ros节点。</p></li>
+<li><p>Initialized()函数：返回此ros nodehandle是否已经初始化，上两个函数中有设置。</p></li>
+<li><p>CreateTimer()函数创建一个周期timer，以一个类成员函数作为超时函数，在RTK localization函数中有使用到。</p></li>
+<li><p>node_handle_指针，指向node handle指针，后续话题的发布都是基于此。</p></li>
+<li><p>Enable##name()函数：创建nodehandle和topic，也就是init调用的函数。</p></li>
+<li><p>Add##name##Callback函数：添加回调函数。name换成相应的模块名字。</p></li>
+<li><p>observers_变量和Observe()函数：//TODO</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>类AdapterManager使用：<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>adapter可用于创建node handle及其topic，可通过配置文件配置。</p></li>
+<li><p>使用时只需要创建相应的配置文件（可参考/apollo/modules/perception/conf/adapter.conf，及相应的BUILD文件），</p></li>
+<li><p>调用接口（可参考/apollo/modules/perception/perception.cc中的Init()函数）。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo1.5_top_study_notes_cn.html" title="Apollo 系统架构代码分析"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../README.html" title="Howto Guides"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">adapter设计架构代码分析</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

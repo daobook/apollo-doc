@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>CTPL &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/graphviz.css" />
+    <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    <script src="../../../../../../_static/tabs.js"></script>
+    <script src="../../../../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/perception/tool/benchmark/lidar/ctpl/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="Planning" href="../../../../../planning/README.html" />
+    <link rel="prev" title="2018-09-02" href="../../../../production/data/perception/camera/models/yolo_obstacle_detector/3d-r4-half/CHANGELOG.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../../../../README.html">Home</a></li>
+    <li><a href="../../../../../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../../../../../contents.html">Docs</a></li>
+    <li><a href="../../../../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../../../../README.html">
+      <img src="../../../../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../../../../../planning/README.html" title="Planning"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../../../../production/data/perception/camera/models/yolo_obstacle_detector/3d-r4-half/CHANGELOG.html" title="2018-09-02"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">CTPL</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../../../../production/data/perception/camera/models/yolo_obstacle_detector/3d-r4-half/CHANGELOG.html"
+                        title="上一章">2018-09-02</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../../../../../planning/README.html"
+                        title="下一章">Planning</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../../../_sources/modules/perception/tool/benchmark/lidar/ctpl/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="ctpl">
+<h1>CTPL<a class="headerlink" href="#ctpl" title="永久链接至标题">¶</a></h1>
+<p>Modern and efficient C++ Thread Pool Library</p>
+<p>A thread pool is a programming pattern for parallel execution of jobs, <a class="reference external" href="http://en.wikipedia.org/wiki/Thread_pool_pattern">http://en.wikipedia.org/wiki/Thread_pool_pattern</a>.</p>
+<p>More specifically, there are some threads dedicated to the pool and a container of jobs. The jobs come to the pool dynamically. A job is fetched and deleted from the container when there is an idle thread. The job is then run on that thread.</p>
+<p>A thread pool is helpful when you want to minimize time of loading and destroying threads and when you want to limit the number of parallel jobs that run simultaneously. For example, time consuming event handlers may be processed in a thread pool to make UI more responsive.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>standard c++ language, tested to compile on MS Visual Studio 2013 (2012?), gcc 4.8.2 and mingw 4.8.1(with posix threads)</p></li>
+<li><p>simple but effiecient solution, one header only, no need to compile a binary library</p></li>
+<li><p>query the number of idle threads and resize the pool dynamically</p></li>
+<li><p>one API to push to the thread pool any collable object: lambdas, functors, functions, result of bind expression</p></li>
+<li><p>collable objects with variadic number of parameters plus index of the thread running the object</p></li>
+<li><p>automatic template argument deduction</p></li>
+<li><p>get returned value of any type with standard c++ futures</p></li>
+<li><p>get fired exceptions with standard c++ futures</p></li>
+<li><p>use for any purpose under Apache license</p></li>
+<li><p>two variants, one depends on Boost Lockfree Queue library, <a class="reference external" href="http://boost.org">http://boost.org</a>, which is a header only library</p></li>
+</ul>
+<p>Sample usage</p>
+<p><code>void first(int id) {
+std::cout &lt;&lt; “hello from ” &lt;&lt; id &lt;&lt; ‘\n’;
+}</code></p>
+<p><code>  struct Second {
+void operator()(int id) const {
+std::cout &lt;&lt; “hello from ” &lt;&lt; id &lt;&lt; ‘\n’;
+}
+} second;</p>
+<p><code>void third(int id, const std::string &amp; additional_param) {}</code></p>
+<p><code>int main () {</code></p>
+<p><code>    ctpl::thread_pool p(2 /* two threads in the pool */);</code></p>
+<p><code>    p.push(first);  // function</code></p>
+<p><code>    p.push(third, “additional_param”);</code></p>
+<p><code>    p.push( [] (int id){
+std::cout &lt;&lt; “hello from ” &lt;&lt; id &lt;&lt; ‘\n’;
+});  // lambda</code></p>
+<p><code>    p.push(std::ref(second));  // functor, reference</code></p>
+<p><code>    p.push(const_cast&lt;const Second &amp;&gt;(second));  // functor, copy ctor</code></p>
+<p><code>    p.push(std::move(second));  // functor, move ctor</code></p>
+<p><code>}</code></p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../../../../../planning/README.html" title="Planning"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../../../../production/data/perception/camera/models/yolo_obstacle_detector/3d-r4-half/CHANGELOG.html" title="2018-09-02"
+             >上一页</a> |</li>
+        <li><a href="../../../../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">CTPL</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

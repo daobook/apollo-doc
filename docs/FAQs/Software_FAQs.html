@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Software FAQs &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/FAQs/Software_FAQs.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="软件 FAQ" href="Software_FAQs_cn.html" />
+    <link rel="prev" title="FAQs Index" href="README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Software_FAQs_cn.html" title="软件 FAQ"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="FAQs Index"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Software FAQs</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Software FAQs</a><ul>
+<li><a class="reference internal" href="#can-other-operating-systems-besides-ubuntu-be-used">Can other operating systems besides Ubuntu be used?</a></li>
+<li><a class="reference internal" href="#how-can-i-perform-step-by-step-debugging">How can I perform step-by-step debugging?</a></li>
+<li><a class="reference internal" href="#how-do-i-add-a-new-module">How do I add a new module</a></li>
+<li><a class="reference internal" href="#build-error-docker-error-response-from-daemon-failed-to-copy-files-userspace-copy-failed">Build error “docker: Error response from daemon: failed to copy files: userspace copy failed”:</a></li>
+<li><a class="reference internal" href="#bootstrap-error-unix-tmp-supervisor-sock-refused-connection">Bootstrap error: unix:///tmp/supervisor.sock refused connection</a></li>
+<li><a class="reference internal" href="#my-os-keeps-freezing-when-building-apollo-3-5">My OS keeps freezing when building Apollo 3.5?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="README.html"
+                        title="上一章">FAQs Index</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Software_FAQs_cn.html"
+                        title="下一章">软件 FAQ</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/FAQs/Software_FAQs.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="software-faqs">
+<h1>Software FAQs<a class="headerlink" href="#software-faqs" title="永久链接至标题">¶</a></h1>
+<section id="can-other-operating-systems-besides-ubuntu-be-used">
+<h2>Can other operating systems besides Ubuntu be used?<a class="headerlink" href="#can-other-operating-systems-besides-ubuntu-be-used" title="永久链接至标题">¶</a></h2>
+<p>We have only tested on Ubuntu which means it’s the only operating system we
+currently officially support. Users are always welcome to try different
+operating systems and can share their patches with the community if they are
+successfully able to use them.</p>
+</section>
+<hr class="docutils" />
+<section id="how-can-i-perform-step-by-step-debugging">
+<h2>How can I perform step-by-step debugging?<a class="headerlink" href="#how-can-i-perform-step-by-step-debugging" title="永久链接至标题">¶</a></h2>
+<p>The majority of bugs can be found through logging (using AERROR, AINFO, ADEBUG).
+If step-by-step debugging is needed, we recommend using gdb.</p>
+</section>
+<hr class="docutils" />
+<section id="how-do-i-add-a-new-module">
+<h2>How do I add a new module<a class="headerlink" href="#how-do-i-add-a-new-module" title="永久链接至标题">¶</a></h2>
+<p>Apollo currently functions as a single system, therefore before adding a module
+to it, understand that there would be a lot of additional work to be done to
+ensure that the module functions perfectly with the other modules of Apollo.
+Simply add your module to the <code class="docutils literal notranslate"><span class="pre">modules/</span></code> folder. You can
+use <code class="docutils literal notranslate"><span class="pre">modules/routing</span></code> as an example, which is a relatively simple module. Write
+the BUILD files properly and <a class="reference external" href="http://apollo.sh">apollo.sh</a> will build your module automatically</p>
+</section>
+<hr class="docutils" />
+<section id="build-error-docker-error-response-from-daemon-failed-to-copy-files-userspace-copy-failed">
+<h2>Build error “docker: Error response from daemon: failed to copy files: userspace copy failed”:<a class="headerlink" href="#build-error-docker-error-response-from-daemon-failed-to-copy-files-userspace-copy-failed" title="永久链接至标题">¶</a></h2>
+<p>An error message like this means that your system does not have enough space to
+build Apollo. To resolve this issue, run the
+following command to free up some space on your host:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">/</span><span class="n">setup_host</span><span class="o">/</span><span class="n">cleanup_resources</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">clean</span> <span class="pre">-a</span></code> inside Docker to free more.</p>
+</section>
+<hr class="docutils" />
+<section id="bootstrap-error-unix-tmp-supervisor-sock-refused-connection">
+<h2>Bootstrap error: unix:///tmp/supervisor.sock refused connection<a class="headerlink" href="#bootstrap-error-unix-tmp-supervisor-sock-refused-connection" title="永久链接至标题">¶</a></h2>
+<p>There could be a number of reasons why this error occurs. Please follow the
+steps recommended in the
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/issues/5344">following thread</a>. There are
+quite a few suggestions. If it still does not work for you, comment on the
+thread mentioned above.</p>
+</section>
+<hr class="docutils" />
+<section id="my-os-keeps-freezing-when-building-apollo-3-5">
+<h2>My OS keeps freezing when building Apollo 3.5?<a class="headerlink" href="#my-os-keeps-freezing-when-building-apollo-3-5" title="永久链接至标题">¶</a></h2>
+<p>If you see an error like this, you do not have enough memory to build Apollo.
+Please ensure that you have at least <strong>16GB</strong> memory available before building
+Apollo. You could also find <code class="docutils literal notranslate"><span class="pre">--jobs=$(nproc)</span></code> in <a class="reference external" href="http://apollo.sh">apollo.sh</a> file and replace it
+with <code class="docutils literal notranslate"><span class="pre">--jobs=2</span></code>. This will make build process to use only 2 cores. Building will
+be longer, but will use less memory.</p>
+<hr class="docutils" />
+<p><strong>More Software FAQs to follow.</strong></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Software_FAQs_cn.html" title="软件 FAQ"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="README.html" title="FAQs Index"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Software FAQs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

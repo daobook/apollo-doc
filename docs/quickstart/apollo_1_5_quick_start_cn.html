@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 1.5 快速入门指南 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/quickstart/apollo_1_5_quick_start_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo 2.0 Hardware and System Installation Guide" href="apollo_2_0_hardware_system_installation_guide_v1.html" />
+    <link rel="prev" title="Apollo 1.5 Quick Start Guide" href="apollo_1_5_quick_start.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo_2_0_hardware_system_installation_guide_v1.html" title="Apollo 2.0 Hardware and System Installation Guide"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_1_5_quick_start.html" title="Apollo 1.5 Quick Start Guide"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 1.5 快速入门指南</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 1.5 快速入门指南</a></li>
+<li><a class="reference internal" href="#id1">上车测试</a></li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo_1_5_quick_start.html"
+                        title="上一章">Apollo 1.5 Quick Start Guide</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo_2_0_hardware_system_installation_guide_v1.html"
+                        title="下一章">Apollo 2.0 Hardware and System Installation Guide</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/quickstart/apollo_1_5_quick_start_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-1-5">
+<h1>Apollo 1.5 快速入门指南<a class="headerlink" href="#apollo-1-5" title="永久链接至标题">¶</a></h1>
+<p>这个快速入门指南专注于Apollo 1.5新功能的介绍。对于Apollo的一般概念，请参考 <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_1_0_quick_start_cn.md">Apollo 1.0 快速入门指南</a>和<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/apollo_software_installation_guide_cn.md">Apollo软件安装指南</a>。</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>上车测试<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<ol>
+<li><p>上车测试，请确认你已经调试了LiDAR与GNSS/INS之间的外部参数。关于传感器标定，请参考<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_1_5_lidar_calibration_guide_cn.md">Apollo 1.5 LiDAR calibration guide</a>。</p></li>
+<li><p>启动发布的环境的Docker镜像</p></li>
+<li><p>启动HMI</p>
+<p>打开浏览器（譬如Chrome）然后在地址栏输入<strong>localhost:8887</strong>来开始Apollo的HMI。</p>
+<p><img alt="" src="../../_images/hmi_setup_profile.png" /></p>
+</li>
+<li><p>选择车辆和地图</p>
+<p>单击右上角下拉菜单选择车辆和地图。这个列表是在<a class="reference external" href="https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/hmi/conf/config.pb.txt">HMI config file</a>中定义的。</p>
+<p><em>注意：你也可以在HMI的右侧界面来更改个人配置。只要记得点击右上角的“Reset All”来重启系统就好</em></p>
+<p><img alt="" src="../../_images/start_hmi.png" /></p>
+</li>
+<li><p>启动所有模块</p>
+<p><img alt="" src="../../_images/hmi_setup_1.5.png" /></p>
+</li>
+<li><p>谨慎启动自动驾驶模式</p>
+<p>确定硬件已经齐备，所有模块已经打开并且汽车状态良好，可以安全进入自动模式自动跟车到达目的地。</p>
+<p><img alt="" src="../../_images/hmi_start_auto_following.png" /></p>
+</li>
+</ol>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo_2_0_hardware_system_installation_guide_v1.html" title="Apollo 2.0 Hardware and System Installation Guide"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_1_5_quick_start.html" title="Apollo 1.5 Quick Start Guide"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 1.5 快速入门指南</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

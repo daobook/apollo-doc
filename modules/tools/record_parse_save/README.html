@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo cyber-record file parser (Python based) &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/modules/tools/record_parse_save/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Record and Play Tool" href="../record_play/README.html" />
+    <link rel="prev" title="Record Analyzer Tool" href="../record_analyzer/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../record_play/README.html" title="Record and Play Tool"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../record_analyzer/README.html" title="Record Analyzer Tool"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo cyber-record file parser (Python based)</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo cyber-record file parser (Python based)</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#files-and-functions">Files and functions:</a></li>
+<li><a class="reference internal" href="#dependency">Dependency</a></li>
+<li><a class="reference internal" href="#how-to-use">How-to-use:</a></li>
+<li><a class="reference internal" href="#notes">NOTES</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../record_analyzer/README.html"
+                        title="上一章">Record Analyzer Tool</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../record_play/README.html"
+                        title="下一章">Record and Play Tool</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/modules/tools/record_parse_save/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-cyber-record-file-parser-python-based">
+<h1>Apollo cyber-record file parser (Python based)<a class="headerlink" href="#apollo-cyber-record-file-parser-python-based" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>This tool presents multiple examples of how to parse data from a record file and
+save using predefined format. The tool has been built on example provided within
+Apollo (<code class="docutils literal notranslate"><span class="pre">/apollo/cyber/python/examples/</span></code>).</p>
+<p>The samples provided here illustrate cases for, parsing data from:</p>
+<ul class="simple">
+<li><p>lidar: based on
+<a class="reference internal" href="../../../docs/specs/Lidar/VLS_128_Installation_Guide.html"><span class="doc std std-doc">Velodyne VLS-128</span></a></p></li>
+<li><p>radar: based on
+<a class="reference internal" href="../../../docs/specs/Radar/Continental_ARS408-21_Radar_Installation_Guide.html"><span class="doc std std-doc">Continental ARS-408-21</span></a></p></li>
+<li><p>camera: based on
+<a class="reference internal" href="../../../docs/specs/Camera/Leopard_Camera_LI-USB30-AZ023WDR__Installation_Guide.html"><span class="doc std std-doc">Leopard Imaging Inc’s Camera - LI-USB30-AZ023WDRB</span></a></p></li>
+</ul>
+</section>
+<section id="files-and-functions">
+<h2>Files and functions:<a class="headerlink" href="#files-and-functions" title="永久链接至标题">¶</a></h2>
+<p>The files/functions provided are as follows:</p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">record_parse_save.py</span></code>: main function that parses
+record files from and saves extracted data to specified location</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">parse_lidar.py</span></code>: function to parse lidar data</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">parse_radar.py</span></code>: function to parse radar data</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">parse_camera.py</span></code>: function to parse camera data</p></li>
+<li><p><code class="file docutils literal notranslate"><span class="pre">parser_params.yaml</span></code>: YAML file with details of
+record-file location, where the output files should be saved and what sensor
+data should be parsed along with specific channel-names associated with
+particular sensor, it’s configuration and it’s location.</p>
+<ul>
+<li><p>list of channels in a record-file can be obtained using
+<code class="docutils literal notranslate"><span class="pre">cyber_recorder</span> <span class="pre">info</span></code>. For example, to get details on a sample record file
+<code class="docutils literal notranslate"><span class="pre">20190422142705.record.00000</span></code> saved at:
+<code class="docutils literal notranslate"><span class="pre">/apollo/data/record_files/2019-04-22-14-27-05/2019-04-22-14-27-05_records/</span></code>
+enter following at command prompt:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cyber_recorder</span> <span class="pre">info</span> <span class="pre">/apollo/data/record_files/2019-04-22-14-27-05/2019-04-22-14-27-05_records/20190422142705.record.00000</span></code></p></li>
+<li><p>The output on screen will look like that presented in the image below:</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="alt text" src="../../../_images/sample_cyber_info.jpg" /></p>
+</section>
+<section id="dependency">
+<h2>Dependency<a class="headerlink" href="#dependency" title="永久链接至标题">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo pip install pyyaml
+</pre></div>
+</div>
+</section>
+<section id="how-to-use">
+<h2>How-to-use:<a class="headerlink" href="#how-to-use" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>It is assumed that the user is within Apollo docker environment and has
+successfully built it. Please check documentation on
+<a class="reference internal" href="../../../docs/howto/how_to_launch_and_run_apollo.html"><span class="doc std std-doc">Build Apollo</span></a> if
+required.</p></li>
+<li><p>Modify parameters specified within <code class="docutils literal notranslate"><span class="pre">parser_params.yaml</span></code> to serve your purpose.</p></li>
+<li><p>After correct parameters are specified in the YAML file, run parser function
+in <code class="docutils literal notranslate"><span class="pre">/apollo</span></code> using:</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">./bazel-bin/modules/tools/record_parse_save/record_parse_save</span></code></p>
+<ul class="simple">
+<li><p>parsed sensor data will be saved in new folder along with associated capture
+or scan timestamps in a text file.</p></li>
+</ul>
+</section>
+<section id="notes">
+<h2>NOTES<a class="headerlink" href="#notes" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>In the example setup here, parsed data is saved within the parent folder
+containing the records-file’s folder. Every saved file has associated
+timestamp with it.</p></li>
+<li><p>All record-files within the folder are parsed. If any record file is corrupt,
+the parser will display error message and continue to next record file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">radar</span></code> data is saved in text files in JSON format for each scan</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lidar</span></code> point-cloud data is saved in text files for each scan</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">camera</span></code> images are saved in jpeg file for each capture</p></li>
+<li><p>All timestamps are saved in a separate file with <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> suffix, in the
+same order in which the parsed files are saved in corresponding folder.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../record_play/README.html" title="Record and Play Tool"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../record_analyzer/README.html" title="Record Analyzer Tool"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo cyber-record file parser (Python based)</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

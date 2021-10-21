@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 系统架构代码分析 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/arch/apollo1.5_top_study_notes_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="How to add a new GPS Receiver" href="../how_to_add_a_gps_receiver.html" />
+    <link rel="prev" title="adapter设计架构代码分析" href="apollo1.5_adapter_arch_study_notes_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../how_to_add_a_gps_receiver.html" title="How to add a new GPS Receiver"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_adapter_arch_study_notes_cn.html" title="adapter设计架构代码分析"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 系统架构代码分析</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 系统架构代码分析</a><ul>
+<li><a class="reference internal" href="#id1">代码分析</a><ul>
+<li><a class="reference internal" href="#mian-c">mian.c文件</a></li>
+<li><a class="reference internal" href="#apollo-main">APOLLO_MAIN宏解析：</a></li>
+<li><a class="reference internal" href="#apolloapp">ApolloApp类：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo1.5_adapter_arch_study_notes_cn.html"
+                        title="上一章">adapter设计架构代码分析</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../how_to_add_a_gps_receiver.html"
+                        title="下一章">How to add a new GPS Receiver</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/howto/arch/apollo1.5_top_study_notes_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo">
+<h1>Apollo 系统架构代码分析<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>以localization模块为例，其余模块节点类似。</p>
+<section id="id1">
+<h2>代码分析<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>主要文件： <a class="reference external" href="http://main.cc">main.cc</a>，apollo_app.cc，apollo_app.h。</p>
+<section id="mian-c">
+<h3>mian.c文件<a class="headerlink" href="#mian-c" title="永久链接至标题">¶</a></h3>
+<p>文件中只有一行代码：APOLLO_MAIN(apollo::localization::Localization) ，使用宏APOLLO_MAIN，开启了Localization节点，这里localization节点开始运行，这里的的节点与ros中的node概念一致，相当于一个进程。</p>
+</section>
+<section id="apollo-main">
+<h3>APOLLO_MAIN宏解析：<a class="headerlink" href="#apollo-main" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>APOLLO_MAIN宏定义位于”modules/common/apollo_app.h”文件。</p></li>
+<li><p>设置log和SIGINT信号处理程序，收到信号，关闭本节点。</p></li>
+<li><p>创建模块类对象，设置节点名字，调用基类（ApolloApp）的Spin()函数。</p></li>
+</ul>
+</section>
+<section id="apolloapp">
+<h3>ApolloApp类：<a class="headerlink" href="#apolloapp" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Spin()函数属于类ApolloApp public成员函数，类ApolloApp是所有模块类的基类。</p></li>
+<li><p>Public成员有name()函数，用于获取模块名字。Spin()函数用于初始化、启动、当ros关闭时关闭模块节点。还有一个析构函数。</p></li>
+<li><p>Protected成员都是vritual接口，子类都会重写，在Spin()函数中调用，其实现实在具体各个模块内部。Init()函数完成加载模块的配置文件，创建订阅话题。Start()函数：注册回调函数，回调函数负责节点核心任务，通常由上游话题或者timer触发。Stop()函数，结束节点，正常时不会执行到。ReportModuleStatus()返回模块状态。apollo_app_sigint_handler()函数，信号处理函数。</p></li>
+<li><p>Spin()函数使用init()，start()和stop()函数完成模块节点的实现。此函数一般不会被重写，也就是使用ApolloApp的实现。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../how_to_add_a_gps_receiver.html" title="How to add a new GPS Receiver"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_adapter_arch_study_notes_cn.html" title="adapter设计架构代码分析"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 系统架构代码分析</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

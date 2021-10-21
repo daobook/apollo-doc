@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 3.0 Quick Start Guide &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/quickstart/apollo_3_0_quick_start.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo 3.0 快速入门指南" href="apollo_3_0_quick_start_cn.html" />
+    <link rel="prev" title="Apollo 3.0 硬件与系统安装指南" href="apollo_3_0_hardware_system_installation_guide_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo_3_0_quick_start_cn.html" title="Apollo 3.0 快速入门指南"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_3_0_hardware_system_installation_guide_cn.html" title="Apollo 3.0 硬件与系统安装指南"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0 Quick Start Guide</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 3.0 Quick Start Guide</a><ul>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#calibration-guide">Calibration Guide</a></li>
+<li><a class="reference internal" href="#hardware-and-software-installation">Hardware and Software Installation</a></li>
+<li><a class="reference internal" href="#dreamview-usage-table">Dreamview Usage Table</a></li>
+<li><a class="reference internal" href="#onboard-test">Onboard Test</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo_3_0_hardware_system_installation_guide_cn.html"
+                        title="上一章">Apollo 3.0 硬件与系统安装指南</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo_3_0_quick_start_cn.html"
+                        title="下一章">Apollo 3.0 快速入门指南</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/quickstart/apollo_3_0_quick_start.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-3-0-quick-start-guide">
+<h1>Apollo 3.0 Quick Start Guide<a class="headerlink" href="#apollo-3-0-quick-start-guide" title="永久链接至标题">¶</a></h1>
+<p>The following guide serves as a user manual for launching the Apollo 3.0
+software and hardware stack on vehicle.</p>
+<p>The Apollo 3.0 Quick Start Guide focuses on Apollo 3.0’s new features. For general
+Apollo concepts, please refer to
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_1_0_quick_start.md">Apollo 1.0 Quick Start</a>.</p>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="#calibration-guide">Calibration Guide</a></p></li>
+<li><p><a class="reference external" href="#hardware-and-software-installation">Hardware and Software Installation</a></p></li>
+<li><p><a class="reference external" href="#dreamview-usage-table">Dreamview Usage Table</a></p></li>
+<li><p><a class="reference external" href="#onboard-test">Onboard Test</a></p></li>
+</ul>
+</section>
+<section id="calibration-guide">
+<h2>Calibration Guide<a class="headerlink" href="#calibration-guide" title="永久链接至标题">¶</a></h2>
+<p>For the vehicle’s onboard testing make sure you have calibrated all the sensors. For
+sensor calibration, please refer to
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_2_0_sensor_calibration_guide.md">Apollo 2.0 Sensor Calibration Guide</a>
+before you proceed.</p>
+</section>
+<section id="hardware-and-software-installation">
+<h2>Hardware and Software Installation<a class="headerlink" href="#hardware-and-software-installation" title="永久链接至标题">¶</a></h2>
+<p>Please refer to
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_3_0_hardware_system_installation_guide.md">Apollo 3.0 Hardware and System Installation Guide</a>
+for the steps to install the hardware components and the system software, as well as
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/apollo_software_installation_guide.md">Apollo Software Installation Guide</a>.</p>
+</section>
+<section id="dreamview-usage-table">
+<h2>Dreamview Usage Table<a class="headerlink" href="#dreamview-usage-table" title="永久链接至标题">¶</a></h2>
+<p>For questions regarding Dreamview icons refer to the
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/specs/dreamview_usage_table.md">Dreamview Usage Table</a>.</p>
+</section>
+<section id="onboard-test">
+<h2>Onboard Test<a class="headerlink" href="#onboard-test" title="永久链接至标题">¶</a></h2>
+<ol>
+<li><p>Plug-in an external hard-drive to any available USB port in the host machine.</p></li>
+<li><p>Turn on the vehicle, and then the host machine.</p></li>
+<li><p>Launch Docker Release Container.</p></li>
+<li><p>Launch DreamView.</p>
+<p>Note: Use your favorite browser to access Dreamview web service in your host
+machine browser with URL <a class="reference external" href="http://localhost:8888.">http://localhost:8888.</a></p>
+<p><img alt="dreamview_2_5" src="../../_images/dreamview_2_5.png" /></p>
+</li>
+<li><p>Select Mode, Vehicle and Map.</p>
+<p><img alt="dreamview_2_5_setup_profile" src="../../_images/dreamview_2_5_setup_profile.png" /></p>
+<p>Note: You’ll be required to setup profile before doing anything else. Click
+the dropdown menu to select <strong>Navigation</strong> mode, the HDMap and vehicle you
+want to use. The lists are defined in
+<a class="reference external" href="https://raw.githubusercontent.com/ApolloAuto/apollo/master/modules/dreamview/conf/hmi.conf">HMI config file</a>.</p>
+<p>Note: It’s also possible to change the profile on the right panel of the
+HMI, but just remember to click <code class="docutils literal notranslate"><span class="pre">Reset</span> <span class="pre">All</span></code> on the top-right corner to
+restart the system.</p>
+</li>
+<li><p>Start the Modules.</p>
+<p>Click the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> button.</p>
+<p><img alt="dreamview_2_5_setup" src="../../_images/dreamview_2_5_setup.png" /></p>
+<p>Go to <strong>Module Controller</strong> tab, check if all modules and hardware are ready.
+(Note: In your offline environment, the hardware modules such as GPS,
+CANBus, Velodyne, Camera and Radar cannot be brought up.)
+(Note: You may need to drive around a bit to get a good GPS signal.)</p>
+<p><img alt="dreamview_2_5_module_controller" src="../../_images/dreamview_2_5_module_controller.png" /></p>
+</li>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">Default</span> <span class="pre">Routing</span></code> select your desired route.</p></li>
+<li><p>Under Tasks click <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Auto</span></code>. (Note: Be cautious when starting the autonomous
+driving, you should now be in autonomous mode.)</p>
+<p><img alt="dreamview_2_5_start_auto" src="../../_images/dreamview_2_5_start_auto.png" /></p>
+</li>
+<li><p>After the autonomous testing is complete, under Tasks click <code class="docutils literal notranslate"><span class="pre">Reset</span> <span class="pre">All</span></code>, close all
+windows and shutdown the machine.</p></li>
+<li><p>Remove the hard drive.</p></li>
+</ol>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo_3_0_quick_start_cn.html" title="Apollo 3.0 快速入门指南"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_3_0_hardware_system_installation_guide_cn.html" title="Apollo 3.0 硬件与系统安装指南"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0 Quick Start Guide</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>百度云对象存储BOS注册与基本使用向导 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/Apollo_Fuel/apply_bos_account_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="1. 开通云服务账号向导" href="apply_fuel_account_cn.html" />
+    <link rel="prev" title="Vehicle Calibration Online Service" href="Vehicle_Calibration_Online/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apply_fuel_account_cn.html" title="1. 开通云服务账号向导"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Vehicle_Calibration_Online/README.html" title="Vehicle Calibration Online Service"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">百度云对象存储BOS注册与基本使用向导</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">百度云对象存储BOS注册与基本使用向导</a><ul>
+<li><a class="reference internal" href="#id1">概述</a></li>
+<li><a class="reference internal" href="#id2">前提条件</a></li>
+<li><a class="reference internal" href="#id3">主要步骤</a><ul>
+<li><a class="reference internal" href="#id4">1、登录开通BOS</a></li>
+<li><a class="reference internal" href="#bucket">2、创建bucket</a></li>
+<li><a class="reference internal" href="#id5">3、使用BOS客户端</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Vehicle_Calibration_Online/README.html"
+                        title="上一章">Vehicle Calibration Online Service</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apply_fuel_account_cn.html"
+                        title="下一章">1. 开通云服务账号向导</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/Apollo_Fuel/apply_bos_account_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="bos">
+<h1>百度云对象存储BOS注册与基本使用向导<a class="headerlink" href="#bos" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="#%E7%99%BE%E5%BA%A6%E4%BA%91%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8bos%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%90%91%E5%AF%BC">百度云对象存储BOS注册与基本使用向导</a></p>
+<ul>
+<li><p><a class="reference external" href="#%E6%A6%82%E8%BF%B0">概述</a></p></li>
+<li><p><a class="reference external" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6">前提条件</a></p></li>
+<li><p><a class="reference external" href="#%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4">主要步骤</a></p>
+<ul>
+<li><p><a class="reference external" href="#1%E7%99%BB%E5%BD%95%E5%BC%80%E9%80%9Abos">1、登录开通BOS</a></p></li>
+<li><p><a class="reference external" href="#2%E5%88%9B%E5%BB%BAbucket">2、创建bucket</a></p></li>
+<li><p><a class="reference external" href="#3%E4%BD%BF%E7%94%A8bos%E5%AE%A2%E6%88%B7%E7%AB%AF">3、使用BOS客户端</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<section id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>该用户手册旨在帮助用户完成注册百度云对象存储BOS购买服务，使用客户端登录BOS上传下载数据。</p>
+</section>
+<section id="id2">
+<h2>前提条件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>注册一个百度账号，供后续使用。<a class="reference external" href="https://passport.baidu.com/">登录注册网址</a></p>
+</section>
+<section id="id3">
+<h2>主要步骤<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<section id="id4">
+<h3>1、登录开通BOS<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>打开<a class="reference external" href="https://console.bce.baidu.com/">BOS主页</a>用百度账号登录，登录成功界面如下图所示：</p>
+<p><img alt="mian" src="../../_images/login_main.png" /></p>
+<p>点击对象存储BOS，界面如下图所示：</p>
+<p><img alt="bos" src="../../_images/login_bos.png" /></p>
+<p>点击立即开通按钮弹出界面如下：</p>
+<p><img alt="bos_main" src="../../_images/login_bos_main.png" /></p>
+<p>在财务的位置点击充值按钮进行充值，弹出界面如下图所示：</p>
+<p><img alt="bos_recharge" src="../../_images/login_bos_recharge.png" /></p>
+<p>充值是一种按使用标准存储空间的容量进行付费的模式，相对开发者套件云服务来说比较划算，余额还可以随时提取。</p>
+</section>
+<section id="bucket">
+<h3>2、创建bucket<a class="headerlink" href="#bucket" title="永久链接至标题">¶</a></h3>
+<p>在上上图中点击新建bucket，弹出界面如下图所示：</p>
+<p><img alt="create" src="../../_images/bucket_create.png" /></p>
+<p>注意在所属地域的地方选择自己的区域，读写权限设置为私有，cdn计费方式选择按使用流量计费，这是一种后付费模式，使用多少流量，付多少费，比较划算。创建成功后界面如下图所示：</p>
+<p><img alt="main" src="../../_images/bucket_main.png" /></p>
+<p>权限设置修改如下图所示：</p>
+<p><img alt="authority" src="../../_images/bucket_authority.png" /></p>
+<p>创建成功后AK、SK查看方法：</p>
+<p><img alt="ak" src="../../_images/bucket_AK.png" /></p>
+<p>点击红框中的Access Key，弹出界面如下所示：</p>
+<p><img alt="sk" src="../../_images/bucket_SK.png" /></p>
+<p>点击Secret Key显示按钮输入验证码即可查看SK。</p>
+</section>
+<section id="id5">
+<h3>3、使用BOS客户端<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>从<a class="reference external" href="https://cloud.baidu.com/doc/BOS/s/lk4tnbkrm">BOS桌面客户端</a>上，下载桌面客户端软件，有Windows和Mac两种，下面以Windows为例来下载，安装成功后打开界面如下图所示：</p>
+<p><img alt="ak_sk" src="../../_images/bos_client_ak_sk.png" /></p>
+<p>填写上自己的AK、SK后，点击向右的箭头，如下图所示：</p>
+<p><img alt="security" src="../../_images/bos_client_security.png" /></p>
+<p>设置输入自己的安全码点击登录即可看到自己创建的bucket如下图所示：</p>
+<p><img alt="bucket" src="../../_images/bos_client_bucket.png" /></p>
+<p>然后上传下载单个文件或者整个文件夹数据即可。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apply_fuel_account_cn.html" title="1. 开通云服务账号向导"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Vehicle_Calibration_Online/README.html" title="Vehicle Calibration Online Service"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">百度云对象存储BOS注册与基本使用向导</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

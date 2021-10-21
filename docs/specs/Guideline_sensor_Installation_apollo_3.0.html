@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Guideline of sensor Installation for Apollo 3.0 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/Guideline_sensor_Installation_apollo_3.0.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo 3.0传感器安装指南" href="Guideline_sensor_Installation_apollo_3.0_cn.html" />
+    <link rel="prev" title="Guideline of sensor Installation for Apollo 2.5" href="Guideline_sensor_Installation_apollo_2.5.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_3.0_cn.html" title="Apollo 3.0传感器安装指南"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_2.5.html" title="Guideline of sensor Installation for Apollo 2.5"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Guideline of sensor Installation for Apollo 3.0</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Guideline of sensor Installation for Apollo 3.0</a><ul>
+<li><a class="reference internal" href="#required-hardware">Required Hardware</a></li>
+<li><a class="reference internal" href="#coordinate-system">Coordinate system</a></li>
+<li><a class="reference internal" href="#sensor-installation-guideline">Sensor installation Guideline</a><ul>
+<li><a class="reference internal" href="#imu-gps">IMU/GPS</a></li>
+<li><a class="reference internal" href="#radar">Radar</a></li>
+<li><a class="reference internal" href="#camera">Camera</a><ul>
+<li><a class="reference internal" href="#verification-of-camera-setups">Verification of camera Setups</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Guideline_sensor_Installation_apollo_2.5.html"
+                        title="上一章">Guideline of sensor Installation for Apollo 2.5</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Guideline_sensor_Installation_apollo_3.0_cn.html"
+                        title="下一章">Apollo 3.0传感器安装指南</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/Guideline_sensor_Installation_apollo_3.0.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="guideline-of-sensor-installation-for-apollo-3-0">
+<h1>Guideline of sensor Installation for Apollo 3.0<a class="headerlink" href="#guideline-of-sensor-installation-for-apollo-3-0" title="永久链接至标题">¶</a></h1>
+<p>June 27, 2018</p>
+<section id="required-hardware">
+<h2>Required Hardware<a class="headerlink" href="#required-hardware" title="永久链接至标题">¶</a></h2>
+<p><img alt="Image" src="../../_images/perception_required_hardware.png" /></p>
+<p>Peripherals</p>
+<p><img alt="Image" src="../../_images/perception_peripherals.png" /></p>
+</section>
+<section id="coordinate-system">
+<h2>Coordinate system<a class="headerlink" href="#coordinate-system" title="永久链接至标题">¶</a></h2>
+<p>Unit: millimeter (mm)</p>
+<p>Origin: The center of the rear wheel Axle</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure1.png" /></p>
+<p><strong>Figure 1. The origin and the coordinate of the system</strong></p>
+<p><img alt="Image" src="../../_images/perception_setup_figure2.png" /></p>
+<p><strong>Figure 2. Coordinates and Installation of cameras and a radar for truck</strong></p>
+</section>
+<section id="sensor-installation-guideline">
+<h2>Sensor installation Guideline<a class="headerlink" href="#sensor-installation-guideline" title="永久链接至标题">¶</a></h2>
+<section id="imu-gps">
+<h3>IMU/GPS<a class="headerlink" href="#imu-gps" title="永久链接至标题">¶</a></h3>
+<p>IMU/GPS need to be installed near the rear wheel axle. GPS antenna needs to install at the top of the vehicle.</p>
+</section>
+<section id="radar">
+<h3>Radar<a class="headerlink" href="#radar" title="永久链接至标题">¶</a></h3>
+<p>The long-range Radar needs to be installed at the front bumper of the vehicle as shown in Figure 1 and Figure 2.</p>
+</section>
+<section id="camera">
+<h3>Camera<a class="headerlink" href="#camera" title="永久链接至标题">¶</a></h3>
+<p>One camera with 6mm-lens should face the front of ego-vehicle. The front-facing camera needs to be installed at the center of the front of a vehicle the height between 1,600mm and 2,000mm from the ground (Camera_1) or at the windshield of a vehicle (Camera_2).</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure3.png" /></p>
+<p><strong>Figure 3. Example setup of cameras</strong></p>
+<p>After installation of cameras, The physical x, y, z location of camera w.r.t. origin should be saved in the calibration file.</p>
+<section id="verification-of-camera-setups">
+<h4>Verification of camera Setups<a class="headerlink" href="#verification-of-camera-setups" title="永久链接至标题">¶</a></h4>
+<p>The orientation of all three cameras should be all zeros. When the camera is installed, it is required to record a rosbag by driving a straight highway. By the replay of rosbag, the camera orientation should be re-adjusted to have pitch, yaw, and roll angles to be zero degree. When the camera is correctly installed, the horizon should be at the half of image height and not tilted. The vanishing point should be also at the center of the image. Please see the image below for the ideal camera setup.</p>
+<p><img alt="Image" src="../../_images/perception_setup_figure4.png" /></p>
+<p><strong>Figure 4. An example of an image after camera installation. The horizon should be at the half of image height and not tilted. The vanishing point should be also at the center of the image. The red lines show the center of the width and the height of the image.</strong></p>
+<p>The example of estimated translation parameters is shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">header</span><span class="p">:</span>
+    <span class="n">seq</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">stamp</span><span class="p">:</span>
+        <span class="n">secs</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="n">nsecs</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">frame_id</span><span class="p">:</span> <span class="n">white_mkz</span>
+<span class="n">child_frame_id</span><span class="p">:</span> <span class="n">onsemi_obstacle</span>
+<span class="n">transform</span><span class="p">:</span>
+    <span class="n">rotation</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">:</span>  <span class="mf">0.5</span>
+        <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span>
+        <span class="n">z</span><span class="p">:</span>  <span class="mf">0.5</span>
+        <span class="n">w</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span>
+    <span class="n">translation</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">:</span> <span class="mf">1.895</span>
+        <span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.235</span>
+        <span class="n">z</span><span class="p">:</span> <span class="mf">1.256</span>
+</pre></div>
+</div>
+<p>If angles are not zero, they need to be calibrated and represented in quaternion (see above transform-&gt;rotation).</p>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_3.0_cn.html" title="Apollo 3.0传感器安装指南"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Guideline_sensor_Installation_apollo_2.5.html" title="Guideline of sensor Installation for Apollo 2.5"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Guideline of sensor Installation for Apollo 3.0</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

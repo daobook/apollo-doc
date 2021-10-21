@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Open Perception Lidar Model Training Service &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/Apollo_Fuel/Perception_Lidar_Model_Training/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Prediction Pedestrian Model Training Service" href="../Prediction_Pedestrian_Model_Training/README.html" />
+    <link rel="prev" title="Open Space Planner Profiling Service" href="../Open_Space_Planner_Profiling/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../Prediction_Pedestrian_Model_Training/README.html" title="Prediction Pedestrian Model Training Service"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../Open_Space_Planner_Profiling/README.html" title="Open Space Planner Profiling Service"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Open Perception Lidar Model Training Service</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open Perception Lidar Model Training Service</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#main-steps">Main Steps</a></li>
+<li><a class="reference internal" href="#data-collection">Data Collection</a><ul>
+<li><a class="reference internal" href="#data-recording">Data Recording</a></li>
+<li><a class="reference internal" href="#data-format">Data format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#job-submission">Job Submission</a><ul>
+<li><a class="reference internal" href="#upload-data-to-bos">Upload data to BOS</a></li>
+<li><a class="reference internal" href="#submit-job-on-dreamland">Submit job on Dreamland</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-training-result">Model Training Result</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../Open_Space_Planner_Profiling/README.html"
+                        title="上一章">Open Space Planner Profiling Service</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../Prediction_Pedestrian_Model_Training/README.html"
+                        title="下一章">Prediction Pedestrian Model Training Service</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/Apollo_Fuel/Perception_Lidar_Model_Training/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="open-perception-lidar-model-training-service">
+<h1>Open Perception Lidar Model Training Service<a class="headerlink" href="#open-perception-lidar-model-training-service" title="永久链接至标题">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="永久链接至标题">¶</a></h2>
+<p>Open Perception Lidar Model Training Service is a cloud-based service to train perception lidar model using pointpillars algorithm from your data, to better detect obstacles in your environment.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo">Apollo</a> 6.0 or higher version.</p></li>
+<li><p>Baidu Cloud BOS service registered according to <a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/master/docs/Apollo_Fuel/apply_bos_account_cn.md">document</a></p></li>
+<li><p>Fuel service account on <a class="reference external" href="http://bce.apollo.auto/user-manual/fuel-service">Apollo Dreamland</a></p></li>
+</ul>
+</section>
+<section id="main-steps">
+<h2>Main Steps<a class="headerlink" href="#main-steps" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Data collection</p></li>
+<li><p>Job submission</p></li>
+<li><p>Model training result</p></li>
+</ul>
+</section>
+<section id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="永久链接至标题">¶</a></h2>
+<section id="data-recording">
+<h3>Data Recording<a class="headerlink" href="#data-recording" title="永久链接至标题">¶</a></h3>
+<p>Collecting sensor data from lidar and cameras in different scenarios covering your autonomous driving environment as much as possible, please make sure the scenarios have different types of obstacles such as pedestrians and vehicles. Then labeling the sensor data using kitti data format.</p>
+</section>
+<section id="data-format">
+<h3>Data format<a class="headerlink" href="#data-format" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p><strong>We use <a class="reference external" href="http://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d">Kitti data format</a> as training data format</strong>:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">INPUT_DATA_PATH</span><span class="p">:</span>
+        <span class="n">training</span><span class="p">:</span>
+            <span class="n">calib</span>
+            <span class="n">image_2</span>
+            <span class="n">label_2</span>
+            <span class="n">velodyne</span>
+        <span class="n">testing</span><span class="p">:</span>
+            <span class="n">calib</span>
+            <span class="n">image_2</span>
+            <span class="n">velodyne</span>
+        <span class="n">train</span><span class="o">.</span><span class="n">txt</span>
+	<span class="n">val</span><span class="o">.</span><span class="n">txt</span>
+        <span class="n">trainval</span><span class="o">.</span><span class="n">txt</span>
+        <span class="n">test</span><span class="o">.</span><span class="n">txt</span> 
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Supported obstacle detection categories:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">bus</span><span class="p">,</span> <span class="n">Car</span><span class="p">,</span> <span class="n">construction_vehicle</span><span class="p">,</span> <span class="n">Truck</span><span class="p">,</span> <span class="n">barrier</span><span class="p">,</span> <span class="n">Cyclist</span><span class="p">,</span> <span class="n">motorcycle</span><span class="p">,</span> <span class="n">Pedestrian</span><span class="p">,</span> <span class="n">traffic_cone</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>When labeling your data, `type` must be one of the above categories (please note the uppercase).
+</pre></div>
+</div>
+</section>
+</section>
+<section id="job-submission">
+<h2>Job Submission<a class="headerlink" href="#job-submission" title="永久链接至标题">¶</a></h2>
+<section id="upload-data-to-bos">
+<h3>Upload data to BOS<a class="headerlink" href="#upload-data-to-bos" title="永久链接至标题">¶</a></h3>
+<p>Requirements of the folder structure for job submission：</p>
+<ol class="simple">
+<li><p>Input Data Path: upload your <a class="reference external" href="###Data-format">data</a> to INPUT_DATA_PATH directory.</p></li>
+<li><p>Output Data Path: if the model is trained successfully, an onnx file will be saved to the OUTPUT_DATA_PATH directory.</p></li>
+</ol>
+</section>
+<section id="submit-job-on-dreamland">
+<h3>Submit job on Dreamland<a class="headerlink" href="#submit-job-on-dreamland" title="永久链接至标题">¶</a></h3>
+<p>Go to <a class="reference external" href="http://bce.apollo.auto/">Apollo Dreamland</a>, login with <strong>Baidu</strong> account, choose <code class="docutils literal notranslate"><span class="pre">Apollo</span> <span class="pre">Fuel</span> <span class="pre">--&gt;</span> <span class="pre">Jobs</span></code>，<code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Job</span></code>, <code class="docutils literal notranslate"><span class="pre">Perception</span> <span class="pre">Lidar</span> <span class="pre">Model</span> <span class="pre">Training</span></code>，and input the correct BOS path as in <a class="reference external" href="###Upload-data-to-BOS">Upload data to BOS</a> section.</p>
+</section>
+</section>
+<section id="model-training-result">
+<h2>Model Training Result<a class="headerlink" href="#model-training-result" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>Once a job is done, you should be expecting one email per job including the results and <code class="docutils literal notranslate"><span class="pre">Model</span> <span class="pre">Path</span></code>.</p></li>
+</ul>
+<p><img alt="" src="../../../_images/perception_email.png" /></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../Prediction_Pedestrian_Model_Training/README.html" title="Prediction Pedestrian Model Training Service"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../Open_Space_Planner_Profiling/README.html" title="Open Space Planner Profiling Service"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Open Perception Lidar Model Training Service</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>传感器标定 FAQs &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/FAQs/Calibration_FAQs_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="DreamView FAQs" href="Dreamview_FAQs.html" />
+    <link rel="prev" title="Calibration FAQs" href="Calibration_FAQs.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Dreamview_FAQs.html" title="DreamView FAQs"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Calibration_FAQs.html" title="Calibration FAQs"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">传感器标定 FAQs</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">传感器标定 FAQs</a><ul>
+<li><a class="reference internal" href="#id1">如何查看传感器是否有数据输出?</a></li>
+<li><a class="reference internal" href="#id2">如何查看车辆的定位状态?</a></li>
+<li><a class="reference internal" href="#id3">如何进行质检?</a></li>
+<li><a class="reference internal" href="#id4">如何解决标定程序权限错误？</a></li>
+<li><a class="reference internal" href="#sensor-calibration-sh">如何解决执行 sensor_calibration.sh 时出现的权限错误？</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Calibration_FAQs.html"
+                        title="上一章">Calibration FAQs</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Dreamview_FAQs.html"
+                        title="下一章">DreamView FAQs</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/FAQs/Calibration_FAQs_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="faqs">
+<h1>传感器标定 FAQs<a class="headerlink" href="#faqs" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>如何查看传感器是否有数据输出?<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>使用 rostopic 命令。例如，查看 HDL-64ES3 的输出，可以在终端中输入:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> rostopic <span class="nb">echo</span> /apollo/sensor/velodyne64/VelodyneScanUnified
+</pre></div>
+</div>
+<p>若该 topic 的数据会显示在终端上，则激光雷达工作正常。</p>
+</section>
+<section id="id2">
+<h2>如何查看车辆的定位状态?<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>以使用 Novatel 组合惯导为例，在终端中输入:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic <span class="nb">echo</span> /apollo/sensor/gnss/ins_stat
+</pre></div>
+</div>
+<p>找到“pos_type”字段，若该字段的值为 56，则表示进入了良好的定位状态 (RTK_FIXED)，
+可以用于标定。若不为 56，则无法获得可靠的标定结果。</p>
+</section>
+<section id="id3">
+<h2>如何进行质检?<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>目前进行质检方法主要通过人工来完成。标定完成后，页面会提供标定过程中拼接得到的点
+云。若标定结果良好，会得到锐利和清晰的拼接点云，可反映出标定场地的细节。通常质检
+的参照物有平整的建筑立面、路灯和电线杆以及路沿等。若标定质量较差，则会使拼接点云
+出现一些模糊、重影的效果。图 1 是两张不同标定质量的拼接点云对比。</p>
+<p><img alt="" src="../../_images/good_calib.png" /></p>
+<p align="center">
+(a)
+</p>
+<p><img alt="" src="../../_images/poor_calib.png" /></p>
+<p align="center">
+(b)
+</p>
+<p align="center">
+图1. (a) 高质量的标定结果 (b) 质量较差的标定结果。
+</p>
+</section>
+<section id="id4">
+<h2>如何解决标定程序权限错误？<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>Output path 需要<code class="docutils literal notranslate"><span class="pre">write</span></code>权限来创建文件夹以及保存标定结果，若缺少相关权限，则会出
+现如下错误：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>terminate called after throwing an instance of ‘boost::filesystem::filesystem_error’ what<span class="o">()</span>: boost::filesystem::create_directories: permission denied: <span class="s2">&quot;***&quot;</span>
+</pre></div>
+</div>
+<p>输入以下命令，来为 Output path 添加<code class="docutils literal notranslate"><span class="pre">write</span></code>权限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 为output path(如：/apollo/modules/calibration/data/mkz8)添加write权限</span>
+sudo chmod a+w /apollo/modules/calibration/data/mkz8 -R
+</pre></div>
+</div>
+</section>
+<section id="sensor-calibration-sh">
+<h2>如何解决执行 sensor_calibration.sh 时出现的权限错误？<a class="headerlink" href="#sensor-calibration-sh" title="永久链接至标题">¶</a></h2>
+<p>Log 存储文件夹需要<code class="docutils literal notranslate"><span class="pre">write</span></code>权限来创建日志，若缺少相关权限，则会出现如下错误：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tee: /apollo/data/log/***.out: permission denied
+</pre></div>
+</div>
+<p>输入以下命令，来为脚本添加<code class="docutils literal notranslate"><span class="pre">write</span></code>权限：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo chmod a+x /apollo/data/log
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Dreamview_FAQs.html" title="DreamView FAQs"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Calibration_FAQs.html" title="Calibration FAQs"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">传感器标定 FAQs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

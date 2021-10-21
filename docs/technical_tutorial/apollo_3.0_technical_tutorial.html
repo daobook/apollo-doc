@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Apollo 3.0 Technical Tutorial &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_tutorial/apollo_3.0_technical_tutorial.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Apollo 3.0 技术指南" href="apollo_3.0_technical_tutorial_cn.html" />
+    <link rel="prev" title="Apollo 2.5 Technical Tutorial" href="apollo_2.5_technical_tutorial.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo_3.0_technical_tutorial_cn.html" title="Apollo 3.0 技术指南"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_2.5_technical_tutorial.html" title="Apollo 2.5 Technical Tutorial"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0 Technical Tutorial</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Apollo 3.0 Technical Tutorial</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#hardware-system-installation">Hardware system installation</a></li>
+<li><a class="reference internal" href="#calibration">Calibration</a></li>
+<li><a class="reference internal" href="#software-installation">Software installation</a></li>
+<li><a class="reference internal" href="#software-architecture-and-principles">Software architecture and principles</a></li>
+<li><a class="reference internal" href="#software-modules-and-extension">Software modules and extension</a></li>
+<li><a class="reference internal" href="#developer-friendliness">Developer-Friendliness</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo_2.5_technical_tutorial.html"
+                        title="上一章">Apollo 2.5 Technical Tutorial</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo_3.0_technical_tutorial_cn.html"
+                        title="下一章">Apollo 3.0 技术指南</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_tutorial/apollo_3.0_technical_tutorial.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo-3-0-technical-tutorial">
+<h1>Apollo 3.0 Technical Tutorial<a class="headerlink" href="#apollo-3-0-technical-tutorial" title="永久链接至标题">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="永久链接至标题">¶</a></h2>
+<p>Learn Apollo basic concepts and Apollo 3.0 quick start</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/apollo_3_0_quick_start.md">Apollo 3.0 quick start</a></p></li>
+</ul>
+</section>
+<section id="hardware-system-installation">
+<h2>Hardware system installation<a class="headerlink" href="#hardware-system-installation" title="永久链接至标题">¶</a></h2>
+<p>Learn the procedure of Apollo 3.0 hardware system installation</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/apollo_3_0_hardware_system_installation_guide.md">Apollo 3.0 Hardware System Installation guide</a></p></li>
+</ul>
+</section>
+<section id="calibration">
+<h2>Calibration<a class="headerlink" href="#calibration" title="永久链接至标题">¶</a></h2>
+<p>Learn the process of the calibration service</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/apollo_lidar_imu_calibration_guide.md">Calibration guide between LiDAR and INS</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/apollo_2_0_sensor_calibration_guide.md">Guide for Camera-to-Camera calibration, Camera-to-LiDAR calibration, Radar-to-Camera calibration, IMU-to-Vehicle calibration</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/multiple_lidar_gnss_calibration_guide.md">Multiple-LiDAR GNSS calibration guide</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/coordination.pdf">Apollo Coordinate System</a></p></li>
+</ul>
+</section>
+<section id="software-installation">
+<h2>Software installation<a class="headerlink" href="#software-installation" title="永久链接至标题">¶</a></h2>
+<p>Learn the procedure of Apollo 3.0 software system installation</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/quickstart/apollo_software_installation_guide.md">Apollo software installation guide</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_debug_dreamview_start_problem.md">How to Debug a Dreamview Start Problem</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/demo_guide/README.md">Run offline demo</a></p></li>
+</ul>
+</section>
+<section id="software-architecture-and-principles">
+<h2>Software architecture and principles<a class="headerlink" href="#software-architecture-and-principles" title="永久链接至标题">¶</a></h2>
+<p>Learn Apollo software architecture and principles of core modules</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/Apollo_3.0_Software_Architecture.md">Apollo software architecture</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/3d_obstacle_perception.md">3D Obstacle Perception</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/perception/README.md">Apollo 3.0 Perception</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/qp_spline_path_optimizer.md">QP-Spline-Path Optimizer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/qp_spline_st_speed_optimizer.md">QP-Spline-ST-Speed Optimizer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/reference_line_smoother.md">Reference Line Smoother</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/traffic_light.md">Traffic Light Perception</a></p></li>
+</ul>
+</section>
+<section id="software-modules-and-extension">
+<h2>Software modules and extension<a class="headerlink" href="#software-modules-and-extension" title="永久链接至标题">¶</a></h2>
+<p>Learn Apollo software modules and extension</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/canbus/README.md">Canbus module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/common/README.md">Common module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/control/README.md">Control module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/data/README.md">Data module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/localization/README.md">Localization module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/perception/README.md">Perception module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/planning/README.md">Planning module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/prediction/README.md">Prediction module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/modules/routing/README.md">Routing module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_gps_receiver.md">How to Add a New GPS Receiver</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_new_can_card.md">How to Add a New CAN Card</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_new_control_algorithm.md">How to Add a New Control Algorithm</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_new_evaluator_in_prediction_module.md">How to Add a New Evaluator in Prediction Module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_new_predictor_in_prediction_module.md">How to Add a New Predictor in Prediction Module</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_a_new_vehicle.md">How to Add a New Vehicle</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_add_an_external_dependency.md">How to Add a New External Dependency</a></p></li>
+</ul>
+</section>
+<section id="developer-friendliness">
+<h2>Developer-Friendliness<a class="headerlink" href="#developer-friendliness" title="永久链接至标题">¶</a></h2>
+<p>Learn Apollo developer tools</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/howto/how_to_build_and_debug_apollo_in_vscode_cn.md">How  to build and debug Apollo in VSCode</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/blob/r3.0.0/docs/specs/dreamview_usage_table.md">Introduction of Dreamview</a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo_3.0_technical_tutorial_cn.html" title="Apollo 3.0 技术指南"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo_2.5_technical_tutorial.html" title="Apollo 2.5 Technical Tutorial"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Apollo 3.0 Technical Tutorial</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

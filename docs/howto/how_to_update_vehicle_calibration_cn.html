@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>如何标定车辆油门和制动 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_update_vehicle_calibration_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to use Apollo 2.5 navigation mode" href="how_to_use_apollo_2.5_navigation_mode.html" />
+    <link rel="prev" title="How to Update Vehicle Calibration for Throttle and Brakes" href="how_to_update_vehicle_calibration.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_use_apollo_2.5_navigation_mode.html" title="How to use Apollo 2.5 navigation mode"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_update_vehicle_calibration.html" title="How to Update Vehicle Calibration for Throttle and Brakes"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何标定车辆油门和制动</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">如何标定车辆油门和制动</a><ul>
+<li><a class="reference internal" href="#id2">介绍</a></li>
+<li><a class="reference internal" href="#id3">准备</a><ul>
+<li><a class="reference internal" href="#id4">访问相关代码</a></li>
+<li><a class="reference internal" href="#id5">改变驾驶模式</a></li>
+<li><a class="reference internal" href="#id6">选择测试地点</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">更新车辆标定</a><ul>
+<li><a class="reference internal" href="#id8">采集数据</a></li>
+<li><a class="reference internal" href="#id9">处理数据</a></li>
+<li><a class="reference internal" href="#id10">绘制结果</a></li>
+<li><a class="reference internal" href="#protobuf">转换结果为<code class="docutils literal notranslate"><span class="pre">protobuf</span></code>格式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_update_vehicle_calibration.html"
+                        title="上一章">How to Update Vehicle Calibration for Throttle and Brakes</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_use_apollo_2.5_navigation_mode.html"
+                        title="下一章">How to use Apollo 2.5 navigation mode</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_update_vehicle_calibration_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>如何标定车辆油门和制动<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<section id="id2">
+<h2>介绍<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>车辆校准的目的是找到准确产生从控制模块请求的加速量的油门和制动命令</p>
+</section>
+<section id="id3">
+<h2>准备<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>按如下顺序完成准备工作:</p>
+<ul class="simple">
+<li><p>访问相关代码</p></li>
+<li><p>改变驾驶模式</p></li>
+<li><p>选择测试地点</p></li>
+</ul>
+<section id="id4">
+<h3>访问相关代码<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Canbus, 包括以下模块:</p>
+<ul>
+<li><p>GPS 驱动</p></li>
+<li><p>定位</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h3>改变驾驶模式<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>在<code class="docutils literal notranslate"><span class="pre">modules/canbus/conf/canbus_conf.pb.txt</span></code>中，设置驾驶模式为 <code class="docutils literal notranslate"><span class="pre">AUTO_SPEED_ONLY</span></code>.</p>
+</section>
+<section id="id6">
+<h3>选择测试地点<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>理想的测试地点是平坦的长直路</p>
+</section>
+</section>
+<section id="id7">
+<h2>更新车辆标定<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>以上准备工作完成后, 在<code class="docutils literal notranslate"><span class="pre">modules/tools/vehicle_calibration</span></code>中按顺序完成如下工作</p>
+<ul class="simple">
+<li><p>采集数据</p></li>
+<li><p>处理数据</p></li>
+<li><p>绘制结果</p></li>
+<li><p>转换结果为<code class="docutils literal notranslate"><span class="pre">protobuf</span></code>格式</p></li>
+</ul>
+<section id="id8">
+<h3>采集数据<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>运行 <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">data_collector.py</span></code>,参数如 x y z, x 代表了加速的控制指令, y 代表了限制速度(mps), z 是减速指令,正值标识油门量，负值标识刹车量.且每条命令运行多次，其中 <code class="docutils literal notranslate"><span class="pre">data_collector.py</span></code>在modules/tools/vehicle_calibration/</p></li>
+<li><p>根据车辆反应情况，调整命令脚本</p></li>
+<li><p>运行 <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">plot_data.py</span> </code> 使采集到的数据可视化</p></li>
+</ol>
+<p>比如输出指令 <code class="docutils literal notranslate"><span class="pre">15</span> <span class="pre">5.2</span> <span class="pre">-10</span></code>,将会生成名为<code class="docutils literal notranslate"><span class="pre">t15b-10r0.csv</span></code>的文件。</p>
+</section>
+<section id="id9">
+<h3>处理数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>对每个记录的日志分别运行<code class="docutils literal notranslate"><span class="pre">process_data.sh</span> <span class="pre">{dir}</span></code>，其中dir为<code class="docutils literal notranslate"><span class="pre">t15b-10r0.csv</span></code>所在的目录。每个数据日志被处理成<code class="docutils literal notranslate"><span class="pre">t15b-10r0.csv.result</span></code>。</p>
+</section>
+<section id="id10">
+<h3>绘制结果<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>通过运行<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">plot_results.py</span> <span class="pre">t15b-10r0.csv</span></code>得到可视化最终结果，检查是否有异常</p>
+</section>
+<section id="protobuf">
+<h3>转换结果为<code class="docutils literal notranslate"><span class="pre">protobuf</span></code>格式<a class="headerlink" href="#protobuf" title="永久链接至标题">¶</a></h3>
+<p>如果一切正常，运行<code class="docutils literal notranslate"><span class="pre">result2pb.sh</span></code>，把校准结果result.csv转换成控制模块定义的<code class="docutils literal notranslate"><span class="pre">protobuf</span></code>格式</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_use_apollo_2.5_navigation_mode.html" title="How to use Apollo 2.5 navigation mode"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_update_vehicle_calibration.html" title="How to Update Vehicle Calibration for Throttle and Brakes"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何标定车辆油门和制动</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

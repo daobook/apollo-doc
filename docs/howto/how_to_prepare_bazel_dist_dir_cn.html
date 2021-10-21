@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>如何准备 Bazel 的依赖缓存目录 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_prepare_bazel_dist_dir_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Run MSF Localization Module On Your Local Computer" href="how_to_run_MSF_localization_module_on_your_local_computer.html" />
+    <link rel="prev" title="How to Prepare Bazel Distribution Directory" href="how_to_prepare_bazel_dist_dir.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_MSF_localization_module_on_your_local_computer.html" title="How to Run MSF Localization Module On Your Local Computer"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_prepare_bazel_dist_dir.html" title="How to Prepare Bazel Distribution Directory"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何准备 Bazel 的依赖缓存目录</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">如何准备 Bazel 的依赖缓存目录</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#apollo-bazel">如何利用 Apollo 提供的 Bazel 隐式依赖压缩包</a></li>
+<li><a class="reference internal" href="#id1">自己动手构建 Bazel 的隐式依赖项的方法</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_prepare_bazel_dist_dir.html"
+                        title="上一章">How to Prepare Bazel Distribution Directory</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_run_MSF_localization_module_on_your_local_computer.html"
+                        title="下一章">How to Run MSF Localization Module On Your Local Computer</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_prepare_bazel_dist_dir_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="bazel">
+<h1>如何准备 Bazel 的依赖缓存目录<a class="headerlink" href="#bazel" title="永久链接至标题">¶</a></h1>
+<p>本文档描述了在 Apollo 项目中准备 Bazel 的依赖缓存目录
+(<a class="reference external" href="https://docs.bazel.build/versions/master/guide.html#distribution-files-directories">Distribution Directory</a>)
+的方法。</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>根
+据<a class="reference external" href="https://docs.bazel.build/versions/master/guide.html#running-bazel-in-an-airgapped-environment">Bazel 官方指南：在封闭环境中运行 Bazel</a>
+的说明，Bazel 的隐式依赖项是在 Bazel 初次运行的时候从网络上拉取的。然而，即使所
+有在 WORKSPACE 中指定的依赖项均已到位，这在封闭环境或者网络连接不稳定的状况下依
+然会造成问题。</p>
+<p>为便利国内开发者，对 Apollo 中使用到的各 Bazel 版本，Apollo 均提供<strong>与之对应</strong>的
+Bazel 隐式依赖压缩包文件。请注意，对不同版本的 Bazel 来说，其隐式依赖项不尽相同
+。当 Bazel 版本更新后，请务必按照本文档描述的方法，<strong>重新</strong>执行一遍。</p>
+<p>接下来，我们先熟悉把 Apollo 提供的 Bazel 隐式依赖压缩包解压到依赖缓存目录的流程
+。</p>
+</section>
+<section id="apollo-bazel">
+<h2>如何利用 Apollo 提供的 Bazel 隐式依赖压缩包<a class="headerlink" href="#apollo-bazel" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>在 Apollo 容器中执行<code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">version</span></code>确定 Bazel 版本：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bazel version
+Build label: <span class="m">3</span>.5.0
+Build target: bazel-out/aarch64-opt/bin/src/main/java/com/google/devtools/build/lib/bazel/BazelServer_deploy.jar
+Build time: Wed Sep <span class="m">2</span> <span class="m">21</span>:11:43 <span class="m">2020</span> <span class="o">(</span><span class="m">1599081103</span><span class="o">)</span>
+Build timestamp: <span class="m">1599081103</span>
+Build timestamp as int: <span class="m">1599081103</span>
+</pre></div>
+</div>
+<p>在本示例中的 Bazel 版本为<code class="docutils literal notranslate"><span class="pre">3.5.0</span></code>。在以下行文中，我们将以<code class="docutils literal notranslate"><span class="pre">BAZEL_VERSION</span></code>指代之。</p>
+<ol class="simple">
+<li><p>运行如下命令以下载对应的 Bazel 隐式依赖压缩包</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://apollo-system.cdn.bcebos.com/archive/bazel_deps/bazel-dependencies-<span class="si">${</span><span class="nv">BAZEL_VERSION</span><span class="si">}</span>.tar.gz
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>将压缩包解压到由环境变量<code class="docutils literal notranslate"><span class="pre">${APOLLO_BAZEL_DIST_DIR}</span></code>指代的 Bazel 依赖缓存目录</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar xzf bazel-dependencies-<span class="si">${</span><span class="nv">BAZEL_VERSION</span><span class="si">}</span>.tar.gz
+<span class="nb">source</span> <span class="si">${</span><span class="nv">APOLLO_ROOT_DIR</span><span class="si">}</span>/cyber/setup.bash
+mv bazel-dependencies-<span class="si">${</span><span class="nv">BAZEL_VERSION</span><span class="si">}</span>/* <span class="s2">&quot;</span><span class="si">${</span><span class="nv">APOLLO_BAZEL_DIST_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>自己动手构建 Bazel 的隐式依赖项的方法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>如果您需要的 Bazel 版本 Apollo 未能提供，除了
+在<a class="reference external" href="https://github.com/ApolloAuto/apollo/issues">GitHub Issues 页</a> 提交 Issue 外
+，您还可以通过如下方法在一台网络连接良好的机器上自己动手构建：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 克隆对应分支的Bazel源码</span>
+git clone --depth<span class="o">=</span><span class="m">1</span> -b <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BAZEL_VERSION</span><span class="si">}</span><span class="s2">&quot;</span> https://github.com/bazelbuild/bazel bazel.git
+
+<span class="nb">cd</span> bazel.git
+
+<span class="c1"># 构建对应的Bazel隐式依赖压缩文件</span>
+bazel build @additional_distfiles//:archives.tar
+
+<span class="c1"># 确保${APOLLO_BAZEL_DIST_DIR} 变量已定义，且对应的目录存在</span>
+<span class="nb">source</span> <span class="si">${</span><span class="nv">APOLLO_ROOT_DIR</span><span class="si">}</span>/cyber/setup.bash
+<span class="o">[[</span> -d <span class="s2">&quot;</span><span class="si">${</span><span class="nv">APOLLO_BAZEL_DIST_DIR</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">]]</span> <span class="o">||</span> mkdir -p <span class="s2">&quot;</span><span class="si">${</span><span class="nv">APOLLO_BAZEL_DIST_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># 将与该Bazel版本对应的各隐式依赖项全部解压到Bazel依赖缓存目录中</span>
+tar xvf bazel-bin/external/additional_distfiles/archives.tar <span class="se">\</span>
+  -C <span class="s2">&quot;</span><span class="si">${</span><span class="nv">APOLLO_BAZEL_DIST_DIR</span><span class="si">}</span><span class="s2">&quot;</span> --strip-components<span class="o">=</span><span class="m">3</span>
+</pre></div>
+</div>
+<p>然后，你就可以在 Apollo 容器中顺利执行<code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">build</span></code>，<code class="docutils literal notranslate"><span class="pre">./apollo.sh</span> <span class="pre">test</span></code> 等
+命令而无需担心依赖项拉不下来的问题了。</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_run_MSF_localization_module_on_your_local_computer.html" title="How to Run MSF Localization Module On Your Local Computer"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_prepare_bazel_dist_dir.html" title="How to Prepare Bazel Distribution Directory"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">如何准备 Bazel 的依赖缓存目录</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

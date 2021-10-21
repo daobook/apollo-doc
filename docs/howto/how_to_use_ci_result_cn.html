@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>在Apollo中如何使用CI结果 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_use_ci_result_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="HD map 使用" href="modules/apollo1.5_HDmap_study_notes_cn.html" />
+    <link rel="prev" title="How to Use CI Result in Apollo" href="how_to_use_ci_result.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="modules/apollo1.5_HDmap_study_notes_cn.html" title="HD map 使用"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_use_ci_result.html" title="How to Use CI Result in Apollo"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">在Apollo中如何使用CI结果</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">在Apollo中如何使用CI结果</a><ul>
+<li><a class="reference internal" href="#ci">CI将会检查哪些内容</a></li>
+<li><a class="reference internal" href="#id1">可能遇到的错误和解决办法</a><ul>
+<li><a class="reference internal" href="#error-fail-modules-perception-base-blob-cpplint">Error: “FAIL: //modules/perception/base:blob_cpplint”</a></li>
+<li><a class="reference internal" href="#error-fail-modules-perception-base-blob-test">Error: “FAIL: //modules/perception/base:blob_test”</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_use_ci_result.html"
+                        title="上一章">How to Use CI Result in Apollo</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="modules/apollo1.5_HDmap_study_notes_cn.html"
+                        title="下一章">HD map 使用</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_use_ci_result_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apolloci">
+<h1>在Apollo中如何使用CI结果<a class="headerlink" href="#apolloci" title="永久链接至标题">¶</a></h1>
+<p>在Apollo项目中，一个PR（pull request）能否被合入取决于是否签署了CLA协议以及CI的结果。</p>
+<section id="ci">
+<h2>CI将会检查哪些内容<a class="headerlink" href="#ci" title="永久链接至标题">¶</a></h2>
+<p>Apollo的CI会按照以下步骤运行：</p>
+<ol class="simple">
+<li><p>将你的PR签入master的基础代码并进行构建</p></li>
+<li><p>对你的代码进行风格检查（包括 .cc、.h、.py、BUILD等）</p></li>
+<li><p>运行所有单元测试</p></li>
+</ol>
+<p>所以，推荐在提交代码前执行以下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">lint</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">build</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>当你的PR出现CI错误时，你可以点击下图中的<code class="docutils literal notranslate"><span class="pre">Details</span></code></p>
+<p><img alt="build_failed" src="../../_images/build_failed.png" /></p>
+<p>现在你就进入到了我们的CI系统，进入<code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">Log</span></code>可以查看更详细的日志。</p>
+<p><img alt="detail_log" src="../../_images/build_log.png" /></p>
+</section>
+<section id="id1">
+<h2>可能遇到的错误和解决办法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="error-fail-modules-perception-base-blob-cpplint">
+<h3>Error: “FAIL: //modules/perception/base:blob_cpplint”<a class="headerlink" href="#error-fail-modules-perception-base-blob-cpplint" title="永久链接至标题">¶</a></h3>
+<p><img alt="lint" src="../../_images/lint.png" /></p>
+<p>这是由于代码风格检查失败。Apollo的代码使用Google代码风格，所以头文件应该按照建议的顺序排列。如果你没有找到建议内容，可以点击展开日志信息。</p>
+</section>
+<section id="error-fail-modules-perception-base-blob-test">
+<h3>Error: “FAIL: //modules/perception/base:blob_test”<a class="headerlink" href="#error-fail-modules-perception-base-blob-test" title="永久链接至标题">¶</a></h3>
+<p><img alt="test_failed" src="../../_images/unit_test_failed.png" /></p>
+<p><img alt="test_failed_log" src="../../_images/unit_failed_log.png" /></p>
+<p>这是由于单元测试失败。你可以根据日志信息来修正单元测试。特别是发生超时问题时，你可以尝试将BUILD文件中的<code class="docutils literal notranslate"><span class="pre">size</span></code>设置从<code class="docutils literal notranslate"><span class="pre">small</span></code>修改为<code class="docutils literal notranslate"><span class="pre">medium</span></code>或<code class="docutils literal notranslate"><span class="pre">large</span></code>，这可能会有效。</p>
+<p>如果遇到了更加复杂的情况，欢迎在你提交的PR下进行留言。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="modules/apollo1.5_HDmap_study_notes_cn.html" title="HD map 使用"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_use_ci_result.html" title="How to Use CI Result in Apollo"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">在Apollo中如何使用CI结果</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

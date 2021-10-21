@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to Install Low-Latency / Realtime Kernel &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_install_apollo_kernel.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="如何为 Apollo 安装低时延/实时内核" href="how_to_install_apollo_kernel_cn.html" />
+    <link rel="prev" title="如何生产多传感器融合定位模块所需的地图" href="how_to_generate_local_map_for_MSF_localization_module_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_install_apollo_kernel_cn.html" title="如何为 Apollo 安装低时延/实时内核"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_generate_local_map_for_MSF_localization_module_cn.html" title="如何生产多传感器融合定位模块所需的地图"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Install Low-Latency / Realtime Kernel</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Install Low-Latency / Realtime Kernel</a><ul>
+<li><a class="reference internal" href="#before-you-begin">Before You Begin</a></li>
+<li><a class="reference internal" href="#ubuntu-low-latency-kernel">Ubuntu Low-Latency Kernel</a></li>
+<li><a class="reference internal" href="#install-realtime-kernel">Install Realtime Kernel</a></li>
+<li><a class="reference internal" href="#install-nvidia-driver">Install Nvidia Driver</a><ul>
+<li><a class="reference internal" href="#install-nvidia-driver-for-low-latency-kernel">Install Nvidia Driver for Low-Latency Kernel</a></li>
+<li><a class="reference internal" href="#install-nvidia-driver-for-realtime-kernel">Install Nvidia Driver for Realtime Kernel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install-esd-can-driver-optional">Install ESD-CAN Driver (Optional)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_generate_local_map_for_MSF_localization_module_cn.html"
+                        title="上一章">如何生产多传感器融合定位模块所需的地图</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_install_apollo_kernel_cn.html"
+                        title="下一章">如何为 Apollo 安装低时延/实时内核</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_install_apollo_kernel.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-install-low-latency-realtime-kernel">
+<h1>How to Install Low-Latency / Realtime Kernel<a class="headerlink" href="#how-to-install-low-latency-realtime-kernel" title="永久链接至标题">¶</a></h1>
+<p>This document describes the steps to install low-latency/realtime kernels with
+Nvidia driver on Ubuntu 18.04.</p>
+<section id="before-you-begin">
+<h2>Before You Begin<a class="headerlink" href="#before-you-begin" title="永久链接至标题">¶</a></h2>
+<p>Low-Latency/Realtime kernel is only required for running Apollo software stack
+in the vehicle. If your sole purpose was to develop/test your algorithms or to
+run simulation software (e.g., LGSVL simulator) on top of Apollo, then maybe you
+don’t need to install low-latency/real-time kernels described here at all.</p>
+</section>
+<section id="ubuntu-low-latency-kernel">
+<h2>Ubuntu Low-Latency Kernel<a class="headerlink" href="#ubuntu-low-latency-kernel" title="永久链接至标题">¶</a></h2>
+<p>Ubuntu low-latency kernel (availabe in Ubuntu repository) is completely capable
+of low- to no- latency for running Apollo in the vehicle. Preempt optimization
+is enabled in its kernel configuration, and latency as low as 0.1 millisecond
+can and has been achieved using it.</p>
+<p>The steps required to install Ubuntu low-latency kernel are described below:</p>
+<ol class="simple">
+<li><p>Install the latest low-latency kernel and its headers.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
+<span class="c1"># Install the latest low-latency kernel &amp; headers.</span>
+sudo apt-get install linux-image-<span class="k">$(</span>uname -r<span class="k">)</span>-lowlatency linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>-lowlatency
+</pre></div>
+</div>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<div><p>Please change <code class="docutils literal notranslate"><span class="pre">$(uname</span> <span class="pre">-r)</span></code> to the latest kernel should there be newer kernel
+packages available. (You can view newer packages availabe with
+<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">list</span> <span class="pre">--upgradable</span></code>.) The latest kernel version on Ubuntu 18.04 as of this
+writing (Dec 02, 2020) is <code class="docutils literal notranslate"><span class="pre">5.4.0-56</span></code>.</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>Reboot to start the low-latency kernel.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo reboot
+</pre></div>
+</div>
+</section>
+<section id="install-realtime-kernel">
+<h2>Install Realtime Kernel<a class="headerlink" href="#install-realtime-kernel" title="永久链接至标题">¶</a></h2>
+<p>There is a community-contributed
+<a class="reference external" href="https://index.ros.org/doc/ros2/Tutorials/Building-Realtime-rt_preempt-kernel-for-ROS-2">Building Realtime Linux for ROS2</a>
+document for building/installing PREEMPT_RT kernel on Ubuntu 20.04, which is
+applicable to Ubuntu 18.04 also. Please follow the instructions there to install
+the latest stable realtime kernel first.</p>
+</section>
+<section id="install-nvidia-driver">
+<h2>Install Nvidia Driver<a class="headerlink" href="#install-nvidia-driver" title="永久链接至标题">¶</a></h2>
+<section id="install-nvidia-driver-for-low-latency-kernel">
+<h3>Install Nvidia Driver for Low-Latency Kernel<a class="headerlink" href="#install-nvidia-driver-for-low-latency-kernel" title="永久链接至标题">¶</a></h3>
+<p>For Ubuntu low-latency kernel, the steps to install Nvidia driver is relatively
+straightforward.</p>
+<ol>
+<li><p>Download and install the latest Nvidia driver from the
+<a class="reference external" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux">CUDA Toolkit Downloads</a>
+Page.</p>
+<p>Choose either <strong>Local Installer</strong>(“deb[local]”) or <strong>Network
+Installer</strong>(“deb[network]”) for <strong>Installer Type</strong> and follow the
+instructions there.</p>
+</li>
+</ol>
+<p><img alt="Download CUDA Toolkit for x86_64" src="../../_images/download_cuda_x86_64.png" /></p>
+<p><img alt="Download CUDA Toolkit for AArch64" src="../../_images/download_cuda_aarch64.png" /></p>
+<p><strong>Note</strong></p>
+<blockquote>
+<div><p>You may need to regist and sign CUDA EULA to download Nvidia packages.</p>
+</div></blockquote>
+<p>For example, below is the instructions installing Nvidia driver on x86_64 Ubuntu
+18.04.5 with the “deb[local]” approach:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda-repo-ubuntu1804-11-1-local_11.1.1-455.32.00-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1804-11-1-local_11.1.1-455.32.00-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu1804-11-1-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get install nvidia-driver-455
+</pre></div>
+</div>
+<p><strong>Note</strong>:</p>
+<blockquote>
+<div><p>The number in <code class="docutils literal notranslate"><span class="pre">nvidia-driver-XXX</span></code> should match that in the local installer
+(455 in the example above).</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>Reboot for the changes to make effect.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> to check if everything is OK.</p></li>
+</ol>
+</section>
+<section id="install-nvidia-driver-for-realtime-kernel">
+<h3>Install Nvidia Driver for Realtime Kernel<a class="headerlink" href="#install-nvidia-driver-for-realtime-kernel" title="永久链接至标题">¶</a></h3>
+<p>Please follow the first step listed above first. However, as the Nvidia driver
+does not support real-time kernels, running
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">nvidia-driver-455</span></code> on a PREEMPT_RT kernel should partially
+fail with the following error message:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The kernel you are installing for is a PREEMPT_RT kernel!
+
+The NVIDIA driver does not support real-time kernels. If you
+are using a stock distribution kernel, please install
+a variant of this kernel that does not have the PREEMPT_RT
+patch set applied; if this is a custom kernel, please
+install a standard Linux kernel.  Then try installing the
+NVIDIA kernel module again.
+
+*** Failed PREEMPT_RT sanity check. Bailing out! ***
+</pre></div>
+</div>
+<p>We can set <code class="docutils literal notranslate"><span class="pre">IGNORE_PREEMPT_RT_PRESENCE=1</span></code> when build Nvidia driver as a
+workaround:</p>
+<ol class="simple">
+<li><p>Run the following commands to build Nvidia driver:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change to Nvidia driver source directory</span>
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>dpkg -L nvidia-kernel-source-455 <span class="p">|</span> grep -m <span class="m">1</span> <span class="s2">&quot;nvidia-drm&quot;</span> <span class="p">|</span> xargs dirname<span class="k">)</span><span class="s2">&quot;</span>
+
+<span class="c1"># Build Nvidia driver with IGNORE_PREEMPT_RT_PRESENCE=1</span>
+sudo env <span class="nv">NV_VERBOSE</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    make -j8 <span class="nv">NV_EXCLUDE_BUILD_MODULES</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="se">\</span>
+    <span class="nv">KERNEL_UNAME</span><span class="o">=</span><span class="k">$(</span>uname -r<span class="k">)</span> <span class="se">\</span>
+    <span class="nv">IGNORE_XEN_PRESENCE</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    <span class="nv">IGNORE_CC_MISMATCH</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    <span class="nv">IGNORE_PREEMPT_RT_PRESENCE</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    <span class="nv">SYSSRC</span><span class="o">=</span>/lib/modules/<span class="k">$(</span>uname -r<span class="k">)</span>/build <span class="se">\</span>
+    <span class="nv">LD</span><span class="o">=</span>/usr/bin/ld.bfd <span class="se">\</span>
+    modules
+
+sudo mv *.ko /lib/modules/<span class="k">$(</span>uname -r<span class="k">)</span>/updates/dkms/
+sudo depmod -a
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Reboot the system</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> to check if everything is OK.</p></li>
+</ol>
+</section>
+</section>
+<section id="install-esd-can-driver-optional">
+<h2>Install ESD-CAN Driver (Optional)<a class="headerlink" href="#install-esd-can-driver-optional" title="永久链接至标题">¶</a></h2>
+<p>You should follow the
+<a class="reference external" href="https://github.com/ApolloAuto/apollo-kernel/blob/master/linux/ESDCAN-README.md">instructions</a>
+to build ESD-CAN driver if necessary.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_install_apollo_kernel_cn.html" title="如何为 Apollo 安装低时延/实时内核"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_generate_local_map_for_MSF_localization_module_cn.html" title="如何生产多传感器融合定位模块所需的地图"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Install Low-Latency / Realtime Kernel</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

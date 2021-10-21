@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Class Architecture and Overview – Planning Module &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/Class_Architecture_Planning.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Planning模块架构和概述" href="Class_Architecture_Planning_cn.html" />
+    <link rel="prev" title="Wissen摄像头指南" href="Camera/Wissen_Camera_Installation_Guide_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Class_Architecture_Planning_cn.html" title="Planning模块架构和概述"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Camera/Wissen_Camera_Installation_Guide_cn.html" title="Wissen摄像头指南"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Class Architecture and Overview – Planning Module</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Class Architecture and Overview – Planning Module</a><ul>
+<li><a class="reference internal" href="#data-output-and-input">Data Output and Input</a><ul>
+<li><a class="reference internal" href="#output-data">Output Data</a><ul>
+<li><a class="reference internal" href="#planning-proto"><em>planning.proto</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#input-data">Input Data</a></li>
+<li><a class="reference internal" href="#code-structure-and-class-hierarchy">Code Structure and Class Hierarchy</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Camera/Wissen_Camera_Installation_Guide_cn.html"
+                        title="上一章">Wissen摄像头指南</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Class_Architecture_Planning_cn.html"
+                        title="下一章">Planning模块架构和概述</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/Class_Architecture_Planning.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="class-architecture-and-overview-planning-module">
+<h1>Class Architecture and Overview – Planning Module<a class="headerlink" href="#class-architecture-and-overview-planning-module" title="永久链接至标题">¶</a></h1>
+<section id="data-output-and-input">
+<h2>Data Output and Input<a class="headerlink" href="#data-output-and-input" title="永久链接至标题">¶</a></h2>
+<section id="output-data">
+<h3>Output Data<a class="headerlink" href="#output-data" title="永久链接至标题">¶</a></h3>
+<p>The planning output data is defined in <code class="docutils literal notranslate"><span class="pre">planning.proto</span></code>, as shown below.</p>
+<p><img alt="img" src="../../_images/image001.png" /></p>
+<section id="planning-proto">
+<h4><em>planning.proto</em><a class="headerlink" href="#planning-proto" title="永久链接至标题">¶</a></h4>
+<p>Inside the proto data definition, the planning output includes the total planned time and length, as well as the actual trajectory for control to execute, and is defined in <code class="docutils literal notranslate"><span class="pre">repeated</span> <span class="pre">apollo.common.TrajectoryPointtrajectory_point</span></code>.</p>
+<p>A trajectory point is derived from a <code class="docutils literal notranslate"><span class="pre">path_point</span></code>, where speed, acceleration and timing attributes are added. Each <code class="docutils literal notranslate"><span class="pre">trajectory_point</span></code> as defined in <code class="docutils literal notranslate"><span class="pre">pnc_point.proto</span></code>, and contains detailed attributes of the trajectory.</p>
+<p><img alt="img" src="../../_images/image002.png" /></p>
+<p><img alt="img" src="../../_images/image003.png" /></p>
+<p>In addition to the trajectory, the planning module also outputs rich annotation information. The important data fields are:</p>
+<ul class="simple">
+<li><p>Estop</p></li>
+<li><p>DecisionResult</p></li>
+<li><p>Debug information</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Estop</span></code> is a command that indicates errors and exceptions. For example, when the autonomous vehicle collides with an obstacle or cannot obey traffic rules, estop signals are sent. The <code class="docutils literal notranslate"><span class="pre">DecisionResult</span></code> data is used mainly for simulation display so that developers have a better understanding of the planning results. More detailed numerical intermediate results are stored in the debug information and sent out for debugging purposes.</p>
+</section>
+</section>
+</section>
+<section id="input-data">
+<h2>Input Data<a class="headerlink" href="#input-data" title="永久链接至标题">¶</a></h2>
+<p>To compute the final published trajectory, the planning module leverages various input data sources. The planning input data sources are:</p>
+<ul class="simple">
+<li><p>Routing</p></li>
+<li><p>Perception and Prediction</p></li>
+<li><p>Vehicle Status and Localization</p></li>
+<li><p>HD-Map</p></li>
+</ul>
+<p>Routing defines the query concept “where I want to go” for the autonomous vehicle, and the message is defined in <code class="docutils literal notranslate"><span class="pre">routing.proto</span></code>. The <code class="docutils literal notranslate"><span class="pre">RoutingResponse</span></code> contains the <code class="docutils literal notranslate"><span class="pre">RoadSegment</span></code>, which identifies the road to follow or the lanes to use to reach the destination as shown below.</p>
+<p><img alt="img" src="../../_images/image004.png" /></p>
+<p>The messages regarding the query concept  “what is surrounding me” are defined mainly in <code class="docutils literal notranslate"><span class="pre">perception_obstacles.proto</span></code> and <code class="docutils literal notranslate"><span class="pre">traffic_light_detection.proto</span></code>. The <code class="docutils literal notranslate"><span class="pre">perception_obstacles.proto</span></code> defines the obstacles perceived by the perception module around the autonomous vehicle, while <code class="docutils literal notranslate"><span class="pre">traffic_light_detection</span></code> defines the perceived traffic light statuses (if any). In addition to the perceived obstacles, what is important for the planning module are the predicted trajectories for each perceived dynamic obstacle. Therefore, the <code class="docutils literal notranslate"><span class="pre">prediction.proto</span></code> wraps the <code class="docutils literal notranslate"><span class="pre">perception_obstacle</span></code> message with a predicted trajectory, as shown below.</p>
+<p><img alt="img" src="../../_images/image005.png" /></p>
+<p>Each predicted trajectory has a probability associated with it, and one obstacle might have multiple predicted trajectories.</p>
+<p>In addition to the query concepts “where I want to go” and “what is surrounding me”, another important query concept is “where am I”. Such information is obtained from the HD-Map and Localization modules. Both localization and vehicle chassis information are incorporated in the messages of <code class="docutils literal notranslate"><span class="pre">VehicleState</span></code> that is defined in the <code class="docutils literal notranslate"><span class="pre">vehicle_state.proto</span></code>, as shown below.</p>
+<p><img alt="img" src="../../_images/image009.png" /></p>
+</section>
+<section id="code-structure-and-class-hierarchy">
+<h2>Code Structure and Class Hierarchy<a class="headerlink" href="#code-structure-and-class-hierarchy" title="永久链接至标题">¶</a></h2>
+<p>The code is organized as follows: The planning code entrance is the <code class="docutils literal notranslate"><span class="pre">planning.cc</span></code>. Inside the planner, the important class members are shown in the illustration below.</p>
+<p><img alt="img" src="../../_images/image006.png" /></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceLineInfo</span></code> is a wrapper of the <code class="docutils literal notranslate"><span class="pre">ReferenceLine</span></code> class, which represents a smoothed guideline for planning.</p>
+<p><strong>Frame</strong> contains all the data dependencies including the perceived obstacles with their predicted trajectories, and the current status of the autonomous vehicle.</p>
+<p><strong>HD-Map</strong> is leveraged as a library inside the planning module for ad-hoc fashioned map queries.</p>
+<p><strong>EM Planner</strong> does the actual planning and derives from the <strong>Planner</strong> class. Both the Em Planner that is used in the Apollo 2.0 release, and the previously released <strong>RTK Planner</strong> derive from the Planner class.</p>
+<p><img alt="img" src="../../_images/image007.png" /></p>
+<p>For example, inside a planning cycle performed by the EM Planner, take an iterative approach where three categories of tasks interweave. The relationships of these “<strong>decider/optimizer</strong>” classes are illustrated below.</p>
+<p><img alt="img" src="../../_images/image008.png" /></p>
+<ul class="simple">
+<li><p><strong>Deciders</strong> include traffic decider, path decider and speed decider.</p></li>
+<li><p><strong>Path Optimizers</strong> are the DP/QP path optimizers.</p></li>
+<li><p><strong>Speed Optimizers</strong> are the DP/QP speed optimizers.</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>NOTE:</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DP means dynamic programming while QP means quadratic programming. After the computation, the final spatio-temporal trajectory is then discretized and published so that the downstream control module is able to execute it.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Class_Architecture_Planning_cn.html" title="Planning模块架构和概述"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Camera/Wissen_Camera_Installation_Guide_cn.html" title="Wissen摄像头指南"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Class Architecture and Overview – Planning Module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

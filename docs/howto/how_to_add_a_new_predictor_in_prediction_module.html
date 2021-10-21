@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to add a new Predictor in Prediction module &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_add_a_new_predictor_in_prediction_module.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="如何在预测模块中添加一个预测器" href="how_to_add_a_new_predictor_in_prediction_module_cn.html" />
+    <link rel="prev" title="如何添加新的lidar匹配算法" href="how_to_add_a_new_lidar_tracker_algorithm_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_new_predictor_in_prediction_module_cn.html" title="如何在预测模块中添加一个预测器"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_tracker_algorithm_cn.html" title="如何添加新的lidar匹配算法"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to add a new Predictor in Prediction module</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to add a new Predictor in Prediction module</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#steps-to-add-a-new-predictor">Steps to add a new predictor</a><ul>
+<li><a class="reference internal" href="#define-a-class-that-inherits-predictor">Define a class that inherits <code class="docutils literal notranslate"><span class="pre">Predictor</span></code></a></li>
+<li><a class="reference internal" href="#implement-the-class-newpredictor">Implement the class <code class="docutils literal notranslate"><span class="pre">NewPredictor</span></code></a></li>
+<li><a class="reference internal" href="#add-a-new-predictor-type-in-proto-prediction-conf-proto">Add a new predictor type in proto <code class="docutils literal notranslate"><span class="pre">prediction_conf.proto</span></code></a></li>
+<li><a class="reference internal" href="#update-prediction-conf">Update prediction_conf</a></li>
+<li><a class="reference internal" href="#upate-predictor-manager">Upate Predictor manager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_lidar_tracker_algorithm_cn.html"
+                        title="上一章">如何添加新的lidar匹配算法</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_predictor_in_prediction_module_cn.html"
+                        title="下一章">如何在预测模块中添加一个预测器</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_add_a_new_predictor_in_prediction_module.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-add-a-new-predictor-in-prediction-module">
+<h1>How to add a new Predictor in Prediction module<a class="headerlink" href="#how-to-add-a-new-predictor-in-prediction-module" title="永久链接至标题">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>The Predictor generates the predicted trajectory for each obstacle. Here, let’s assume we want to add a new predictor to our vehicle, for other types of obstacles, the procedure is very as follows:</p>
+<ol class="simple">
+<li><p>Define a class that inherits <code class="docutils literal notranslate"><span class="pre">Predictor</span></code></p></li>
+<li><p>Implement the class <code class="docutils literal notranslate"><span class="pre">NewPredictor</span></code></p></li>
+<li><p>Add a new predictor type in proto <code class="docutils literal notranslate"><span class="pre">prediction_conf.proto</span></code></p></li>
+<li><p>Update prediction_conf</p></li>
+<li><p>Upate the Predictor manager</p></li>
+</ol>
+</section>
+<section id="steps-to-add-a-new-predictor">
+<h2>Steps to add a new predictor<a class="headerlink" href="#steps-to-add-a-new-predictor" title="永久链接至标题">¶</a></h2>
+<p>The following steps will add a Predictor <code class="docutils literal notranslate"><span class="pre">NewPredictor</span></code>.</p>
+<section id="define-a-class-that-inherits-predictor">
+<h3>Define a class that inherits <code class="docutils literal notranslate"><span class="pre">Predictor</span></code><a class="headerlink" href="#define-a-class-that-inherits-predictor" title="永久链接至标题">¶</a></h3>
+<p>Create a new file named <code class="docutils literal notranslate"><span class="pre">new_predictor.h</span></code> in the folder  <code class="docutils literal notranslate"><span class="pre">modules/prediction/predictor/vehicle</span></code> and define it as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;modules/prediction/predictor/predictor.h&quot;</span><span class="cp"></span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">apollo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">prediction</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="k">class</span> <span class="nc">NewPredictor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Predictor</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">Predict</span><span class="p">(</span><span class="n">Obstacle</span><span class="o">*</span><span class="w"> </span><span class="n">obstacle</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Other useful functions and fields.</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace prediction</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace apollo</span>
+</pre></div>
+</div>
+</section>
+<section id="implement-the-class-newpredictor">
+<h3>Implement the class <code class="docutils literal notranslate"><span class="pre">NewPredictor</span></code><a class="headerlink" href="#implement-the-class-newpredictor" title="永久链接至标题">¶</a></h3>
+<p>Create a new file named <code class="docutils literal notranslate"><span class="pre">new_predictor.cc</span></code> in the same folder of <code class="docutils literal notranslate"><span class="pre">new_predictor.h</span></code>. Implement it like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;modules/prediction/predictor/vehicle/new_predictor.h&quot;</span><span class="cp"></span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">apollo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">prediction</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="n">NewPredictor</span><span class="o">::</span><span class="n">Predict</span><span class="p">(</span><span class="n">Obstacle</span><span class="o">*</span><span class="w"> </span><span class="n">obstacle</span><span class="p">)()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Get the results from evaluator</span>
+<span class="w">  </span><span class="c1">// Generate the predicted trajectory</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Other functions</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace prediction</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace apollo</span>
+</pre></div>
+</div>
+</section>
+<section id="add-a-new-predictor-type-in-proto-prediction-conf-proto">
+<h3>Add a new predictor type in proto <code class="docutils literal notranslate"><span class="pre">prediction_conf.proto</span></code><a class="headerlink" href="#add-a-new-predictor-type-in-proto-prediction-conf-proto" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">enum</span> <span class="n">PredictorType</span> <span class="p">{</span>
+    <span class="n">LANE_SEQUENCE_PREDICTOR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">FREE_MOVE_PREDICTOR</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">REGIONAL_PREDICTOR</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">MOVE_SEQUENCE_PREDICTOR</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">NEW_PREDICTOR</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="update-prediction-conf">
+<h3>Update prediction_conf<a class="headerlink" href="#update-prediction-conf" title="永久链接至标题">¶</a></h3>
+<p>In the file <code class="docutils literal notranslate"><span class="pre">modules/prediction/conf/prediction_conf.pb.txt</span></code>, update the field <code class="docutils literal notranslate"><span class="pre">predictor_type</span></code> like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obstacle_conf</span> <span class="p">{</span>
+  <span class="n">obstacle_type</span><span class="p">:</span> <span class="n">VEHICLE</span>
+  <span class="n">obstacle_status</span><span class="p">:</span> <span class="n">ON_LANE</span>
+  <span class="n">evaluator_type</span><span class="p">:</span> <span class="n">NEW_EVALUATOR</span>
+  <span class="n">predictor_type</span><span class="p">:</span> <span class="n">NEW_PREDICTOR</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="upate-predictor-manager">
+<h3>Upate Predictor manager<a class="headerlink" href="#upate-predictor-manager" title="永久链接至标题">¶</a></h3>
+<p>Update <code class="docutils literal notranslate"><span class="pre">CreateEvluator(</span> <span class="pre">...</span> <span class="pre">)</span></code> like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">ObstacleConf</span><span class="o">::</span><span class="nl">NEW_PREDICTOR</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">predictor_ptr</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">NewPredictor</span><span class="p">());</span><span class="w"></span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">RegisterPredictors()</span></code> like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">RegisterPredictor</span><span class="p">(</span><span class="n">ObstacleConf</span><span class="o">::</span><span class="n">NEW_PREDICTOR</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<p>After completing the steps above, you would have created a new Predictor.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_new_predictor_in_prediction_module_cn.html" title="如何在预测模块中添加一个预测器"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_tracker_algorithm_cn.html" title="如何添加新的lidar匹配算法"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to add a new Predictor in Prediction module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

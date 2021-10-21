@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OPEN SPACE TRAJECTORY PARTITION &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/open_space_trajectory_partition.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="GENERATE FINAL TRAJECTORY" href="open_space_trajectory_provider_en.html" />
+    <link rel="prev" title="OPTIMIZE COARSE TRAJECTORY" href="open_space_trajectory_optimizer_en.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="open_space_trajectory_provider_en.html" title="GENERATE FINAL TRAJECTORY"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_optimizer_en.html" title="OPTIMIZE COARSE TRAJECTORY"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">OPEN SPACE TRAJECTORY PARTITION</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">OPEN SPACE TRAJECTORY PARTITION</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a></li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="open_space_trajectory_optimizer_en.html"
+                        title="上一章">OPTIMIZE COARSE TRAJECTORY</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="open_space_trajectory_provider_en.html"
+                        title="下一章">GENERATE FINAL TRAJECTORY</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/open_space_trajectory_partition.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="open-space-trajectory-partition">
+<h1>OPEN SPACE TRAJECTORY PARTITION<a class="headerlink" href="#open-space-trajectory-partition" title="永久链接至标题">¶</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>Apollo planning is scenario based, where each driving use case is treated as a different driving scenario.</p>
+<p>Open space trajectory partition task is used to partition and optimize stiched trajectroy obtained from open space trajectory provider task.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="where-is-the-code">
+<h1>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h1>
+<p>Please refer <a class="reference external" href="https://github.com/ApolloAuto/apollo/modules/planning/tasks/optimizers/open_space_trajectory_partition/open_space_trajectory_partition.cc">open space trajectory parition</a>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code-reading">
+<h1>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h1>
+<ol>
+<li><p>Input : stitched trajectory(without optimization) / vehicle position info.</p></li>
+<li><p>The interpolated trajectory is obtained by calling <code class="docutils literal notranslate"><span class="pre">InterpolateTrajectory()</span></code> to increase stitched trajectory points.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">InterpolateTrajectory</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">DiscretizedTrajectory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">stitched_trajectory_result</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">DiscretizedTrajectory</span><span class="o">*</span><span class="w"> </span><span class="n">interpolated_trajectory</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>According to the heading angle and traking angle, the gear shift point can be determined.
+Use <code class="docutils literal notranslate"><span class="pre">std::vector&lt;TrajGearPair&gt;</span></code> to store gear infomation and trajectory points, then partition trajectory into a group of trajectories from the gear shift point.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">PartitionTrajectory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DiscretizedTrajectory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">trajectory</span><span class="p">,</span><span class="w"></span>
+<span class="w">                         </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajGearPair</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">partitioned_trajectories</span><span class="p">);</span><span class="w">       </span>
+</pre></div>
+</div>
+</li>
+<li><p>If replan due to fallback stop, the position init staus will be set to false.</p>
+<p>When replan success, we use <code class="docutils literal notranslate"><span class="pre">AdjustRelativeTimeAndS()</span></code> to adjust partitioned trajectories obtained from step 3.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">AdjustRelativeTimeAndS</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajGearPair</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">partitioned_trajectories</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_trajectory_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">closest_trajectory_point_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">DiscretizedTrajectory</span><span class="o">*</span><span class="w"> </span><span class="n">stitched_trajectory_result</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">TrajGearPair</span><span class="o">*</span><span class="w"> </span><span class="n">current_partitioned_trajectory</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>When fallback is not required, choose the closest partitioned trajectory to follow.</p>
+<ol class="simple">
+<li><p>Base on ADC position, heading, body size and velocity info, we get vehicle center point info and moving direction.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">UpdateVehicleInfo</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Encode partitioned trajectories;</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">EncodeTrajectory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DiscretizedTrajectory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">trajectory</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">encoding</span><span class="p">);</span><span class="w">     </span>
+</pre></div>
+</div>
+<ol>
+<li><p>To find the closest point on trajectory, a search range needed to be determined. It requires the distance between path end point and ADC enter point, the heading search difference and the head track difference all within the threshold.</p>
+<p>Base on ADC box and path point box, the IOU(intersection over union) is computed for each path point in the search range.</p>
+<p>If the IOU of the trajectory end point is bigger than threshold and partitioned trajectories group has other trajectory can be used, it means ADC reach the end of a trajectory, another trajectory to be used.</p>
+<p>Then update trajectory history to store which trajectory has been used.</p>
+</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckReachTrajectoryEnd</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DiscretizedTrajectory</span><span class="o">&amp;</span><span class="w"> </span><span class="n">trajectory</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">canbus</span><span class="o">::</span><span class="n">Chassis</span><span class="o">::</span><span class="n">GearPosition</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gear</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">trajectories_size</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">trajectories_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="n">current_trajectory_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="n">current_trajectory_point_index</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">CheckTrajTraversed</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">trajectory_encoding_to_check</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">UpdateTrajHistory</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">chosen_trajectory_encoding</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol>
+<li><p>When there is no need for ADC to switch to next trajectory, use IOU info mentioned above to find the closest trajectory point(the biggest IOU point) to follow.</p></li>
+<li><p>If the closest trajectory point doesn’t belong to current trajectory or couldn’t find closest trajectory point due to some unnormal cases, we use <code class="docutils literal notranslate"><span class="pre">UseFailSafeSearch()</span></code> to get a safe trajectory to follow.</p>
+<p>When using this function, we only care about distance between path end point and ADC enter point to find the search range, no more limitation on angle difference.</p>
+</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">UseFailSafeSearch</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajGearPair</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">partitioned_trajectories</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">trajectories_encodings</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="n">current_trajectory_index</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="n">current_trajectory_point_index</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">FLAGS_use_gear_shift_trajectory()</span></code> set to be true, a small part trajectory obtained by calling <code class="docutils literal notranslate"><span class="pre">GenerateGearShiftTrajectory()</span></code> will be added to make vehicle moving smoothly during gear shifting.
+Otherwise we use <code class="docutils literal notranslate"><span class="pre">AdjustRelativeTimeAndS()</span></code> to adjust partitioned trajectory.</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">InsertGearShiftTrajectory</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">flag_change_to_next</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_trajectory_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajGearPair</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">partitioned_trajectories</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">TrajGearPair</span><span class="o">*</span><span class="w"> </span><span class="n">gear_switch_idle_time_trajectory</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">GenerateGearShiftTrajectory</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">canbus</span><span class="o">::</span><span class="n">Chassis</span><span class="o">::</span><span class="n">GearPosition</span><span class="o">&amp;</span><span class="w"> </span><span class="n">gear_position</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">TrajGearPair</span><span class="o">*</span><span class="w"> </span><span class="n">gear_switch_idle_time_trajectory</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">AdjustRelativeTimeAndS</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrajGearPair</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">partitioned_trajectories</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">current_trajectory_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">closest_trajectory_point_index</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">DiscretizedTrajectory</span><span class="o">*</span><span class="w"> </span><span class="n">stitched_trajectory_result</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">TrajGearPair</span><span class="o">*</span><span class="w"> </span><span class="n">current_partitioned_trajectory</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Return process status.</p></li>
+<li><p>Output: partitioned trajectories.</p></li>
+</ol>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="open_space_trajectory_provider_en.html" title="GENERATE FINAL TRAJECTORY"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="open_space_trajectory_optimizer_en.html" title="OPTIMIZE COARSE TRAJECTORY"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">OPEN SPACE TRAJECTORY PARTITION</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

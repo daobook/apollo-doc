@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>QP-Spline-Path Optimizer &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/specs/qp_spline_path_optimizer.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="二次规划（QP）样条路径优化" href="qp_spline_path_optimizer_cn.html" />
+    <link rel="prev" title="Pre-requisite Software Installation Guide" href="prerequisite_software_installation_guide.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="qp_spline_path_optimizer_cn.html" title="二次规划（QP）样条路径优化"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="prerequisite_software_installation_guide.html" title="Pre-requisite Software Installation Guide"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">QP-Spline-Path Optimizer</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QP-Spline-Path Optimizer</a><ul>
+<li><a class="reference internal" href="#objective-function">1.  Objective function</a><ul>
+<li><a class="reference internal" href="#get-path-length">1.1  Get path length</a></li>
+<li><a class="reference internal" href="#get-spline-segments">1.2   Get spline segments</a></li>
+<li><a class="reference internal" href="#define-function-for-each-spline-segment">1.3  Define function for each spline segment</a></li>
+<li><a class="reference internal" href="#define-objective-function-of-optimization-for-each-segment">1.4  Define objective function of optimization for each segment</a></li>
+<li><a class="reference internal" href="#convert-the-cost-function-to-qp-formulation">1.5  Convert the cost function to QP formulation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#constraints">2  Constraints</a><ul>
+<li><a class="reference internal" href="#the-init-point-constraints">2.1  The init point constraints</a></li>
+<li><a class="reference internal" href="#the-end-point-constraints">2.2  The end point constraints</a></li>
+<li><a class="reference internal" href="#joint-smoothness-constraints">2.3  Joint smoothness  constraints</a></li>
+<li><a class="reference internal" href="#sampled-points-for-boundary-constraint">2.4  Sampled points for boundary constraint</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="prerequisite_software_installation_guide.html"
+                        title="上一章">Pre-requisite Software Installation Guide</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="qp_spline_path_optimizer_cn.html"
+                        title="下一章">二次规划（QP）样条路径优化</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/specs/qp_spline_path_optimizer.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="qp-spline-path-optimizer">
+<h1>QP-Spline-Path Optimizer<a class="headerlink" href="#qp-spline-path-optimizer" title="永久链接至标题">¶</a></h1>
+<p><em><strong>Tip</strong>: to read the equations in the document, you are recommended to use Chrome with <a class="reference external" href="https://chrome.google.com/webstore/detail/tex-all-the-things/cbimabofgmfdkicghcadidpemeenbffn">a plugin</a> or copy the latex equation to <a class="reference external" href="http://www.hostmath.com/">an online editor</a></em></p>
+<p>Quadratic programming + Spline interpolation</p>
+<section id="objective-function">
+<h2>1.  Objective function<a class="headerlink" href="#objective-function" title="永久链接至标题">¶</a></h2>
+<section id="get-path-length">
+<h3>1.1  Get path length<a class="headerlink" href="#get-path-length" title="永久链接至标题">¶</a></h3>
+<p>Path is defined in station-lateral coordination system. The <strong>s</strong> range from vehicle’s current position to  default planning path length.</p>
+</section>
+<section id="get-spline-segments">
+<h3>1.2   Get spline segments<a class="headerlink" href="#get-spline-segments" title="永久链接至标题">¶</a></h3>
+<p>Split the path into <strong>n</strong> segments. each segment trajectory is defined by a polynomial.</p>
+</section>
+<section id="define-function-for-each-spline-segment">
+<h3>1.3  Define function for each spline segment<a class="headerlink" href="#define-function-for-each-spline-segment" title="永久链接至标题">¶</a></h3>
+<p>Each segment <em><strong>i</strong></em> has accumulated distance <span class="math notranslate nohighlight">\(d_i\)</span> along reference line. The trajectory for the segment is defined as a polynomial of degree five by default.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+l = f_i(s)
+  = a_{i0} + a_{i1} \cdot s + a_{i2} \cdot s^2 + a_{i3} \cdot s^3 + a_{i4} \cdot s^4 + a_{i5} \cdot s^5        (0 \leq s \leq d_{i})
+$$
+</pre></div>
+</div>
+</section>
+<section id="define-objective-function-of-optimization-for-each-segment">
+<h3>1.4  Define objective function of optimization for each segment<a class="headerlink" href="#define-objective-function-of-optimization-for-each-segment" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+cost = \sum_{i=1}^{n} \Big( w_1 \cdot \int\limits_{0}^{d_i} (f_i&#39;)^2(s) ds + w_2 \cdot \int\limits_{0}^{d_i} (f_i&#39;&#39;)^2(s) ds + w_3 \cdot \int\limits_{0}^{d_i} (f_i^{\prime\prime\prime})^2(s) ds \Big)
+$$
+</pre></div>
+</div>
+</section>
+<section id="convert-the-cost-function-to-qp-formulation">
+<h3>1.5  Convert the cost function to QP formulation<a class="headerlink" href="#convert-the-cost-function-to-qp-formulation" title="永久链接至标题">¶</a></h3>
+<p>QP formulation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{aligned}
+minimize  &amp; \frac{1}{2}  \cdot x^T \cdot H \cdot x  + f^T \cdot x \\
+s.t. \qquad &amp; LB \leq x \leq UB \\
+      &amp; A_{eq}x = b_{eq} \\
+      &amp; Ax \geq b
+\end{aligned}
+$$
+</pre></div>
+</div>
+<p>Below is the example for converting the cost function into the QP formulation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_i(s) ＝
+\begin{vmatrix} 1 &amp; s &amp; s^2 &amp; s^3 &amp; s^4 &amp; s^5 \end{vmatrix}
+\cdot
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix}   
+$$
+</pre></div>
+</div>
+<p>And</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_i&#39;(s) =
+\begin{vmatrix} 0 &amp; 1 &amp; 2s &amp; 3s^2 &amp; 4s^3 &amp; 5s^4 \end{vmatrix}
+\cdot
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix}   
+$$
+</pre></div>
+</div>
+<p>And</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_i&#39;(s)^2 =
+\begin{vmatrix} a_{i0} &amp; a_{i1} &amp; a_{i2} &amp; a_{i3} &amp; a_{i4} &amp; a_{i5}  \end{vmatrix} 
+\cdot 
+\begin{vmatrix} 0 \\ 1 \\ 2s \\ 3s^2 \\ 4s^3 \\ 5s^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix} 0 &amp; 1 &amp; 2s &amp; 3s^2 &amp; 4s^3 &amp; 5s^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}  \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>then we have,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\int\limits_{0}^{d_i} f_i&#39;(s)^2 ds ＝
+\int\limits_{0}^{d_i}
+\begin{vmatrix} a_{i0} &amp; a_{i1} &amp; a_{i2} &amp; a_{i3} &amp; a_{i4} &amp; a_{i5} \end{vmatrix} 
+\cdot  
+\begin{vmatrix} 0 \\ 1 \\ 2s \\ 3s^2 \\ 4s^3 \\ 5s^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix} 0 &amp; 1 &amp; 2s &amp; 3s^2 &amp; 4s^3 &amp; 5s^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}  \end{vmatrix} ds
+$$
+</pre></div>
+</div>
+<p>extract the const outside the integration, we have,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\int\limits_{0}^{d_i} f&#39;(s)^2 ds ＝
+\begin{vmatrix} a_{i0} &amp; a_{i1} &amp; a_{i2} &amp; a_{i3} &amp; a_{i4} &amp; a_{i5} \end{vmatrix} 
+\cdot 
+\int\limits_{0}^{d_i}  
+\begin{vmatrix} 0 \\ 1 \\ 2s \\ 3s^2 \\ 4s^3 \\ 5s^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix} 0 &amp; 1 &amp; 2s &amp; 3s^2 &amp; 4s^3 &amp; 5s^4 \end{vmatrix} ds 
+\cdot 
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}  \end{vmatrix}
+$$
+$$
+＝\begin{vmatrix} a_{i0} &amp; a_{i1} &amp; a_{i2} &amp; a_{i3} &amp; a_{i4} &amp; a_{i5} \end{vmatrix} 
+\cdot \int\limits_{0}^{d_i}
+\begin{vmatrix} 
+0  &amp; 0 &amp;0&amp;0&amp;0&amp;0\\ 
+0 &amp; 1 &amp; 2s &amp; 3s^2 &amp; 4s^3 &amp; 5s^4\\
+0 &amp; 2s &amp; 4s^2 &amp; 6s^3 &amp; 8s^4 &amp; 10s^5\\
+0 &amp; 3s^2 &amp;  6s^3 &amp; 9s^4 &amp; 12s^5&amp;15s^6 \\
+0 &amp; 4s^3 &amp; 8s^4 &amp;12s^5 &amp;16s^6&amp;20s^7 \\
+0 &amp; 5s^4 &amp; 10s^5 &amp; 15s^6 &amp; 20s^7 &amp; 25s^8 
+\end{vmatrix} ds 
+\cdot 
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>Finally, we have</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\int\limits_{0}^{d_i} 
+f&#39;_i(s)^2 ds =\begin{vmatrix} a_{i0} &amp; a_{i1} &amp; a_{i2} &amp; a_{i3} &amp; a_{i4} &amp; a_{i5} \end{vmatrix} 
+\cdot \begin{vmatrix} 
+0 &amp; 0 &amp; 0 &amp; 0 &amp;0&amp;0\\ 
+0 &amp; d_i &amp; d_i^2 &amp; d_i^3 &amp; d_i^4&amp;d_i^5\\
+0&amp; d_i^2 &amp; \frac{4}{3}d_i^3&amp; \frac{6}{4}d_i^4 &amp; \frac{8}{5}d_i^5&amp;\frac{10}{6}d_i^6\\
+0&amp; d_i^3 &amp; \frac{6}{4}d_i^4 &amp; \frac{9}{5}d_i^5 &amp; \frac{12}{6}d_i^6&amp;\frac{15}{7}d_i^7\\
+0&amp; d_i^4 &amp; \frac{8}{5}d_i^5 &amp; \frac{12}{6}d_i^6 &amp; \frac{16}{7}d_i^7&amp;\frac{20}{8}d_i^8\\
+0&amp; d_i^5 &amp; \frac{10}{6}d_i^6 &amp; \frac{15}{7}d_i^7 &amp; \frac{20}{8}d_i^8&amp;\frac{25}{9}d_i^9
+\end{vmatrix} 
+\cdot 
+\begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>Please notice that we got a 6 x 6 matrix to represent the derivative cost of 5th order spline.</p>
+<p>Similar deduction can also be used to calculate the cost of second and third order derivatives.</p>
+</section>
+</section>
+<section id="constraints">
+<h2>2  Constraints<a class="headerlink" href="#constraints" title="永久链接至标题">¶</a></h2>
+<section id="the-init-point-constraints">
+<h3>2.1  The init point constraints<a class="headerlink" href="#the-init-point-constraints" title="永久链接至标题">¶</a></h3>
+<p>Assume that the first point is (<span class="math notranslate nohighlight">\(s_0\)</span>, <span class="math notranslate nohighlight">\(l_0\)</span>), (<span class="math notranslate nohighlight">\(s_0\)</span>, <span class="math notranslate nohighlight">\(l'_0\)</span>) and (<span class="math notranslate nohighlight">\(s_0\)</span>, <span class="math notranslate nohighlight">\(l''_0\)</span>), where <span class="math notranslate nohighlight">\(l_0\)</span> , <span class="math notranslate nohighlight">\(l'_0\)</span> and <span class="math notranslate nohighlight">\(l''_0\)</span> is the lateral offset and its first and second derivatives on the init point of planned path, and are calculated from <span class="math notranslate nohighlight">\(f_i(s)\)</span>, <span class="math notranslate nohighlight">\(f'_i(s)\)</span>, and <span class="math notranslate nohighlight">\(f_i(s)''\)</span>.</p>
+<p>Convert those constraints into QP equality constraints, using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+A_{eq}x = b_{eq}
+$$
+</pre></div>
+</div>
+<p>Below are the steps of conversion.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_i(s_0) = 
+\begin{vmatrix} 1 &amp; s_0 &amp; s_0^2 &amp; s_0^3 &amp; s_0^4&amp;s_0^5 \end{vmatrix} 
+\cdot 
+\begin{vmatrix}  a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}\end{vmatrix} = l_0
+$$
+</pre></div>
+</div>
+<p>And</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;_i(s_0) = 
+\begin{vmatrix} 0&amp; 1 &amp; 2s_0 &amp; 3s_0^2 &amp; 4s_0^3 &amp;5 s_0^4 \end{vmatrix} 
+\cdot 
+\begin{vmatrix}  a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix} = l&#39;_0
+$$
+</pre></div>
+</div>
+<p>And</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;&#39;_i(s_0) = 
+\begin{vmatrix} 0&amp;0&amp; 2 &amp; 3\times2s_0 &amp; 4\times3s_0^2 &amp; 5\times4s_0^3  \end{vmatrix} 
+\cdot 
+\begin{vmatrix}  a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix} = l&#39;&#39;_0
+$$
+</pre></div>
+</div>
+<p>where i is the index of the segment that contains the <span class="math notranslate nohighlight">\(s_0\)</span>.</p>
+</section>
+<section id="the-end-point-constraints">
+<h3>2.2  The end point constraints<a class="headerlink" href="#the-end-point-constraints" title="永久链接至标题">¶</a></h3>
+<p>Similar to the init point, the end point <span class="math notranslate nohighlight">\((s_e, l_e)\)</span> is known and should produce the same constraint as described in the init point calculations.</p>
+<p>Combine the init point and end point, and show the equality constraint as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; s_0 &amp; s_0^2 &amp; s_0^3 &amp; s_0^4&amp;s_0^5 \\
+ 0&amp;1 &amp; 2s_0 &amp; 3s_0^2 &amp; 4s_0^3 &amp; 5s_0^4 \\
+ 0&amp; 0&amp;2 &amp; 3\times2s_0 &amp; 4\times3s_0^2 &amp; 5\times4s_0^3  \\
+ 1 &amp; s_e &amp; s_e^2 &amp; s_e^3 &amp; s_e^4&amp;s_e^5 \\
+ 0&amp;1 &amp; 2s_e &amp; 3s_e^2 &amp; 4s_e^3 &amp; 5s_e^4 \\
+ 0&amp; 0&amp;2 &amp; 3\times2s_e &amp; 4\times3s_e^2 &amp; 5\times4s_e^3  
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix}  a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5} \end{vmatrix} 
+ = 
+ \begin{vmatrix}
+ l_0\\
+ l&#39;_0\\
+ l&#39;&#39;_0\\
+ l_e\\
+ l&#39;_e\\
+ l&#39;&#39;_e\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+</section>
+<section id="joint-smoothness-constraints">
+<h3>2.3  Joint smoothness  constraints<a class="headerlink" href="#joint-smoothness-constraints" title="永久链接至标题">¶</a></h3>
+<p>This constraint is designed to smooth the spline joint.  Assume two segments <span class="math notranslate nohighlight">\(seg_k\)</span> and <span class="math notranslate nohighlight">\(seg_{k+1}\)</span> are connected, and the accumulated <strong>s</strong> of segment <span class="math notranslate nohighlight">\(seg_k\)</span> is <span class="math notranslate nohighlight">\(s_k\)</span>. Calculate the constraint equation as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f_k(s_k) = f_{k+1} (s_0)
+$$
+</pre></div>
+</div>
+<p>Below are the steps of the calculation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; s_k &amp; s_k^2 &amp; s_k^3 &amp; s_k^4&amp;s_k^5 \\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k0} \\ a_{k1} \\ a_{k2} \\ a_{k3} \\ a_{k4} \\ a_{k5} 
+ \end{vmatrix} 
+ = 
+\begin{vmatrix} 
+ 1 &amp; s_{0} &amp; s_{0}^2 &amp; s_{0}^3 &amp; s_{0}^4&amp;s_{0}^5 \\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k+1,0} \\ a_{k+1,1} \\ a_{k+1,2} \\ a_{k+1,3} \\ a_{k+1,4} \\ a_{k+1,5} 
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>Then</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; s_k &amp; s_k^2 &amp; s_k^3 &amp; s_k^4&amp;s_k^5 &amp;  -1 &amp; -s_{0} &amp; -s_{0}^2 &amp; -s_{0}^3 &amp; -s_{0}^4&amp;-s_{0}^5\\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} 
+ a_{k0} \\ a_{k1} \\ a_{k2} \\ a_{k3} \\ a_{k4} \\ a_{k5} \\ a_{k+1,0} \\ a_{k+1,1} \\ a_{k+1,2} \\ a_{k+1,3} \\ a_{k+1,4} \\ a_{k+1,5}  
+ \end{vmatrix} 
+ = 0
+$$
+</pre></div>
+</div>
+<p>Use <span class="math notranslate nohighlight">\(s_0\)</span> = 0 in the equation.</p>
+<p>Similarly calculate the equality constraints for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+f&#39;_k(s_k) = f&#39;_{k+1} (s_0)
+\\
+f&#39;&#39;_k(s_k) = f&#39;&#39;_{k+1} (s_0)
+\\
+f&#39;&#39;&#39;_k(s_k) = f&#39;&#39;&#39;_{k+1} (s_0)
+$$
+</pre></div>
+</div>
+</section>
+<section id="sampled-points-for-boundary-constraint">
+<h3>2.4  Sampled points for boundary constraint<a class="headerlink" href="#sampled-points-for-boundary-constraint" title="永久链接至标题">¶</a></h3>
+<p>Evenly sample <strong>m</strong> points along the path, and check the obstacle boundary at those points.  Convert the constraint into QP inequality constraints, using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+Ax \geq b
+$$
+</pre></div>
+</div>
+<p>First find the lower boundary <span class="math notranslate nohighlight">\(l_{lb,j}\)</span> at those points <span class="math notranslate nohighlight">\((s_j, l_j)\)</span> and  <span class="math notranslate nohighlight">\(j\in[0, m]\)</span> based on the road width and surrounding obstacles. Calculate the inequality constraints as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ 1 &amp; s_0 &amp; s_0^2 &amp; s_0^3 &amp; s_0^4&amp;s_0^5 \\
+  1 &amp; s_1 &amp; s_1^2 &amp; s_1^3 &amp; s_1^4&amp;s_1^5 \\
+ ...&amp;...&amp;...&amp;...&amp;...&amp;... \\
+ 1 &amp; s_m &amp; s_m^2 &amp; s_m^3 &amp; s_m^4&amp;s_m^5 \\
+ \end{vmatrix} \cdot \begin{vmatrix}a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}  \end{vmatrix} 
+ \geq 
+ \begin{vmatrix}
+ l_{lb,0}\\
+ l_{lb,1}\\
+ ...\\
+ l_{lb,m}\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+<p>Similarly, for the upper boundary <span class="math notranslate nohighlight">\(l_{ub,j}\)</span>, calculate the inequality constraints as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$$
+\begin{vmatrix} 
+ -1 &amp; -s_0 &amp; -s_0^2 &amp; -s_0^3 &amp; -s_0^4&amp;-s_0^5 \\
+  -1 &amp; -s_1 &amp; -s_1^2 &amp; -s_1^3 &amp; -s_1^4&amp;-s_1^5 \\
+ ...&amp;...-&amp;...&amp;...&amp;...&amp;... \\
+ -1 &amp; -s_m &amp; -s_m^2 &amp; -s_m^3 &amp; -s_m^4&amp;-s_m^5 \\
+ \end{vmatrix} 
+ \cdot 
+ \begin{vmatrix} a_{i0} \\ a_{i1} \\ a_{i2} \\ a_{i3} \\ a_{i4} \\ a_{i5}  \end{vmatrix} 
+ \geq
+ -1 \cdot
+ \begin{vmatrix}
+ l_{ub,0}\\
+ l_{ub,1}\\
+ ...\\
+ l_{ub,m}\\
+ \end{vmatrix}
+$$
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="qp_spline_path_optimizer_cn.html" title="二次规划（QP）样条路径优化"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="prerequisite_software_installation_guide.html" title="Pre-requisite Software Installation Guide"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">QP-Spline-Path Optimizer</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

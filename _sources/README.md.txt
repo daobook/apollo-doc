@@ -1,6 +1,6 @@
-# Sphinx Action
+# Apollo Auto 文档
 
-[![GitHub issues](https://img.shields.io/github/issues/xinetzone/sphinx-action)](https://github.com/xinetzone/sphinx-action/issues) [![GitHub forks](https://img.shields.io/github/forks/xinetzone/sphinx-action)](https://github.com/xinetzone/sphinx-action/network) [![GitHub stars](https://img.shields.io/github/stars/xinetzone/sphinx-action)](https://github.com/xinetzone/sphinx-action/stargazers) [![GitHub license](https://img.shields.io/github/license/xinetzone/sphinx-action)](https://github.com/xinetzone/sphinx-action/blob/main/LICENSE)  ![repo size](https://img.shields.io/github/repo-size/xinetzone/sphinx-action.svg) [![contributors](https://img.shields.io/github/contributors/xinetzone/sphinx-action.svg)](https://github.com/xinetzone/sphinx-action/graphs/contributors) [![watcher](https://img.shields.io/github/watchers/xinetzone/sphinx-action.svg)](https://github.com/xinetzone/sphinx-action/watchers) ![](https://github.com/xinetzone/sphinx-action/actions/workflows/docs.yml/badge.svg)
+[![GitHub issues](https://img.shields.io/github/issues/daobook/apollo-doc)](https://github.com/daobook/apollo-doc/issues) [![GitHub forks](https://img.shields.io/github/forks/daobook/apollo-doc)](https://github.com/daobook/apollo-doc/network) [![GitHub stars](https://img.shields.io/github/stars/daobook/apollo-doc)](https://github.com/daobook/apollo-doc/stargazers) [![GitHub license](https://img.shields.io/github/license/daobook/apollo-doc)](https://github.com/daobook/apollo-doc/blob/main/LICENSE)  ![repo size](https://img.shields.io/github/repo-size/daobook/apollo-doc.svg) [![contributors](https://img.shields.io/github/contributors/daobook/apollo-doc.svg)](https://github.com/daobook/apollo-doc/graphs/contributors) [![watcher](https://img.shields.io/github/watchers/daobook/apollo-doc.svg)](https://github.com/daobook/apollo-doc/watchers) ![](https://github.com/daobook/apollo-doc/actions/workflows/docs.yml/badge.svg)
 
 本项目灵感来源于 [Docutils](https://docutils.sourceforge.io/) 项目。
 
@@ -21,8 +21,5 @@
 
 ## 功能清单
 
-- 角色 {rst:role}`:daobook:` 和 {rst:role}`:xinetzone:` 分别是 {daobook}`/` 和 {xinetzone}`/` 网址的缩写。
-
-{xinetzone}`/wiki`
-
-{daobook}`/sphinx-doc`
+- 角色 {rst:role}`:daobook:` 和 {rst:role}`:daobook:` 分别是 {daobook}`/` 和 {daobook}`/` 网址的缩写。
+- 网站主题借鉴 [sphinx-doc](https://www.sphinx-doc.org/en/master/)

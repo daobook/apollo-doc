@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>预测规划交互评估器 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/technical_documents/jointly_prediction_planning_evaluator_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="OPEN SPACE DECIDER" href="open_space_decider.html" />
+    <link rel="prev" title="JOINTLY PREDICTION PLANNING EVALUATOR" href="jointly_prediction_planning_evaluator.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="open_space_decider.html" title="OPEN SPACE DECIDER"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="jointly_prediction_planning_evaluator.html" title="JOINTLY PREDICTION PLANNING EVALUATOR"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">预测规划交互评估器</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">预测规划交互评估器</a><ul>
+<li><a class="reference internal" href="#id2">简介</a></li>
+<li><a class="reference internal" href="#where-is-the-code">Where is the code</a></li>
+<li><a class="reference internal" href="#code-reading">Code Reading</a><ul>
+<li><a class="reference internal" href="#interaction-filter">Interaction filter</a></li>
+<li><a class="reference internal" href="#model-inference">Model inference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="jointly_prediction_planning_evaluator.html"
+                        title="上一章">JOINTLY PREDICTION PLANNING EVALUATOR</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="open_space_decider.html"
+                        title="下一章">OPEN SPACE DECIDER</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/technical_documents/jointly_prediction_planning_evaluator_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>预测规划交互评估器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<section id="id2">
+<h2>简介<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>预测模块主要由四个子模块组成，分别是： Container（信息容器）, Scenario（场景选择器）, Evaluator（评估器） and Predictor（预测器）。</p>
+<p>评估器用于预测障碍物的速度和路径信息，通过给出路径置信度或短预测时域的轨迹信息，供后续的预测器进一步处理。评估器使用的模型文件存放在prediction/data/路径下。</p>
+<p>预测规划交互评估器是针对交互障碍物设计的评估器，主要解决交互场景下（会车，狭窄道路，路口）障碍物预测问题，使用Vectornet和LSTM，考虑主车轨迹信息进行障碍物轨迹预测。</p>
+<p><img alt="Diagram" src="../../_images/interaction_model_fig_1.png" /></p>
+</section>
+<section id="where-is-the-code">
+<h2>Where is the code<a class="headerlink" href="#where-is-the-code" title="永久链接至标题">¶</a></h2>
+<p>可以参考 <a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/modules/prediction/evaluator/vehicle">jointly prediction planning evaluator代码</a>.</p>
+</section>
+<section id="code-reading">
+<h2>Code Reading<a class="headerlink" href="#code-reading" title="永久链接至标题">¶</a></h2>
+<section id="interaction-filter">
+<h3>Interaction filter<a class="headerlink" href="#interaction-filter" title="永久链接至标题">¶</a></h3>
+<p>Please refer <a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/modules/prediction/scenario/interaction_filter">interaction filter代码</a>.</p>
+<ol>
+<li><p>交互障碍物的获取是通过交互障碍物过滤器得到的，交互障碍物过滤器基于一定的规则筛选出与主车可能发生交互关系的障碍物。</p></li>
+<li><p>这些障碍物将被添加上交互标签，用于触发交互预测模型。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">AssignInteractiveTag</span><span class="p">();</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="model-inference">
+<h3>Model inference<a class="headerlink" href="#model-inference" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>模型使用的编码器是Vectornet，因此在调用模型进行轨迹预测前，需要将障碍物和地图信息组合成编码器需求的格式。</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="open_space_decider.html" title="OPEN SPACE DECIDER"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="jointly_prediction_planning_evaluator.html" title="JOINTLY PREDICTION PLANNING EVALUATOR"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">预测规划交互评估器</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

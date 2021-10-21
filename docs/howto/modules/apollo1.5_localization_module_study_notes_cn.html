@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Localization module 分析 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/modules/apollo1.5_localization_module_study_notes_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Perception Module 分析" href="apollo1.5_perception_module_study_notes_cn.html" />
+    <link rel="prev" title="HD map 使用" href="apollo1.5_HDmap_study_notes_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../README.html">Home</a></li>
+    <li><a href="../../quickstart/README.html">Get it</a></li>
+    <li><a href="../../../contents.html">Docs</a></li>
+    <li><a href="../../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../../README.html">
+      <img src="../../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="apollo1.5_perception_module_study_notes_cn.html" title="Perception Module 分析"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_HDmap_study_notes_cn.html" title="HD map 使用"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Localization module 分析</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Localization module 分析</a><ul>
+<li><a class="reference internal" href="#id1">作用：</a></li>
+<li><a class="reference internal" href="#localization">Localization节点流图：</a><ul>
+<li><a class="reference internal" href="#id2">节点数据流图：</a></li>
+<li><a class="reference internal" href="#id3">输入：</a></li>
+<li><a class="reference internal" href="#id4">输出：</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">代码分析：</a><ul>
+<li><a class="reference internal" href="#id6">Localization类:</a></li>
+<li><a class="reference internal" href="#localizationbase">LocalizationBase类：</a></li>
+<li><a class="reference internal" href="#rtklocalization">RTKLocalization类：</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">疑惑：</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="apollo1.5_HDmap_study_notes_cn.html"
+                        title="上一章">HD map 使用</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="apollo1.5_perception_module_study_notes_cn.html"
+                        title="下一章">Perception Module 分析</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/docs/howto/modules/apollo1.5_localization_module_study_notes_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="localization-module">
+<h1>Localization module 分析<a class="headerlink" href="#localization-module" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>作用：<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>实时确定车辆的位置。</p>
+</section>
+<section id="localization">
+<h2>Localization节点流图：<a class="headerlink" href="#localization" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h3>节点数据流图：<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p><img alt="localization data flow" src="../../../_images/localization_node_arch.bmp" /></p>
+</section>
+<section id="id3">
+<h3>输入：<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Imu数据：/apollo/sensor/gnss/corrected_imu。</p></li>
+<li><p>Gps数据：/apollo/sensor/gnss/odometry。</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>输出：<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>定位信息：/apollo/localization/pose。</p></li>
+<li><p>监视信息：/apollo/localization/。</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2>代码分析：<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>主要文件：<a class="reference external" href="http://localization.cc">localization.cc</a>,localization.h,localization_base.h。</p>
+<section id="id6">
+<h3>Localization类:<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>继承于ApolloApp类，有三个数据，localization_具体的定位算法实例指针，localization_factory_存储定位算法类，config_存储配置文件信息。</p></li>
+<li><p>Init()函数注册RTKLocalization类到localization_factory_，此类基于RTK算法实现定位算法；读取配置文件到config_。</p></li>
+<li><p>Name()函数返回模块名字。</p></li>
+<li><p>Start()函数，用localization_factory_类实例化一个定位算法对象，用localization_直向。若创建成功，调用定位算法的start()函数。</p></li>
+</ul>
+</section>
+<section id="localizationbase">
+<h3>LocalizationBase类：<a class="headerlink" href="#localizationbase" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>定位算法的基类。</p></li>
+<li><p>Start()函数启动定位算法。</p></li>
+<li><p>Stop()函数终止定位算法。</p></li>
+</ul>
+</section>
+<section id="rtklocalization">
+<h3>RTKLocalization类：<a class="headerlink" href="#rtklocalization" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>继承LocalizationBase类。</p></li>
+<li><p>Start()函数：创建timer，检测gps和imu是否有数据。超时执行OnTimer()函数。OnTimer()函数检查gps和imu是否有数据，然后调用PublishLocalization()发布定位信息，并更新数据接收时间。在PublishLocalization()函数中先调用PrepareLocalizationMsg()函数计算定位信息，并填充发布数据结构localization；然后调用AdapterManager::PublishLocalization发布定位topic。PrepareLocalizationMsg(&amp;localization)函数首先获取gps数据，然后根据gps数据时间戳获取imu数据，然后调用ComposeLocalizationMsg()函数，进行数据融合以定位，其实所谓的数据融合也就是在最终的定位信息中分别使用gps和imu测得数据设置定位信息，唯一由两个器件融合的量只有线速度。所谓RTK算法应该单指由gps数据获取gps定位信息，在localization阶段其实是使用这个定位信息，真正RTK算法应该是作用在gps数据的处理上。</p></li>
+<li><p>Stop()函数停止timer，即退出定位模式。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>疑惑：<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>定位信息给出的应该是车辆在世界中的的绝对位置，因为采用gps数据，那么这个位置如何与地图建立关系的？</p></li>
+</ul>
+<p>答：地图中的点也可能是世界中的绝对位置。</p>
+<ul class="simple">
+<li><p>map_offset这个量的作用：//TODO</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="apollo1.5_perception_module_study_notes_cn.html" title="Perception Module 分析"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="apollo1.5_HDmap_study_notes_cn.html" title="HD map 使用"
+             >上一页</a> |</li>
+        <li><a href="../../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Localization module 分析</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

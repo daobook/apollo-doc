@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>General FAQs &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/FAQs/General_FAQs.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="General FAQs_cn" href="General_FAQs_cn.html" />
+    <link rel="prev" title="DreamView FAQs" href="Dreamview_FAQs.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="General_FAQs_cn.html" title="General FAQs_cn"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Dreamview_FAQs.html" title="DreamView FAQs"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">General FAQs</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">General FAQs</a><ul>
+<li><a class="reference internal" href="#i-am-new-to-the-apollo-project-where-do-i-start">I am new to the Apollo project, where do I start?</a></li>
+<li><a class="reference internal" href="#how-do-i-send-a-pull-request">How do I send a pull request?</a></li>
+<li><a class="reference internal" href="#do-comments-need-to-be-made-in-doxygen">Do comments need to be made in Doxygen?</a></li>
+<li><a class="reference internal" href="#how-to-debug-build-problems">How to debug build problems?</a></li>
+<li><a class="reference internal" href="#if-i-cannot-solve-my-build-problems-what-is-the-most-effective-way-to-ask-for-help">If I cannot solve my build problems, what is the most effective way to ask for help?</a></li>
+<li><a class="reference internal" href="#which-ports-must-be-whitelisted-to-run-apollo-in-a-public-cloud-instance">Which ports must be whitelisted to run Apollo in a public cloud instance?</a></li>
+<li><a class="reference internal" href="#why-there-is-no-ros-environment-in-dev-docker">Why there is no ROS environment in dev docker?</a></li>
+<li><a class="reference internal" href="#how-do-i-clean-the-existing-build-output">How do I clean the existing build output?</a></li>
+<li><a class="reference internal" href="#how-do-i-delete-the-downloaded-third-party-dependent-packages">How do I delete the downloaded third party dependent packages?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Dreamview_FAQs.html"
+                        title="上一章">DreamView FAQs</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="General_FAQs_cn.html"
+                        title="下一章">General FAQs_cn</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/FAQs/General_FAQs.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="general-faqs">
+<h1>General FAQs<a class="headerlink" href="#general-faqs" title="永久链接至标题">¶</a></h1>
+<section id="i-am-new-to-the-apollo-project-where-do-i-start">
+<h2>I am new to the Apollo project, where do I start?<a class="headerlink" href="#i-am-new-to-the-apollo-project-where-do-i-start" title="永久链接至标题">¶</a></h2>
+<p>You have several options:</p>
+<ul class="simple">
+<li><p>To build apollo on your computer, start by reviewing
+<a class="reference internal" href="../quickstart/apollo_software_installation_guide.html"><span class="doc std std-doc">Apollo Software Installation Guide</span></a></p></li>
+<li><p>To run the Apollo demo offline, go to:
+<a class="reference internal" href="../demo_guide/README.html"><span class="doc std std-doc">Apollo README.md</span></a>.</p></li>
+<li><p>To install and build Apollo on a vehicle, go to:
+<a class="reference internal" href="../quickstart/apollo_1_0_quick_start.html"><span class="doc std std-doc">Apollo 1.0 quick start</span></a>.</p></li>
+<li><p>To build the Apollo Kernel, the Robot Operating System (ROS), and Apollo, go
+to:
+<a class="reference internal" href="../quickstart/apollo_1_0_quick_start_developer.html"><span class="doc std std-doc">apollo/docs/quickstart/apollo_1_0_quick_start_developer.md</span></a>
+and refer to
+<a class="reference external" href="../quickstart/apollo_1_0_quick_start_developer.md#build-the-apollo-kernel">build kernel</a>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="how-do-i-send-a-pull-request">
+<h2>How do I send a pull request?<a class="headerlink" href="#how-do-i-send-a-pull-request" title="永久链接至标题">¶</a></h2>
+<p>Sending a pull request is simple.</p>
+<ol class="simple">
+<li><p>Fork the Apollo Repository into your GitHub.</p></li>
+<li><p>Create a Developer Branch in your Repository.</p></li>
+<li><p>Commit your change in your Developer Branch.</p></li>
+<li><p>Send the pull request from your GitHub Repository Webpage.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="do-comments-need-to-be-made-in-doxygen">
+<h2>Do comments need to be made in Doxygen?<a class="headerlink" href="#do-comments-need-to-be-made-in-doxygen" title="永久链接至标题">¶</a></h2>
+<p>Yes, currently all comments need to be made in Doxygen.</p>
+</section>
+<hr class="docutils" />
+<section id="how-to-debug-build-problems">
+<h2>How to debug build problems?<a class="headerlink" href="#how-to-debug-build-problems" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>Carefully review the instructions in the documentation for the option that
+you selected to get started with the Apollo project.</p></li>
+<li><p>Make sure that you follow the steps in the document exactly as they are
+written.</p></li>
+<li><p>Use Ubuntu 14.04 as the build can only be implemented using Linux.</p></li>
+<li><p>Verify that the Internet setting is correct on your computer.</p></li>
+<li><p>Allocate more than 1GB of memory, at the recommended minimum, for your
+computer.</p></li>
+<li><p>If roscore cannot start in apollo docker, you may need to tune the master
+start timeout value in ROS. You may want to check a related user-reported
+<a class="reference external" href="https://github.com/ApolloAuto/apollo/issues/2500">issue</a> for more details.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="if-i-cannot-solve-my-build-problems-what-is-the-most-effective-way-to-ask-for-help">
+<h2>If I cannot solve my build problems, what is the most effective way to ask for help?<a class="headerlink" href="#if-i-cannot-solve-my-build-problems-what-is-the-most-effective-way-to-ask-for-help" title="永久链接至标题">¶</a></h2>
+<p>Many build problems are related to the environment settings.</p>
+<ol class="simple">
+<li><p>Run the script to get your environment: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">scripts/env.sh</span> <span class="pre">&gt;&amp;</span> <span class="pre">env.txt</span></code></p></li>
+<li><p>Post the content of env.txt to our Github issues page and someone from our
+team will get in touch with you.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="which-ports-must-be-whitelisted-to-run-apollo-in-a-public-cloud-instance">
+<h2>Which ports must be whitelisted to run Apollo in a public cloud instance?<a class="headerlink" href="#which-ports-must-be-whitelisted-to-run-apollo-in-a-public-cloud-instance" title="永久链接至标题">¶</a></h2>
+<p>Use these ports for HMI and Dreamview:</p>
+<ul class="simple">
+<li><p>8888: Dreamview</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="why-there-is-no-ros-environment-in-dev-docker">
+<h2>Why there is no ROS environment in dev docker?<a class="headerlink" href="#why-there-is-no-ros-environment-in-dev-docker" title="永久链接至标题">¶</a></h2>
+<p>The ROS package is downloaded when you start to build apollo:
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">build</span></code>.</p>
+<ol class="simple">
+<li><p>Run the following command inside Docker to set up the ROS environment after
+the build is complete: <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/apollo/scripts/apollo_base.sh</span></code></p></li>
+<li><p>Run ROS-related commands such as rosbag, rostopic and so on.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="how-do-i-clean-the-existing-build-output">
+<h2>How do I clean the existing build output?<a class="headerlink" href="#how-do-i-clean-the-existing-build-output" title="永久链接至标题">¶</a></h2>
+<p>Follow these steps:</p>
+<ol class="simple">
+<li><p>Log into Docker using the command: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">docker/scripts/dev_into.sh</span></code></p></li>
+<li><p>Run the command: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">clean</span></code></p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="how-do-i-delete-the-downloaded-third-party-dependent-packages">
+<h2>How do I delete the downloaded third party dependent packages?<a class="headerlink" href="#how-do-i-delete-the-downloaded-third-party-dependent-packages" title="永久链接至标题">¶</a></h2>
+<p>Follow these steps:</p>
+<ol class="simple">
+<li><p>Log into Docker using the command: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">docker/scripts/dev_into.sh</span></code></p></li>
+<li><p>Run the command: <code class="docutils literal notranslate"><span class="pre">bazel</span> <span class="pre">clean</span> <span class="pre">--expunge</span></code> The build command,
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">apollo.sh</span> <span class="pre">build</span></code>, then downloads all of the dependent packages
+according to the <em>WORKSPACE</em> file.</p></li>
+</ol>
+<p><strong>More General FAQs to follow.</strong></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="General_FAQs_cn.html" title="General FAQs_cn"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Dreamview_FAQs.html" title="DreamView FAQs"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">General FAQs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>概览 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/D-kit/readme.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Calibration FAQs" href="../FAQs/Calibration_FAQs.html" />
+    <link rel="prev" title="循迹搭建–车辆集成" href="Waypoint_Following/vehicle_integration_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../FAQs/Calibration_FAQs.html" title="Calibration FAQs"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="Waypoint_Following/vehicle_integration_cn.html" title="循迹搭建–车辆集成"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">概览</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">概览</a><ul>
+<li><a class="reference internal" href="#id2">内容</a></li>
+<li><a class="reference internal" href="#id3">循迹自动驾驶搭建</a><ul>
+<li><a class="reference internal" href="#apollo">循迹搭建–Apollo系统安装</a></li>
+<li><a class="reference internal" href="#id4">循迹搭建–车辆集成</a></li>
+<li><a class="reference internal" href="#id5">循迹搭建–定位模块配置</a></li>
+<li><a class="reference internal" href="#id6">循迹搭建–车辆动力学标定</a></li>
+<li><a class="reference internal" href="#id7">循迹搭建–车辆循迹演示</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">基于激光雷达的封闭园区自动驾驶搭建</a><ul>
+<li><a class="reference internal" href="#id9">基于激光雷达的封闭园区自动驾驶搭建–感知设备集成</a></li>
+<li><a class="reference internal" href="#id10">基于激光雷达的封闭园区自动驾驶搭建–感知设备标定</a></li>
+<li><a class="reference internal" href="#id11">封闭园区自动驾驶搭建–虚拟车道线制作</a></li>
+<li><a class="reference internal" href="#id12">基于激光雷达的封闭园区自动驾驶搭建–感知适配</a></li>
+<li><a class="reference internal" href="#id13">封闭园区自动驾驶搭建–规划适配</a></li>
+<li><a class="reference internal" href="#id14">基于激光雷达的封闭园区自动驾驶搭建–自动驾驶演示</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id15">基于摄像头的封闭园区自动驾驶搭建</a><ul>
+<li><a class="reference internal" href="#id16">基于摄像头的封闭园区自动驾驶搭建–感知设备集成</a></li>
+<li><a class="reference internal" href="#id17">基于摄像头的封闭园区自动驾驶搭建–感知设备标定</a></li>
+<li><a class="reference internal" href="#id18">封闭园区自动驾驶搭建–虚拟车道线制作</a></li>
+<li><a class="reference internal" href="#id19">基于摄像头的封闭园区自动驾驶搭建–感知适配</a></li>
+<li><a class="reference internal" href="#id20">封闭园区自动驾驶搭建–规划适配</a></li>
+<li><a class="reference internal" href="#id21">基于摄像头的封闭园区自动驾驶搭建–自动驾驶演示</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="Waypoint_Following/vehicle_integration_cn.html"
+                        title="上一章">循迹搭建–车辆集成</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="../FAQs/Calibration_FAQs.html"
+                        title="下一章">Calibration FAQs</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/D-kit/readme.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>概览<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>自动驾驶系统集车辆学、人工智能、计算机科学、自动控制等多学科应用于一体，是一个非常复杂的系统。而要搭建一个闭环的自动驾驶系统，不仅技术门槛高，还面临着资金成本高、政策约束等多方面的挑战。 Apollo开源平台的出现，极大的降低了学习自动驾驶的技术门槛； 而Apollo开发套件的出现，又进一步降低了搭建闭环自动驾驶系统所涉及到的车辆硬件成本高、采购周期长、测试场地限制等等各种成本。 该用户手册旨在帮助用户通过Apollo开发套件学习并使用Apollo自动驾驶平台。</p>
+<p>手册覆盖了Apollo开发套件的多个使用场景，分别是：</p>
+<ul class="simple">
+<li><p>循迹自动驾驶搭建</p></li>
+<li><p>基于激光雷达的封闭园区自动驾驶搭建</p></li>
+<li><p>基于摄像头的封闭园区自动驾驶搭建</p></li>
+</ul>
+<p>循迹自动驾驶指让车辆按照录制好的轨迹线进行自动驾驶，其涉及到自动驾驶中最基本的底盘线控能力、定位能力、控制能力，是自动驾驶系统的一个最小子集。同时，循迹自动驾驶也是进行封闭园区自动驾驶的前提；用户在按照手册进行封闭园区自动驾驶之前，必须先按照手册完成循迹自动驾驶，以确保正确安装配置相关软硬件。</p>
+<section id="id2">
+<h2>内容<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><strong>说明：</strong> 本文档适用于Apollo r5.5.0代码的适配，如开发者使用其他版本代码，可能会遇到额外问题，需要开发者自行解决</p>
+<p><strong>车辆使用</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="Vehicle_Guide/readme.html"><span class="doc std std-doc">车辆使用快速上手</span></a></p></li>
+</ul>
+<p><strong>循迹自动驾驶搭建</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="Waypoint_Following/apollo_installation_cn.html"><span class="doc std std-doc">循迹搭建–Apollo系统安装</span></a></p></li>
+<li><p><a class="reference internal" href="Waypoint_Following/vehicle_integration_cn.html"><span class="doc std std-doc">循迹搭建–车辆集成</span></a></p></li>
+<li><p><a class="reference internal" href="Waypoint_Following/localization_configuration_cn.html"><span class="doc std std-doc">循迹搭建–定位模块配置</span></a></p></li>
+<li><p><a class="reference internal" href="Waypoint_Following/vehicle_calibration_online_cn.html"><span class="doc std std-doc">循迹搭建–车辆动力学云标定</span></a></p></li>
+<li><p><a class="reference internal" href="Waypoint_Following/start_waypoint_following_cn.html"><span class="doc std std-doc">循迹搭建–车辆循迹演示</span></a></p></li>
+</ul>
+<p><strong>基于激光雷达的封闭园区自动驾驶搭建</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/sensor_integration_cn.html"><span class="doc std std-doc">基于激光雷达的封闭园区自动驾驶搭建–感知设备集成</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/sensor_calibration_cn.html"><span class="doc std std-doc">基于激光雷达的封闭园区自动驾驶搭建–感知设备标定</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/virtual_lane_generation_cn.html"><span class="doc std std-doc">封闭园区自动驾驶搭建–虚拟车道线制作</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/perception_configuration_cn.html"><span class="doc std std-doc">基于激光雷达的封闭园区自动驾驶搭建–感知适配</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/planning_configuration_cn.html"><span class="doc std std-doc">封闭园区自动驾驶搭建–规划适配</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/start_auto_driving_cn.html"><span class="doc std std-doc">基于激光雷达的封闭园区自动驾驶搭建–自动驾驶演示</span></a></p></li>
+</ul>
+<p><strong>基于摄像头的封闭园区自动驾驶搭建</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="Camera_Based_Auto_Driving/sensor_integration_cn.html"><span class="doc std std-doc">基于摄像头的封闭园区自动驾驶搭建–感知设备集成</span></a></p></li>
+<li><p><a class="reference internal" href="Camera_Based_Auto_Driving/sensor_calibration_cn.html"><span class="doc std std-doc">基于摄像头的封闭园区自动驾驶搭建–感知设备标定</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/virtual_lane_generation_cn.html"><span class="doc std std-doc">封闭园区自动驾驶搭建–虚拟车道线制作</span></a></p></li>
+<li><p><a class="reference internal" href="Camera_Based_Auto_Driving/perception_configuration_cn.html"><span class="doc std std-doc">基于摄像头的封闭园区自动驾驶搭建–感知适配</span></a></p></li>
+<li><p><a class="reference internal" href="Lidar_Based_Auto_Driving/planning_configuration_cn.html"><span class="doc std std-doc">封闭园区自动驾驶搭建–规划适配</span></a></p></li>
+<li><p><a class="reference internal" href="Camera_Based_Auto_Driving/start_auto_driving_cn.html"><span class="doc std std-doc">基于摄像头的封闭园区自动驾驶搭建–自动驾驶演示</span></a></p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>循迹自动驾驶搭建<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<section id="apollo">
+<h3>循迹搭建–Apollo系统安装<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h3>
+<p>在集成车辆之前，首先需要在工控机上完成Apollo系统的软硬件安装，如CAN卡安装；之后需要完成工控机的软件安装，包括Ubuntu Linux安装、Apollo软件系统安装等。</p>
+</section>
+<section id="id4">
+<h3>循迹搭建–车辆集成<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>在车辆集成环节，将完成工控机、路由器、惯导、显示器等设备在车辆上的集成。</p>
+</section>
+<section id="id5">
+<h3>循迹搭建–定位模块配置<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>组合惯导设备和定位模块的配置与验证。</p>
+</section>
+<section id="id6">
+<h3>循迹搭建–车辆动力学标定<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍生成车辆动力学标定表方法，形成控制闭环以获得更好的控制效果。油门刹车标定是车辆纵向精准控制的前提。用户可以使用系统预先标定好的参数，也可以按照手册说明重新进行标定以获得更好的控制效果。</p>
+</section>
+<section id="id7">
+<h3>循迹搭建–车辆循迹演示<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>在完成以上软硬件安装，标定以及系统文件配置后，用户可以通过Dreamview界面录制车辆轨迹并回放，完成第一个循迹演示。</p>
+</section>
+</section>
+<section id="id8">
+<h2>基于激光雷达的封闭园区自动驾驶搭建<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<section id="id9">
+<h3>基于激光雷达的封闭园区自动驾驶搭建–感知设备集成<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>在完成循迹搭建之后，基于激光雷达的封闭园区自动驾驶搭建第一步需要完成激光雷达感知设备的集成、配置与验证。</p>
+</section>
+<section id="id10">
+<h3>基于激光雷达的封闭园区自动驾驶搭建–感知设备标定<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍激光雷达到组合惯导的标定方法。</p>
+</section>
+<section id="id11">
+<h3>封闭园区自动驾驶搭建–虚拟车道线制作<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍虚拟车道线制作方法，为后续的自动驾驶演示做准备。</p>
+</section>
+<section id="id12">
+<h3>基于激光雷达的封闭园区自动驾驶搭建–感知适配<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍基于激光雷达的封闭园区自动驾驶感知配置与验证。</p>
+</section>
+<section id="id13">
+<h3>封闭园区自动驾驶搭建–规划适配<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍基于激光雷达的封闭园区自动驾驶规划配置与验证。</p>
+</section>
+<section id="id14">
+<h3>基于激光雷达的封闭园区自动驾驶搭建–自动驾驶演示<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<p>在完成以上步骤后，用户可以通过Dreamview界面启动一个基于激光雷达的封闭园区自动驾驶演示。</p>
+</section>
+</section>
+<section id="id15">
+<h2>基于摄像头的封闭园区自动驾驶搭建<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<section id="id16">
+<h3>基于摄像头的封闭园区自动驾驶搭建–感知设备集成<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<p>在完成循迹搭建之后，基于摄像头的封闭园区自动驾驶搭建第一步需要完成摄像头的集成、配置与验证。</p>
+</section>
+<section id="id17">
+<h3>基于摄像头的封闭园区自动驾驶搭建–感知设备标定<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍摄像头到激光雷达的标定方法。</p>
+</section>
+<section id="id18">
+<h3>封闭园区自动驾驶搭建–虚拟车道线制作<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍虚拟车道线制作方法，为后续的自动驾驶演示做准备。</p>
+</section>
+<section id="id19">
+<h3>基于摄像头的封闭园区自动驾驶搭建–感知适配<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍基于摄像头的封闭园区自动驾驶感知配置与验证。</p>
+</section>
+<section id="id20">
+<h3>封闭园区自动驾驶搭建–规划适配<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+<p>本环节将介绍基于激光雷达的封闭园区自动驾驶规划配置与验证。</p>
+</section>
+<section id="id21">
+<h3>基于摄像头的封闭园区自动驾驶搭建–自动驾驶演示<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+<p>在完成以上步骤后，用户可以通过Dreamview界面启动一个基于封闭园区的自动驾驶演示。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../FAQs/Calibration_FAQs.html" title="Calibration FAQs"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="Waypoint_Following/vehicle_integration_cn.html" title="循迹搭建–车辆集成"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">概览</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

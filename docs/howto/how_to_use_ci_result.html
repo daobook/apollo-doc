@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>How to Use CI Result in Apollo &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_use_ci_result.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="在Apollo中如何使用CI结果" href="how_to_use_ci_result_cn.html" />
+    <link rel="prev" title="Apollo 2.5版导航模式的使用方法" href="how_to_use_apollo_2.5_navigation_mode_cn.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_use_ci_result_cn.html" title="在Apollo中如何使用CI结果"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_use_apollo_2.5_navigation_mode_cn.html" title="Apollo 2.5版导航模式的使用方法"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Use CI Result in Apollo</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Use CI Result in Apollo</a><ul>
+<li><a class="reference internal" href="#what-works-will-ci-check">What works will CI check?</a></li>
+<li><a class="reference internal" href="#possible-errors-and-solution">Possible Errors And Solution</a><ul>
+<li><a class="reference internal" href="#error-fail-modules-perception-base-blob-cpplint">Error: “FAIL: //modules/perception/base:blob_cpplint”</a></li>
+<li><a class="reference internal" href="#error-fail-modules-perception-base-blob-test">Error: “FAIL: //modules/perception/base:blob_test”</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_use_apollo_2.5_navigation_mode_cn.html"
+                        title="上一章">Apollo 2.5版导航模式的使用方法</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_use_ci_result_cn.html"
+                        title="下一章">在Apollo中如何使用CI结果</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_use_ci_result.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-ci-result-in-apollo">
+<h1>How to Use CI Result in Apollo<a class="headerlink" href="#how-to-use-ci-result-in-apollo" title="永久链接至标题">¶</a></h1>
+<p>In Apollo, whether a PR can be merged depends on CI result and CLA.</p>
+<section id="what-works-will-ci-check">
+<h2>What works will CI check?<a class="headerlink" href="#what-works-will-ci-check" title="永久链接至标题">¶</a></h2>
+<p>Apollo CI will run the following steps:</p>
+<ol class="simple">
+<li><p>Checkout your PR into Apollo codebase and build</p></li>
+<li><p>Lint your code including .cc, .h, .py, BUILD, etc</p></li>
+<li><p>Run all unit tests</p></li>
+</ol>
+<p>So it’s recommended that the following commands should be run before commiting
+your code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">lint</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">build</span>
+<span class="o">./</span><span class="n">apollo</span><span class="o">.</span><span class="n">sh</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>When your PR your PR got blocked by CI, you can click <code class="docutils literal notranslate"><span class="pre">Details</span></code></p>
+<p><img alt="build_failed" src="../../_images/build_failed.png" /></p>
+<p>Now you are in our CI system, enter <code class="docutils literal notranslate"><span class="pre">Build</span> <span class="pre">Log</span></code> to see detailed fail log.</p>
+<p><img alt="detail_log" src="../../_images/build_log.png" /></p>
+</section>
+<section id="possible-errors-and-solution">
+<h2>Possible Errors And Solution<a class="headerlink" href="#possible-errors-and-solution" title="永久链接至标题">¶</a></h2>
+<section id="error-fail-modules-perception-base-blob-cpplint">
+<h3>Error: “FAIL: //modules/perception/base:blob_cpplint”<a class="headerlink" href="#error-fail-modules-perception-base-blob-cpplint" title="永久链接至标题">¶</a></h3>
+<p><img alt="lint" src="../../_images/lint.png" /></p>
+<p>This is due to lint error. Apollo adopted Google coding style, so the header
+files shoud be in the suggested order. If you can’t find the suggestion, please
+turn the log up and seek carefully.</p>
+</section>
+<section id="error-fail-modules-perception-base-blob-test">
+<h3>Error: “FAIL: //modules/perception/base:blob_test”<a class="headerlink" href="#error-fail-modules-perception-base-blob-test" title="永久链接至标题">¶</a></h3>
+<p><img alt="test_failed" src="../../_images/unit_test_failed.png" /></p>
+<p><img alt="test_failed_log" src="../../_images/unit_failed_log.png" /></p>
+<p>This is due to a unit test failure. You can correct the unit test according to
+the log. Especially when timeout happens, you can try changing the <code class="docutils literal notranslate"><span class="pre">size</span></code> filed
+in BUILD from <code class="docutils literal notranslate"><span class="pre">small</span></code> to <code class="docutils literal notranslate"><span class="pre">medium</span></code> or <code class="docutils literal notranslate"><span class="pre">large</span></code>, hope it works.</p>
+<p>If more complicated situation happens, please feel free to comment in your PR.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_use_ci_result_cn.html" title="在Apollo中如何使用CI结果"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_use_apollo_2.5_navigation_mode_cn.html" title="Apollo 2.5版导航模式的使用方法"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">How to Use CI Result in Apollo</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

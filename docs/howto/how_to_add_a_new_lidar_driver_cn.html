@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>fr &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_add_a_new_lidar_driver_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to add a new lidar tracker algorithm" href="how_to_add_a_new_lidar_tracker_algorithm.html" />
+    <link rel="prev" title="How to add a new Lidar driver" href="how_to_add_a_new_lidar_driver.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_tracker_algorithm.html" title="How to add a new lidar tracker algorithm"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_driver.html" title="How to add a new Lidar driver"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">fr</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">fr</a><ul>
+<li><a class="reference internal" href="#id1">引言</a></li>
+<li><a class="reference internal" href="#velodyne">Velodyne驱动的主要部分</a></li>
+<li><a class="reference internal" href="#lidar">添加新lidar驱动的步骤</a><ul>
+<li><a class="reference internal" href="#cyber">1. 熟悉cyber框架</a></li>
+<li><a class="reference internal" href="#id2">2. 消息定义</a></li>
+<li><a class="reference internal" href="#id3">3. 读取原始数据</a></li>
+<li><a class="reference internal" href="#id4">4. 解析扫描数据，生成点云。</a></li>
+<li><a class="reference internal" href="#id5">5. 对点云进行运行补偿</a></li>
+<li><a class="reference internal" href="#dag">6. 配置dag文件</a></li>
+<li><a class="reference internal" href="#id6">7. 运行lidar驱动并查看点云</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_lidar_driver.html"
+                        title="上一章">How to add a new Lidar driver</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_add_a_new_lidar_tracker_algorithm.html"
+                        title="下一章">How to add a new lidar tracker algorithm</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_add_a_new_lidar_driver_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="fr">
+<h1>fr<a class="headerlink" href="#fr" title="永久链接至标题">¶</a></h1>
+<section id="id1">
+<h2>引言<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>Lidar是一种常用的环境感知传感器，利用脉冲激光来照射目标并接收目标的反射脉冲，根据激光返回的时间来计算与目标的距离。通过对目标多次全方位的测量，可以得到目标环境的数字3D结构模型。Apollo平台默认支持velodyne 16线，32线，64线和128线等多种型号的lidar。该说明主要介绍Lidar驱动的主要功能以及如何在apollo平台中添加一款新的lidar设备驱动。</p>
+</section>
+<section id="velodyne">
+<h2>Velodyne驱动的主要部分<a class="headerlink" href="#velodyne" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p><span class="xref myst">Driver</span>: 通过网络端口接收lidar硬件产生的UDP数据包，将每一帧封装成VelodyneScan格式后发送。</p></li>
+<li><p><span class="xref myst">Parser</span>: 接收VelodyneScan数据，把VelodyneScan中的点由球面坐标系转换成空间直角坐标系下的pointcldoud点云格式后发送。</p></li>
+<li><p><span class="xref myst">Compensator</span>: 接收点云数据和pose数据，根据每个点的对应的pose信息把点转换到点云中最大时刻对应的坐标系下，减小由车辆自身的运动带来的误差。需要点云数据中包含每个点的时间戳信息。</p></li>
+</ol>
+</section>
+<section id="lidar">
+<h2>添加新lidar驱动的步骤<a class="headerlink" href="#lidar" title="永久链接至标题">¶</a></h2>
+<section id="cyber">
+<h3>1. 熟悉cyber框架<a class="headerlink" href="#cyber" title="永久链接至标题">¶</a></h3>
+<p>cyber框架下系统中每一个功能单元都可以抽象为一个component，通过channel相互间进行通信，然后根据dag(有向无环图)配置文件，构建成相应的pipeline，实现数据的流式处理。</p>
+</section>
+<section id="id2">
+<h3>2. 消息定义<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>apollo已经预定义了点云的消息格式，所以只需要为新lidar定义一个存储原始扫描数据的proto消息，用于数据的存档和离线开发调试，相比于点云数据，存档原始数据可以大量节省存储空间。一个新的扫描数据消息可以类似如下定义:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```c++
+// a scan message sample
+message ScanData {
+  optional apollo.common.Header header = 1;  // apollo header
+  optional Model model = 2;                  // device model
+  optional Mode mode = 3;                    // work mode
+  // device serial number, corresponds to a specific calibration file
+  optional string sn = 4;
+  repeated bytes raw_data = 5;               // raw scan data
+}
+```
+</pre></div>
+</div>
+<p>在velodyne驱动中，其扫描数据消息定义为<a class="reference external" href="../../modules/drivers/lidar/velodyne/proto/velodyne.proto#L29">VelodyneScan</a>.</p>
+</section>
+<section id="id3">
+<h3>3. 读取原始数据<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>lidar每秒会产生大量数据，一般通过UDP协议来进行数据的高效传输。编写一个DriverComponent类，继承于无模版参数Component类；在Init函数中启动一个异步poll线程，不断从相应的端口读取lidar数据；然后根据需求如将一段时间内的数据打包为一帧ScanData，如扫描一圈为一帧；最后通过writer将ScanData写至相应的channel发送出去。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Inherit component with no template parameters,</span>
+<span class="c1">// do not receive message from any channel</span>
+<span class="k">class</span> <span class="nc">DriverComponent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Component</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="o">~</span><span class="n">VelodyneDriverComponent</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">Init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  	</span><span class="n">poll_thread_</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kr">thread</span><span class="p">([</span><span class="k">this</span><span class="p">]{</span><span class="w"></span>
+<span class="w">  		</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">Poll</span><span class="p">();</span><span class="w"></span>
+<span class="w">  	</span><span class="p">}));</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w"> </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">Poll</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  	</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">apollo</span><span class="o">::</span><span class="n">cyber</span><span class="o">::</span><span class="n">Ok</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  	  </span><span class="c1">// poll data from port xxx</span>
+<span class="w">  	  </span><span class="c1">// ...</span>
+<span class="w">  	  </span><span class="n">austo</span><span class="w"> </span><span class="n">scan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">ScanData</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="w">  	  </span><span class="c1">// pack ScanData</span>
+<span class="w">  	  </span><span class="c1">// ...</span>
+<span class="w">  	  </span><span class="n">writer_</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">scan</span><span class="p">);</span><span class="w"></span>
+<span class="w">  	</span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">&gt;</span><span class="w"> </span><span class="n">poll_thread_</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">apollo</span><span class="o">::</span><span class="n">cyber</span><span class="o">::</span><span class="n">Writer</span><span class="o">&lt;</span><span class="n">ScanData</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">writer_</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">CYBER_REGISTER_COMPONENT</span><span class="p">(</span><span class="n">DriverComponent</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>4. 解析扫描数据，生成点云。<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>编写一个Parser类，输入为一帧ScanData，根据lidar自己的数据协议，解析出每一个点的时间戳，x/y/z三维坐标，以及反射强度，并组合成一帧点云。每个点都位于以lidar为原点的FLU（Front: x, Left: y, Up: z）坐标系下。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">message</span><span class="w"> </span><span class="n">PointXYZIT</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">optional</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nan</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">optional</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nan</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">optional</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nan</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">optional</span><span class="w"> </span><span class="n">uint32</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">optional</span><span class="w"> </span><span class="n">uint64</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>然后定义一个ParserComponent，继承于ScanData实例的Component模板类。接收ScanData消息，生成点云消息，发送点云消息。</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">...</span><span class="w"></span>
+<span class="k">class</span> <span class="nc">ParserComponent</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Component</span><span class="o">&lt;</span><span class="n">ScanData</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">Init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  	</span><span class="p">...</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">Proc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">ScanData</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">scan_msg</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// get a pointcloud object from objects pool</span>
+<span class="w">  	</span><span class="k">auto</span><span class="w"> </span><span class="n">point_cloud_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_cloud_pool_</span><span class="o">-&gt;</span><span class="n">GetObject</span><span class="p">();</span><span class="w"></span>
+<span class="w">  	</span><span class="c1">// clear befor using</span>
+<span class="w">  	</span><span class="n">point_cloud_out</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span><span class="w"></span>
+<span class="w">  	</span><span class="c1">// parse scan data and generate pointcloud</span>
+<span class="w">  	</span><span class="n">parser_</span><span class="o">-&gt;</span><span class="n">parse</span><span class="p">(</span><span class="n">scan_msg</span><span class="p">,</span><span class="w"> </span><span class="n">point_cloud_out</span><span class="p">);</span><span class="w"></span>
+<span class="w">  	</span><span class="c1">// write pointcloud to a specific channel</span>
+<span class="w">  	</span><span class="n">writer_</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">point_cloud</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w"> </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Writer</span><span class="o">&lt;</span><span class="n">PointCloud</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">writer_</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Parser</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parser_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">CCObjectPool</span><span class="o">&lt;</span><span class="n">PointCloud</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">point_cloud_pool_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">pool_size_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">CYBER_REGISTER_COMPONENT</span><span class="p">(</span><span class="n">ParserComponent</span><span class="p">)</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>5. 对点云进行运行补偿<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>运动补偿是一个通用的点云处理过程，可以直接复用velodyne driver中compensator模块的算法逻辑。</p>
+</section>
+<section id="dag">
+<h3>6. 配置dag文件<a class="headerlink" href="#dag" title="永久链接至标题">¶</a></h3>
+<p>将各个数据处理环节定义为component后，需要将各个component组成一个lidar数据处理pipeline，如下配置lidar_driver.dag:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define all coms in DAG streaming.</span>
+<span class="n">module_config</span> <span class="p">{</span>
+    <span class="n">module_library</span> <span class="p">:</span> <span class="s2">&quot;/apollo/bazel-bin/modules/drivers/lidar/xxx/driver/libxxx_driver_component.so&quot;</span>
+    <span class="n">components</span> <span class="p">{</span>
+      <span class="n">class_name</span> <span class="p">:</span> <span class="s2">&quot;DriverComponent&quot;</span>
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;xxx_driver&quot;</span>
+        <span class="n">config_file_path</span> <span class="p">:</span> <span class="s2">&quot;/path/to/lidar_driver_conf.pb.txt&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">module_config</span> <span class="p">{</span>
+    <span class="n">module_library</span> <span class="p">:</span> <span class="s2">&quot;/apollo/bazel-bin/modules/drivers/lidar/xxx/parser/libxxx_parser_component.so&quot;</span>
+    <span class="n">components</span> <span class="p">{</span>
+      <span class="n">class_name</span> <span class="p">:</span> <span class="s2">&quot;ParserComponent&quot;</span>
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;xxx_parser&quot;</span>
+        <span class="n">config_file_path</span> <span class="p">:</span> <span class="s2">&quot;/path/to/lidar_parser_conf.pb.txt&quot;</span>
+        <span class="n">readers</span> <span class="p">{</span> <span class="n">channel</span><span class="p">:</span> <span class="s2">&quot;/apollo/sensor/xxx/Scan&quot;</span> <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">module_config</span> <span class="p">{</span>
+    <span class="n">module_library</span> <span class="p">:</span> <span class="s2">&quot;/apollo/bazel-bin/modules/drivers/lidar/xxx/compensator/libxxx_compensator_component.so&quot;</span>
+    <span class="n">components</span> <span class="p">{</span>
+      <span class="n">class_name</span> <span class="p">:</span> <span class="s2">&quot;CompensatorComponent&quot;</span>
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;pointcloud_compensator&quot;</span>
+        <span class="n">config_file_path</span> <span class="p">:</span> <span class="s2">&quot;/apollo/modules/drivers/lidar/xxx/conf/xxx_compensator_conf.pb.txt&quot;</span>
+        <span class="n">readers</span> <span class="p">{</span><span class="n">channel</span><span class="p">:</span> <span class="s2">&quot;/apollo/sensor/xxx/PointCloud2&quot;</span><span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>7. 运行lidar驱动并查看点云<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>完成以步骤后，就可以通过以下命令来启动lidar驱动。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mainboard -d /path/to/lidar_driver.dag
+</pre></div>
+</div>
+<p>此时通过<code class="docutils literal notranslate"><span class="pre">cyber_visualizer</span></code>选择对应的点云channel，就可以可视化查看点云了。</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_tracker_algorithm.html" title="How to add a new lidar tracker algorithm"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_add_a_new_lidar_driver.html" title="How to add a new Lidar driver"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">fr</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

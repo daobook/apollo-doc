@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>国内环境下如何克隆 Apollo 仓库 &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/howto/how_to_clone_apollo_repo_from_china_cn.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="How to Create a Pull Request" href="how_to_create_pull_request.html" />
+    <link rel="prev" title="How to Clone Apollo Repository from China" href="how_to_clone_apollo_repo_from_china.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="how_to_create_pull_request.html" title="How to Create a Pull Request"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_clone_apollo_repo_from_china.html" title="How to Clone Apollo Repository from China"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">国内环境下如何克隆 Apollo 仓库</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">国内环境下如何克隆 Apollo 仓库</a><ul>
+<li><a class="reference internal" href="#id1">必要前提/准备</a></li>
+<li><a class="reference internal" href="#id2">首先，从码云上克隆 Apollo 仓库</a></li>
+<li><a class="reference internal" href="#origin">重置远程分支origin</a></li>
+<li><a class="reference internal" href="#github-apollo-upstream">将 GitHub 上的 Apollo 仓库设为远程分支upstream</a></li>
+<li><a class="reference internal" href="#github-upstream">现在，从 GitHub 远程分支upstream 拉取最新的「增量」代码</a></li>
+<li><a class="reference internal" href="#id3">结语</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="how_to_clone_apollo_repo_from_china.html"
+                        title="上一章">How to Clone Apollo Repository from China</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="how_to_create_pull_request.html"
+                        title="下一章">How to Create a Pull Request</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/howto/how_to_clone_apollo_repo_from_china_cn.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="apollo">
+<h1>国内环境下如何克隆 Apollo 仓库<a class="headerlink" href="#apollo" title="永久链接至标题">¶</a></h1>
+<p>本文档描述了在国内环境下既快又好地克隆Apollo 仓库的方法。</p>
+<section id="id1">
+<h2>必要前提/准备<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>假设你已经 「fork」 了GitHub上的Apollo 代码库。这可以通过点击<a class="reference external" href="https://github.com/ApolloAuto/apollo.git">GitHub上的 Apollo</a> 页面右上角的「Fork」按钮并遵照随后的提示来完成。</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>首先，从码云上克隆 Apollo 仓库<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><a class="reference external" href="https://gitee.com/ApolloAuto/apollo.git">码云上的 Apollo仓库</a> 通常比<a class="reference external" href="https://github.com/ApolloAuto/apollo.git">GitHub上的 Apollo仓库</a> 更新晚一天。</p>
+<p>我们可以以它为起点，克隆码云上的Apollo 仓库。</p>
+<p>执行命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://gitee.com/ApolloAuto/apollo.git
+</pre></div>
+</div>
+<p>这一步通常很快，只需十数分钟。在本文作者所在的百度内部，下载速度可达 10 多 MiB/s，终端输出如下：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Cloning into &#39;apollo&#39;...
+remote: Enumerating objects: 313277, done.
+remote: Counting objects: 100% (313277/313277), done.
+remote: Compressing objects: 100% (66199/66199), done.
+remote: Total 313277 (delta 245822), reused 310653 (delta 243198), pack-reused 0
+Receiving objects: 100% (313277/313277), 2.19 GiB | 11.10 MiB/s, done.
+Resolving deltas: 100% (245822/245822), done.
+Checking out files: 100% (9124/9124), done.
+</pre></div>
+</div>
+<p><strong>注意：</strong> 以下步骤可选。</p>
+</section>
+<section id="origin">
+<h2>重置远程分支origin<a class="headerlink" href="#origin" title="永久链接至标题">¶</a></h2>
+<p>上述步骤完成后，就可以「过河拆桥」，将远程分支 origin 重置为你刚 「fork」的GitHub 分支。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git remote set-url origin git@github.com:&lt;你的GitHub 用户名&gt;/apollo.git
+</pre></div>
+</div>
+</section>
+<section id="github-apollo-upstream">
+<h2>将 GitHub 上的 Apollo 仓库设为远程分支upstream<a class="headerlink" href="#github-apollo-upstream" title="永久链接至标题">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 采用SSH的方式</span>
+git remote add upstream git@github.com:ApolloAuto/apollo.git
+
+<span class="c1"># 采用HTTPS的方式</span>
+git remote add upstream https://github.com/ApolloAuto/apollo.git
+</pre></div>
+</div>
+<p>你可以运行如下命令来确认远程分支 origin 和 upstream 已被正确设置：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git remote -v
+</pre></div>
+</div>
+<p>如果之前的操作正确，它将列出如下的远端分支：</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>origin	git@github.com:&lt;你的GitHub 用户名&gt;/apollo.git (fetch)
+origin	git@github.com:&lt;你的GitHub 用户名&gt;/apollo.git (push)
+upstream	git@github.com:ApolloAuto/apollo.git (fetch)
+upstream	git@github.com:ApolloAuto/apollo.git (push)
+</pre></div>
+</div>
+</section>
+<section id="github-upstream">
+<h2>现在，从 GitHub 远程分支upstream 拉取最新的「增量」代码<a class="headerlink" href="#github-upstream" title="永久链接至标题">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git pull --rebase upstream master
+</pre></div>
+</div>
+<p>如果遇到问题，你可以参考这篇文档：<a class="reference internal" href="how_to_solve_slow_pull_from_cn.html"><span class="doc std std-doc">国内环境拉取GitHub仓库慢的缓解方案</span></a>.</p>
+</section>
+<section id="id3">
+<h2>结语<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>恭喜你成功地克隆了 Apollo Gitee/GitHub 仓库，并由此开启你的 Apollo 自动驾驶之旅！</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="how_to_create_pull_request.html" title="How to Create a Pull Request"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="how_to_clone_apollo_repo_from_china.html" title="How to Clone Apollo Repository from China"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">国内环境下如何克隆 Apollo 仓库</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Calibration FAQs &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/docs/FAQs/Calibration_FAQs.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="传感器标定 FAQs" href="Calibration_FAQs_cn.html" />
+    <link rel="prev" title="概览" href="../D-kit/readme.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../README.html">Home</a></li>
+    <li><a href="../quickstart/README.html">Get it</a></li>
+    <li><a href="../../contents.html">Docs</a></li>
+    <li><a href="../../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../../README.html">
+      <img src="../../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Calibration_FAQs_cn.html" title="传感器标定 FAQs"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../D-kit/readme.html" title="概览"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Calibration FAQs</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Calibration FAQs</a><ul>
+<li><a class="reference internal" href="#how-to-check-sensor-output">How to Check Sensor Output?</a></li>
+<li><a class="reference internal" href="#how-to-check-ins-status">How to Check INS Status?</a></li>
+<li><a class="reference internal" href="#how-to-complete-a-quality-inspection">How to Complete a Quality Inspection?</a></li>
+<li><a class="reference internal" href="#how-to-solve-the-permission-error-of-calibration-tools">How to solve the permission error of calibration tools?</a></li>
+<li><a class="reference internal" href="#how-to-solve-permission-error-when-running-sensor-calibration-sh">How to solve permission error when running sensor_calibration.sh?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../D-kit/readme.html"
+                        title="上一章">概览</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="Calibration_FAQs_cn.html"
+                        title="下一章">传感器标定 FAQs</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/docs/FAQs/Calibration_FAQs.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="calibration-faqs">
+<h1>Calibration FAQs<a class="headerlink" href="#calibration-faqs" title="永久链接至标题">¶</a></h1>
+<section id="how-to-check-sensor-output">
+<h2>How to Check Sensor Output?<a class="headerlink" href="#how-to-check-sensor-output" title="永久链接至标题">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">rostopic</span></code> command. For example, type the following command to check the
+output of HDL-64ES3:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> rostopic <span class="nb">echo</span> /apollo/sensor/velodyne64/VelodyneScanUnified
+</pre></div>
+</div>
+<p>If the topic data is displayed on the terminal, the LiDAR works normally.</p>
+</section>
+<section id="how-to-check-ins-status">
+<h2>How to Check INS Status?<a class="headerlink" href="#how-to-check-ins-status" title="永久链接至标题">¶</a></h2>
+<p>Using Novatel INS as an example, type the following command to check the INS
+status:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rostopic <span class="nb">echo</span> /apollo/sensor/gnss/ins_stat
+</pre></div>
+</div>
+<p>Find the <code class="docutils literal notranslate"><span class="pre">pos_type</span></code> field: If the value is 56, it has entered a good positioning
+status (RTK_FIXED) and can be used for calibration. If it is not 56, reliable
+calibration results cannot be obtained.</p>
+</section>
+<section id="how-to-complete-a-quality-inspection">
+<h2>How to Complete a Quality Inspection?<a class="headerlink" href="#how-to-complete-a-quality-inspection" title="永久链接至标题">¶</a></h2>
+<p>At present, you complete the quality verification manually with a visual
+inspection of the results.</p>
+<p>When the calibration is completed, the point cloud stitched during the
+calibration process is provided. In the point cloud, details of the calibration
+field can be easily identified. Assess the calibration quality for clarity. Look
+at objects such as building facades, street lights, poles and road curbs. If the
+point cloud is blurry and a ghosting effect can be found, the calibration is
+poor. If the calibration result is good, a sharp and clear stitched point cloud
+is shown.</p>
+<p>Figure 1 shows the comparison between the stitched point clouds with good (a)
+and insufficient(b) calibration quality.</p>
+<p><img alt="" src="../../_images/good_calib.png" /></p>
+<p align="center">
+(a)
+</p>
+<p><img alt="" src="../../_images/poor_calib.png" /></p>
+<p align="center">
+(b)
+</p>
+<p align="center">
+Figure 1. (a) a high quality calibration result (b) an insufficient one.
+</p>
+</section>
+<section id="how-to-solve-the-permission-error-of-calibration-tools">
+<h2>How to solve the permission error of calibration tools?<a class="headerlink" href="#how-to-solve-the-permission-error-of-calibration-tools" title="永久链接至标题">¶</a></h2>
+<p>Output path needs <code class="docutils literal notranslate"><span class="pre">write</span></code> permission to be created folders and saved results. If
+the path is missing the relevant permissions, you will receive the following
+error:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>terminate called after throwing an instance of <span class="s1">&#39;boost::filesystem::filesystem_error&#39;</span> what<span class="o">()</span>: boost::filesystem::create_directories: permission denied: <span class="s2">&quot;***&quot;</span>
+</pre></div>
+</div>
+<p>Enter the following command to add <code class="docutils literal notranslate"><span class="pre">write</span></code> permission:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># add write permission to output path(e.g. /apollo/modules/calibration/data/mkz8)</span>
+sudo chmod a+w /apollo/modules/calibration/data/mkz8 -R
+</pre></div>
+</div>
+</section>
+<section id="how-to-solve-permission-error-when-running-sensor-calibration-sh">
+<h2>How to solve permission error when running sensor_calibration.sh?<a class="headerlink" href="#how-to-solve-permission-error-when-running-sensor-calibration-sh" title="永久链接至标题">¶</a></h2>
+<p>Log path needs <code class="docutils literal notranslate"><span class="pre">write</span></code> permission to be created log files. If it is missing the
+relevant permissions, you will receive the following error:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tee: /apollo/data/log/***.out: permission denied
+</pre></div>
+</div>
+<p>Enter the following command to add <code class="docutils literal notranslate"><span class="pre">write</span></code> permission:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo chmod a+w /apollo/data/log
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="Calibration_FAQs_cn.html" title="传感器标定 FAQs"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../D-kit/readme.html" title="概览"
+             >上一页</a> |</li>
+        <li><a href="../../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Calibration FAQs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

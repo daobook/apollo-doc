@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+
+<html lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; Sphinx documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx13.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/tabs.js"></script>
+    <script src="../_static/translations.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="canonical" href="https://www.sphinx-doc.org/en/master/cyber/README.html" />
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Sphinx documentation 中搜索"
+          href="../_static/opensearch.xml"/>
+    <link rel="shortcut icon" href="../_static/favicon.svg"/>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Common Component Example of the CyberRT framework" href="examples/common_component_example/README.html" />
+    <link rel="prev" title="Host Setup" href="../docker/setup_host/README.html" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
+          rel='stylesheet' type='text/css' />
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+    </style>
+    <script>
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../README.html">Home</a></li>
+    <li><a href="../docs/quickstart/README.html">Get it</a></li>
+    <li><a href="../contents.html">Docs</a></li>
+    <li><a href="../development/index.html">Extend</a></li>
+  </ul>
+  <div>
+    <a href="../README.html">
+      <img src="../_static/sphinx.png" alt="Apollo Doc" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="examples/common_component_example/README.html" title="Common Component Example of the CyberRT framework"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../docker/setup_host/README.html" title="Host Setup"
+             accesskey="P">上一页</a> |</li>
+        <li><a href="../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a></li>
+<li><a class="reference internal" href="#documents">Documents</a></li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../docker/setup_host/README.html"
+                        title="上一章">Host Setup</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="examples/common_component_example/README.html"
+                        title="下一章">Common Component Example of the CyberRT framework</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/cyber/README.md.txt"
+            rel="nofollow">显示源代码</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h1>
+<p>Apollo Cyber RT is an open source, high performance runtime framework designed specifically for autonomous driving scenarios. Based on a centralized computing model, it is greatly optimized for high concurrency, low latency, and high throughput in autonomous driving.</p>
+<p>During the last few years of the development of autonomous driving technologies, we have learned a lot from our previous experience with Apollo. The industry is evolving and so is Apollo. Going forward, Apollo has already moved from development to productization, with volume deployments in the real world, we see the demands for the highest level of robustness and performance. That’s why we spent years building and perfecting Apollo Cyber RT, which addresses that requirements of autonomous driving solutions.</p>
+<p>Key benefits of using Apollo Cyber RT:</p>
+<ul class="simple">
+<li><p>Accelerate development</p>
+<ul>
+<li><p>Well defined task interface with data fusion</p></li>
+<li><p>Array of development tools</p></li>
+<li><p>Large set of sensor drivers</p></li>
+</ul>
+</li>
+<li><p>Simplify deployment</p>
+<ul>
+<li><p>Efficient and adaptive message communication</p></li>
+<li><p>Configurable user level scheduler with resource awareness</p></li>
+<li><p>Portable with fewer dependencies</p></li>
+</ul>
+</li>
+<li><p>Empower your own autonomous vehicles</p>
+<ul>
+<li><p>The default open source runtime framework</p></li>
+<li><p>Building blocks specifically designed for autonomous driving</p></li>
+<li><p>Plug and play your own AD system</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="documents">
+<h1>Documents<a class="headerlink" href="#documents" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li><p><em><strong>New!!</strong></em> <a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_Docker.md">How to Develop Cyber RT inside Docker Environment on Both x86 and ARM Platform</a>: Official docker image for Cyber RT development, which is easiest way to build and play with Cyber RT. On top of that, we officially support development of Cyber RT on both x86 and ARM platform.</p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_Quick_Start.md">Apollo Cyber RT Quick Start</a>: Everything you need to know about how to start developing your first application module on top of Apollo Cyber RT.</p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_Developer_Tools.md">Apollo Cyber RT Developer Tools</a>: Detailed guidance on how to use the developer tools from Apollo Cyber RT.</p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_API_for_Developers.md">Apollo Cyber RT API for Developers</a>: A comprehensive guide to explore all the APIs of Apollo Cyber RT, with many concrete examples in source code.</p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_FAQs.md">Apollo Cyber RT FAQs</a>: Answers to the most frequently asked questions about Apollo Cyber RT.</p></li>
+<li><p><a class="reference external" href="https://github.com/ApolloAuto/apollo/tree/master/docs/cyber/CyberRT_Terms.md">Apollo Cyber RT Terms</a>: Commonly used terminologies in Cyber RT documentation and code.</p></li>
+<li><p><a class="reference internal" href="python/README.html"><span class="doc std std-doc">Apollo Cyber RT Python Wrapper</span></a>: Develop projects in Python.</p></li>
+</ul>
+<p>More documents to come soon!</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="examples/common_component_example/README.html" title="Common Component Example of the CyberRT framework"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../docker/setup_host/README.html" title="Host Setup"
+             >上一页</a> |</li>
+        <li><a href="../index.html">Apollo home</a>&#160;|</li>
+        <li><a href="../contents.html">Documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 2021, xinetzone.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>
